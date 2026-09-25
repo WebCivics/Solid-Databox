@@ -1,0 +1,169 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^1.0.0/components/context.jsonld",
+  "@graph": [
+    {
+      "comment": "WAC authorization-document templates (carried over from webacl.json).",
+      "@id": "urn:solid-server:default:TemplatedResourcesGenerator",
+      "@type": "SubfolderResourcesGenerator",
+      "subfolders": [ "wac" ]
+    },
+    {
+      "comment": "Collects the metadata necessary for the WAC-Allow header.",
+      "@id": "urn:solid-server:default:OperationMetadataCollector",
+      "@type": "SequenceHandler",
+      "handlers": [ { "@type": "WebAclMetadataCollector" } ]
+    },
+    {
+      "comment": "WAC-Allow header indicates available permissions.",
+      "@id": "urn:solid-server:default:MetadataWriter",
+      "@type": "ParallelHandler",
+      "handlers": [ { "@id": "urn:solid-server:default:MetadataWriter_WacAllow" } ]
+    },
+    {
+      "comment": "In case of WebACL authorization the ACL resources determine authorization.",
+      "@id": "urn:solid-server:default:AuthResourceHttpHandler",
+      "@type": "RouterHandler",
+      "args_baseUrl": { "@id": "urn:solid-server:default:variable:baseUrl" },
+      "args_targetExtractor": { "@id": "urn:solid-server:default:TargetExtractor" },
+      "args_allowedPathNames": [ "^/.*\\.acl$" ],
+      "args_handler": { "@id": "urn:solid-server:default:LdpHandler" }
+    },
+    {
+      "comment": [
+        "CIV-C26 — the WAC permission-reader chain, rebound as the composed Databox authorizer's",
+        "SOURCE. The default `urn:solid-server:default:PermissionReader` (readers/default.json) is",
+        "not imported by this preset; this node reconstructs its CachedHandler → AuxiliaryReader →",
+        "UnionPermissionReader structure under a databox @id so the composed reader wraps the",
+        "unmodified WAC semantics — a Databox decision can only NARROW, never broaden (two-plane)."
+      ],
+      "@id": "urn:solid-server:databox:WacReaderChain",
+      "@type": "AuxiliaryReader",
+      "auxiliaryStrategy": { "@id": "urn:solid-server:default:AuxiliaryStrategy" },
+      "reader": {
+          "@type": "UnionPermissionReader",
+          "readers": [
+            {
+              "comment": "Prevents external access to containers used for internal storage.",
+              "@id": "urn:solid-server:default:PathBasedReader",
+              "@type": "PathBasedReader",
+              "baseUrl": { "@id": "urn:solid-server:default:variable:baseUrl" }
+            },
+            { "@id": "urn:solid-server:default:OwnerPermissionReader" },
+            {
+              "comment": "Adds parent container checks needed for create/delete permissions.",
+              "@id": "urn:solid-server:default:ParentContainerReader",
+              "@type": "ParentContainerReader",
+              "identifierStrategy": { "@id": "urn:solid-server:default:IdentifierStrategy" },
+              "reader": { "@id": "urn:solid-server:default:AuthAuxiliaryReader" }
+            }
+          ]
+      }
+    },
+    {
+      "comment": [
+        "THE Authorization seam (DBX-14, CIV-C26): urn:solid-server:default:PermissionReader is the",
+        "composed Databox authorizer wrapping the WAC chain. The live preset's box tree was protected",
+        "by plain WAC only, so a denied box returned 403 — an existence oracle (T-07). Routing every",
+        "read through the composed reader applies the conjuncts AND maps a suppressed-existence denial",
+        "to the identical 404 a nonexistent path returns."
+      ],
+      "@id": "urn:solid-server:default:PermissionReader",
+      "@type": "ComposedDataboxPermissionReader",
+      "source": { "@id": "urn:solid-server:databox:WacReaderChain" },
+      "resolver": { "@id": "urn:solid-server:databox:AuthorizationInputResolver" }
+    },
+    {
+      "comment": "The production authorization-input resolver (CIV-C25) assembling the per-request conjuncts.",
+      "@id": "urn:solid-server:databox:AuthorizationInputResolver",
+      "@type": "ProductionDataboxAuthorizationInputResolver",
+      "deps_contextExtractor": { "@id": "urn:solid-server:databox:AuthenticatedContextExtractor" },
+      "deps_tenantResolver": { "@id": "urn:solid-server:databox:TenantResolver" },
+      "deps_boxBase": { "@id": "urn:solid-server:databox:variable:databoxBoxBase" },
+      "deps_defaultExistenceVisibility": "suppressed",
+      "deps_classifier": { "@id": "urn:solid-server:databox:ResourceClassifier" },
+      "deps_relationshipSource": { "@id": "urn:solid-server:databox:RelationshipStatusSource" },
+      "deps_acceptedIndex": { "@id": "urn:solid-server:databox:AcceptedResourceIndex" },
+      "deps_odrlPrecondition": { "@id": "urn:solid-server:databox:OdrlPreconditionSource" },
+      "deps_delegationChecker": { "@id": "urn:solid-server:databox:DelegationChecker" }
+    },
+    {
+      "comment": "C3 authenticated-context extractor (DBX-12) over the per-program signed crosswalk.",
+      "@id": "urn:solid-server:databox:AuthenticatedContextExtractor",
+      "@type": "VerifiedAssuranceContextExtractor",
+      "crosswalk": { "@id": "urn:solid-server:databox:AssuranceCrosswalk" }
+    },
+    {
+      "comment": "The per-program signed assurance crosswalk (ADR-0010). A real deployment supplies its OWN signed, versioned document via the databoxCrosswalkDocument variable; this is the reference shape.",
+      "@id": "urn:solid-server:databox:AssuranceCrosswalk",
+      "@type": "SignedAssuranceCrosswalk",
+      "documentJson": { "@id": "urn:solid-server:databox:variable:crosswalkDocument" },
+      "expectedVersion": { "@id": "urn:solid-server:databox:variable:crosswalkVersion" }
+    },
+    {
+      "comment": "C5 tenant resolver (DBX-11) over the relationship-mapping + tenant-binding registries.",
+      "@id": "urn:solid-server:databox:TenantResolver",
+      "@type": "RegistryTenantResolver",
+      "boxBase": { "@id": "urn:solid-server:databox:variable:databoxBoxBase" },
+      "mapping": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" },
+      "bindings": { "@id": "urn:solid-server:databox:TenantBindingRegistry" }
+    },
+    {
+      "@id": "urn:solid-server:databox:RelationshipMappingRegistry",
+      "@type": "InMemoryRelationshipMappingRegistry"
+    },
+    {
+      "@id": "urn:solid-server:databox:TenantBindingRegistry",
+      "@type": "InMemoryTenantBindingRegistry"
+    },
+    {
+      "comment": "Path→class convention classifier — the deployment binds its governed record/submission classes via the databoxRecordClasses variable.",
+      "@id": "urn:solid-server:databox:ResourceClassifier",
+      "@type": "PathSegmentResourceClassifier",
+      "classes": { "@id": "urn:solid-server:databox:variable:recordClasses" }
+    },
+    {
+      "comment": "Per-request relationship + credential-status re-check (DBX-13).",
+      "@id": "urn:solid-server:databox:RelationshipStatusSource",
+      "@type": "RegistryRelationshipStatusSource",
+      "registry": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" },
+      "revocation": { "@id": "urn:solid-server:databox:CredentialStatusList" }
+    },
+    {
+      "comment": "The credential status list (ADR-0007) backing the live revocation check.",
+      "@id": "urn:solid-server:databox:CredentialStatusList",
+      "@type": "StatusListManager",
+      "statusListCredential": { "@id": "urn:solid-server:databox:variable:statusListCredential" }
+    },
+    {
+      "comment": "Append-only accepted-resource index (C6 / ADR-0018) over the governed store.",
+      "@id": "urn:solid-server:databox:AcceptedResourceIndex",
+      "@type": "ResourceStoreAcceptedIndex",
+      "source": { "@id": "urn:solid-server:default:ResourceStore" }
+    },
+    {
+      "comment": "Per-op ODRL precondition (C12 / ADR-0013) — the deterministic evaluator over the immutable registry.",
+      "@id": "urn:solid-server:databox:OdrlPreconditionSource",
+      "@type": "PolicyEvaluatorOdrlSource",
+      "evaluator": { "@id": "urn:solid-server:databox:PolicyEvaluator" }
+    },
+    {
+      "@id": "urn:solid-server:databox:PolicyEvaluator",
+      "@type": "PolicyEvaluator",
+      "registry": { "@id": "urn:solid-server:databox:PolicyRegistry" }
+    },
+    {
+      "@id": "urn:solid-server:databox:PolicyRegistry",
+      "@type": "PolicyRegistry"
+    },
+    {
+      "comment": "Delegation-grant validity check (C9) over the grant registry.",
+      "@id": "urn:solid-server:databox:DelegationChecker",
+      "@type": "RegistryDelegationChecker",
+      "grants": { "@id": "urn:solid-server:databox:DelegationGrantRegistry" }
+    },
+    {
+      "@id": "urn:solid-server:databox:DelegationGrantRegistry",
+      "@type": "InMemoryDelegationGrantRegistry"
+    }
+  ]
+}

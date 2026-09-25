@@ -620,43 +620,10 @@ export * from './util/templates/TemplateEngine';
 export * from './util/templates/TemplateUtil';
 
 // Databox (DBX-09 scaffold — see databox/handoffs/DBX-09.md)
-export * from './databox/authorization/DataboxAuthorizer';
-export * from './databox/ipms/IpmsHttpHandler';
-export * from './databox/ipms/IpmsModuleRouter';
-export * from './databox/ipms/IpmsMigrationProof';
-export * from './databox/ipms/CashRegisterStore';
-export * from './databox/ipms/CustomerDisplayStore';
-export * from './databox/ipms/DataboxModuleRegistry';
-export * from './databox/ipms/ModuleManifestDiscovery';
-export * from './databox/ipms/ModuleManifestRdf';
-export * from './databox/ipms/ModuleConfigStore';
-export * from './databox/ipms/OxigraphIpmsHydration';
-export * from './databox/ipms/OxigraphIpmsSync';
-export * from './databox/ipms/OxigraphIpmsSyncComposition';
-export * from './databox/ipms/PortableIpmsWorks';
-export * from './databox/ipms/PosOrderStore';
-export * from './databox/ipms/PublicWebsiteStore';
-export * from './databox/ipms/SolidModuleManifest';
-export * from './databox/ipms/TableSessionStore';
-export * from './databox/ipms/VerticalProfile';
-export * from './databox/ipms/modules/integration/ConnectorContract';
-export * from './databox/ipms/modules/integration/ConnectorRuntimePlan';
-export * from './databox/ipms/modules/menu/Menu';
-export * from './databox/ipms/modules/pos/CashRegister';
-export * from './databox/ipms/modules/pos/NativePosDeviceContract';
-export * from './databox/ipms/modules/pos/CustomerOrdering';
-export * from './databox/ipms/modules/pos/TableSession';
-export * from './databox/ipms/modules/website/PublicFeedRenderer';
-export * from './databox/ipms/modules/website/Seo';
-export * from './databox/ipms/modules/website/SitemapRobots';
-export * from './databox/context/AuthenticatedContextExtractor';
-export * from './databox/context/DataboxRequestContext';
-export * from './databox/evidence/Evidence';
-export * from './databox/feed/CursorFeed';
-export * from './databox/identifiers/OpaqueIdentifierGenerator';
-export * from './databox/storage/AppendOnlyStore';
-export * from './databox/tenant/TenantResolver';
-export * from './databox/integration/LiveDataboxHttpHandler';
+// The full databox barrel is exported so the Components.js generator emits a component for every
+// seam-layer class reachable from the package entry — selective re-exports silently skip the rest
+// (CIV-C26).
+export * from './databox';
 
 // Util
 export * from './util/ContentTypes';

@@ -1,0 +1,13 @@
+# Cloudflare Pages — redirects.
+# `/_redirects` maps clean paths to the site's entry points. The site is a set
+# of static HTML entry points (index, /admin/, /smithy/) — no SPA fallback is
+# needed, so only legacy/clean paths are mapped.
+
+# Clean entry points — the demos live under subdirectories.
+/admin        /admin/index.html    200
+/smithy       /smithy/index.html   200
+# The Forge control panel was renamed Smithy — keep the old path working.
+/forge        /smithy/index.html   301
+
+# A convenience alias for the demos tab on the front page.
+/demo         /#interactive-demonstrators    302

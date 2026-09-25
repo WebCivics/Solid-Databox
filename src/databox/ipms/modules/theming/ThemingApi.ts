@@ -25,12 +25,12 @@ export function registerThemingRoutes(router: IpmsModuleRouter<(input: HttpHandl
     }
   });
 
-  router.register('POST', '/theming/forge-tokens', async({ request, response }: HttpHandlerInput): Promise<void> => {
+  router.register('POST', '/theming/smithy-tokens', async({ request, response }: HttpHandlerInput): Promise<void> => {
     try {
       const input = await readJsonBody<unknown>(request);
       writeJson(response, 200, themeToForgeTokens(input));
     } catch (error: unknown) {
-      writeJson(response, 400, { error: error instanceof Error ? error.message : 'Invalid forge tokens request.' });
+      writeJson(response, 400, { error: error instanceof Error ? error.message : 'Invalid smithy tokens request.' });
     }
   });
 }

@@ -4,7 +4,7 @@
 
 ## Delivered
 
-- `LiveDataboxHttpHandler` mounts the protected Forge routes before the catch-all LDP handler.
+- `LiveDataboxHttpHandler` mounts the protected Smithy routes before the catch-all LDP handler.
 - `CssDataboxStore` provisions opaque relationship resources and WAC ACLs in the configured CSS `ResourceStore`.
 - Accepted institutional bytes are committed to `ResourceStore_Backend` without RDF reserialization before the
   durable-commit confirmation reaches the receipt signer.
@@ -43,5 +43,5 @@ The prompt's deterministic two-program lifecycle and evidence bundle are not yet
 - cursor/feed recovery;
 - explicit isolation assertions across two programs.
 
-The live preset is demonstration-grade. Its control bearer must be replaced by organisation IAM, and Forge keys,
+The live preset is demonstration-grade. Its control bearer must be replaced by organisation IAM, and Smithy keys,
 mappings, outbox, status, idempotency and digest confirmation require durable production substrates.

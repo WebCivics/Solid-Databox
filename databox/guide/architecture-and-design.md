@@ -16,7 +16,7 @@ Organisation bridge --> organisation-hosted Databox <-- consumer agent or wallet
 Human review queue          personal retained copies
 ```
 
-- The **control plane** (the Forge, the integration/bridge, provisioning, key management) creates and
+- The **control plane** (the Smithy, the integration/bridge, provisioning, key management) creates and
   suspends Databoxes, binds program-local identities, installs policies, rotates keys and manages
   retention. It never acts through an ordinary consumer token.
 - The **data plane** (Solid resource operations) accepts validated deposits/submissions, authorises
@@ -52,7 +52,7 @@ standard Solid interoperability. The authoritative list is in the
 | [Prompt handoffs](../handoffs) | One per completed prompt — inputs, decisions, tests, residual gates. |
 | [Live CSS integration](../live-css-integration.md) | Run instructions, HTTP surface and the current DBX-25 boundary. |
 | [Consumer vault interoperability](../consumer-vault-interoperability.md) | The portable connection credential and the many-Databox model. |
-| [Forge productization plan](../forge-plan/README.md) | The polished demo, industry-pack backplane and adoption studio (MFG-01…MFG-22). |
+| [Smithy productization plan](../smithy-plan/README.md) | The polished demo, industry-pack backplane and adoption studio (MFG-01…MFG-22). |
 
 ## Code map
 
@@ -60,7 +60,7 @@ The extension lives under [`src/databox/`](../../src/databox). Key subsystems:
 
 | Area | Module |
 |---|---|
-| Control plane / Forge | `forge/` (`MappingForge`, `MappingForgeHttpApi`) |
+| Control plane / Smithy | `smithy/` (`MappingSmithy`, `MappingSmithyHttpApi`) |
 | Live CSS integration | `integration/` (`LiveDataboxHttpHandler`, `CssDataboxStore`) |
 | Profiles | `profile/` (schema + validator) |
 | Provisioning | `provisioning/`, `identifiers/` (opaque IDs, relationship mapping) |

@@ -1,8 +1,0 @@
-
-> @solid/community-server@8.0.0 test
-> npm run test:ts && npm run jest
-
-
-> @solid/community-server@8.0.0 test:ts
-> tsc -p test --noEmit
-

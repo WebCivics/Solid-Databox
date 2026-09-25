@@ -33,7 +33,9 @@ const DOCUMENT: AssuranceCrosswalkDocument = {
 };
 
 function extractor(): VerifiedAssuranceContextExtractor {
-  return new VerifiedAssuranceContextExtractor(new SignedAssuranceCrosswalk(DOCUMENT, EXPECTED_VERSION));
+  return new VerifiedAssuranceContextExtractor(
+    new SignedAssuranceCrosswalk(JSON.stringify(DOCUMENT), EXPECTED_VERSION),
+  );
 }
 
 const fullCredentials: Credentials = {

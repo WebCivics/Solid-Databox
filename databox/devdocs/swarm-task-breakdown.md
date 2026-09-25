@@ -103,7 +103,7 @@
       agents" so the swarm coordinator can re-route or add a fix task.
 
 11. **Accessibility (WAI-ARIA + WCAG 2.1 AA, mandatory on every UI task):** every
-    agent that creates or modifies UI (forge-admin pages, org-mobile-apps, customer
+    agent that creates or modifies UI (smithy-admin pages, org-mobile-apps, customer
     display, website maker, public site) must:
     - Use **semantic HTML** (`<nav>`, `<main>`, `<section>`, `<button>`, `<label>`)
       not `<div>` + `onClick` for interactive elements.
@@ -183,12 +183,12 @@
 | P0-05 | 5.5 | ~~Implement Windows privilege check~~ **COMPLETED** — `preflight.rs` uses `net session` for admin detection. | Sonnet | P0-01 | `native/installer/src/preflight.rs` |
 | P0-06 | 5.6 | ~~Fix installer timestamp~~ **COMPLETED** — `handoff.rs` uses `chrono::Utc::now()` ISO 8601. | Haiku | P0-01 | `native/installer/src/handoff.rs` |
 | P0-07 | 2.4 | ~~Fix `ConnectorSidecar` ESM compatibility~~ **COMPLETED** — uses `import.meta.url` check. | Sonnet | — | `src/databox/ipms/sidecars/ConnectorSidecar.ts` |
-| P0-08 | new | ~~Set up i18n infrastructure~~ **COMPLETED** — `i18n.ts` provider with `i18next` + `react-i18next`, `en.json` with 238 keys, wired in `main.tsx`. | Sonnet | — | `forge-admin/src/i18n.ts`, `forge-admin/src/locales/en.json`, `forge-admin/src/main.tsx`, `forge-admin/package.json` |
-| P0-09 | new | ~~Set up accessibility baseline~~ **COMPLETED** — `eslint.config.js` has `eslint-plugin-jsx-a11y` recommended rules, `index.css` has `:focus-visible` + `.skip-to-content` + `.sr-only`, `App.tsx` has skip link + `aria-live` region. | Sonnet | — | `forge-admin/eslint.config.js`, `forge-admin/src/index.css`, `forge-admin/src/App.tsx` |
+| P0-08 | new | ~~Set up i18n infrastructure~~ **COMPLETED** — `i18n.ts` provider with `i18next` + `react-i18next`, `en.json` with 238 keys, wired in `main.tsx`. | Sonnet | — | `smithy-admin/src/i18n.ts`, `smithy-admin/src/locales/en.json`, `smithy-admin/src/main.tsx`, `smithy-admin/package.json` |
+| P0-09 | new | ~~Set up accessibility baseline~~ **COMPLETED** — `eslint.config.js` has `eslint-plugin-jsx-a11y` recommended rules, `index.css` has `:focus-visible` + `.skip-to-content` + `.sr-only`, `App.tsx` has skip link + `aria-live` region. | Sonnet | — | `smithy-admin/eslint.config.js`, `smithy-admin/src/index.css`, `smithy-admin/src/App.tsx` |
 
 **Phase 0 gate:** Installer builds and runs end-to-end on Windows (privilege check,
 Node download, app extraction, crypto bootstrap, config generation). Connector sidecar
-runs under ESM. i18n provider wired into forge-admin with `en.json` locale.
+runs under ESM. i18n provider wired into smithy-admin with `en.json` locale.
 `eslint-plugin-jsx-a11y` active. All existing tests pass.
 
 ---
@@ -204,7 +204,7 @@ runs under ESM. i18n provider wired into forge-admin with `en.json` locale.
 | P1-03 | 11.1 | ~~Add POST /hosting/persist endpoint~~ **COMPLETED** — Persist route generates Turtle RDF. | Sonnet | P1-02 | `src/databox/ipms/modules/hosting/HostingApi.ts` |
 | P1-04 | 11.1 | ~~Add POST /hosting/bind endpoint~~ **COMPLETED** — Bind route generates TenantBinding Turtle. | Sonnet | P1-03 | `src/databox/ipms/modules/hosting/HostingApi.ts` |
 | P1-05 | 11.1 | ~~Generate cloudflared config~~ **COMPLETED** — `generateCloudflaredConfig` in HostingConfig.ts. | Sonnet | P1-01 | `src/databox/ipms/modules/hosting/HostingConfig.ts` |
-| P1-06 | 11.2 | ~~Update forge-admin hosting page~~ **COMPLETED** — Hosting page with token input, apply, persist, artifact download. | Sonnet | P1-02 | `forge-admin/src/pages/hosting/index.tsx` |
+| P1-06 | 11.2 | ~~Update smithy-admin hosting page~~ **COMPLETED** — Hosting page with token input, apply, persist, artifact download. | Sonnet | P1-02 | `smithy-admin/src/pages/hosting/index.tsx` |
 | P1-07 | 11.3 | ~~Create docker-compose.yml~~ **COMPLETED** — IPMS container + /data volume + env/secrets + health check. | Haiku | — | `docker-compose.yml` |
 
 **Phase 1 gate:** Hosting wizard computes plan → user enters Cloudflare token → DNS
@@ -226,13 +226,13 @@ IPMS. All tests pass.
 | P2-04 | 16 | ~~Implement LDN inbox communication~~ **COMPLETED** — LDN notification builder, inbox container, send notification. | Sonnet | P2-03 | `src/databox/ipms/modules/profile/LdnInbox.ts` |
 | P2-05 | 16 | ~~Implement bidirectional member interaction~~ **COMPLETED** — sendToMember, sendToOrganisation, access grant. | Sonnet | P2-04 | `src/databox/ipms/modules/profile/MemberInteraction.ts` |
 | P2-06 | 16 | ~~Implement member pod lifecycle~~ **COMPLETED** — Suspend, reactivate, revoke with audit records. | Sonnet | P2-03 | `src/databox/ipms/modules/profile/MemberPod.ts` |
-| P2-07 | 15.2 | ~~Implement dynamic sidebar~~ **COMPLETED** — sidebar renders from IPMS module manifests. | Sonnet | — | `forge-admin/src/components/layout/index.tsx` |
-| P2-08 | 3 | ~~Remove `@ts-nocheck` from all forge-admin pages~~ **COMPLETED** — no `@ts-nocheck` directives remained; all 79 type errors across 20 files fixed (unused React imports, useUpdate wrapper, N3 parser typing, DataProvider generic casts, RdfTerm guards, erasableSyntaxOnly). `tsc --noEmit` passes clean. | Sonnet | — | `forge-admin/src/pages/**/*.tsx`, `forge-admin/src/providers/*.ts`, `forge-admin/src/hooks/useUpdate.ts` (new), `forge-admin/src/components/ui-form/parseUiShape.ts` |
+| P2-07 | 15.2 | ~~Implement dynamic sidebar~~ **COMPLETED** — sidebar renders from IPMS module manifests. | Sonnet | — | `smithy-admin/src/components/layout/index.tsx` |
+| P2-08 | 3 | ~~Remove `@ts-nocheck` from all smithy-admin pages~~ **COMPLETED** — no `@ts-nocheck` directives remained; all 79 type errors across 20 files fixed (unused React imports, useUpdate wrapper, N3 parser typing, DataProvider generic casts, RdfTerm guards, erasableSyntaxOnly). `tsc --noEmit` passes clean. | Sonnet | — | `smithy-admin/src/pages/**/*.tsx`, `smithy-admin/src/providers/*.ts`, `smithy-admin/src/hooks/useUpdate.ts` (new), `smithy-admin/src/components/ui-form/parseUiShape.ts` |
 
 **Phase 2 gate:** A governed entity with a directory can issue/verify VCs. Members
 have pods with LDN inboxes. Org sends a governance notice → member receives it in
 their pod → member votes → org receives vote. Dynamic sidebar reflects enabled
-modules. All forge-admin pages pass TypeScript checking.
+modules. All smithy-admin pages pass TypeScript checking.
 
 ---
 
@@ -248,7 +248,7 @@ modules. All forge-admin pages pass TypeScript checking.
 | P3-04 | 12 | ~~Implement allergen matching engine~~ **COMPLETED** — Cross-references consumer allergens against ingredient declarations. Batch matching, dietary violation detection. | Opus | P3-02, P3-03 | `src/databox/ipms/modules/allergy-profile/AllergenMatcher.ts` |
 | P3-05 | 12 | ~~Implement selective disclosure for secret ingredients~~ **COMPLETED** — Attestation-based allergen safety check without revealing full recipe. | Opus | P3-04, P2-02 | `src/databox/ipms/modules/allergy-profile/AllergenMatcher.ts` |
 | P3-06 | 12 | ~~Create `food.allergy-safety` vertical profile~~ **COMPLETED** — Bundles allergy-profile, menu, catalogue, pos, notifications, credentials modules. | Sonnet | P3-04, P3-05 | `src/databox/ipms/VerticalProfile.ts` |
-| P3-07 | 12 | ~~Integrate allergen filtering into POS~~ **COMPLETED** — Replaced hardcoded allergen array with FSANZ_ALLERGEN_CATEGORIES (10 categories) in customer self-order page. | Sonnet | P3-04 | `forge-admin/src/pages/pos/allergens.ts`, `pages/pos/customer.tsx` |
+| P3-07 | 12 | ~~Integrate allergen filtering into POS~~ **COMPLETED** — Replaced hardcoded allergen array with FSANZ_ALLERGEN_CATEGORIES (10 categories) in customer self-order page. | Sonnet | P3-04 | `smithy-admin/src/pages/pos/allergens.ts`, `pages/pos/customer.tsx` |
 
 **Phase 3 gate:** Consumer shares allergy profile with retailer → retailer's menu is
 filtered to show only safe items → secret ingredients are checked via attestation VC
@@ -265,7 +265,7 @@ without disclosure → POS and waiter pages show real allergen data. All tests p
 | P4-01 | 13 | ~~Implement real ODBC connector~~ **COMPLETED** — Dynamic import of `odbc` package, connection pooling, parameterised queries, timeout handling, schema browsing, streaming. 4 tests. | Opus | P0-07 | `src/databox/ipms/sidecars/OdbcConnector.ts` |
 | P4-02 | 13 | ~~Implement real LDAP connector~~ **COMPLETED** — Dynamic import of `ldapjs` package, bind/search/unbind, connection error handling, attribute mapping, schema browsing. 3 tests. | Opus | P0-07 | `src/databox/ipms/sidecars/LdapConnector.ts` |
 | P4-03 | 13 | ~~Implement R2RML/RML mapping engine~~ **COMPLETED** — `RdfMapper.ts` with subject IRI templates, class mapping, predicate-column/constant mappings, language tags, datatypes, URI refs. Turtle + JSON-LD output. Parse + serialize. 10 tests. | Opus | P4-01, P4-02 | `src/databox/ipms/sidecars/RdfMapper.ts` |
-| P4-04 | 13 | ~~Build interactive mapping app~~ **COMPLETED** — `MappingBuilder` page in forge-admin: source config (ODBC/LDAP), schema browsing, field mapping UI, subject IRI template, RDF class, preview, save. | Sonnet | P4-03 | `forge-admin/src/pages/mappings/builder.tsx` |
+| P4-04 | 13 | ~~Build interactive mapping app~~ **COMPLETED** — `MappingBuilder` page in smithy-admin: source config (ODBC/LDAP), schema browsing, field mapping UI, subject IRI template, RDF class, preview, save. | Sonnet | P4-03 | `smithy-admin/src/pages/mappings/builder.tsx` |
 | P4-05 | 13 | ~~Wire connector sidecar execution~~ **COMPLETED** — `ConnectorSidecar.ts` loads R2RML/RML mapping, connects to source, executes query, applies mapping, outputs JSON-LD. | Sonnet | P4-03 | `src/databox/ipms/sidecars/ConnectorSidecar.ts` |
 
 **Phase 4 gate:** Operator connects to ODBC source → browses tables/columns → maps
@@ -332,7 +332,7 @@ deliver → receipt → file deleted per ODRL.
 | P7-03 | 15.1 | ~~Expand website maker~~ **COMPLETED** — WebsiteApi with preview, publish, seo, sitemap routes. PublicFeedRenderer with HTML, JSON-LD, schema.org. | Sonnet | — | `src/databox/ipms/modules/website/` |
 | P7-04 | 15.7 | ~~Surface notifications in admin UI~~ **COMPLETED** — Notifications module with create, subscribe, read, query routes. Multi-channel (in-app, email, SMS, push, LDN). 20 tests. | Sonnet | — | `src/databox/ipms/modules/notifications/` |
 | P7-05 | 6.2 | ~~Wire `ui#` shapes to module manifests~~ **COMPLETED** — All 30+ module manifests now have `configShape` IRIs. 10 `ui#` shape templates defined in `ModuleConfigShapes.ts`. `GET /modules/:id/config-shape` route serves Turtle. | Haiku | — | `src/databox/ipms/BuiltInModules.ts`, `ModuleConfigShapes.ts`, `IpmsHttpHandler.ts` |
-| P7-06 | 6.3 | ~~Connect `UiFormRenderer` to modules page~~ **COMPLETED** — Modules page shows "Configure" button for modules with `configShape`. Opens modal with `UiFormRenderer` that fetches and renders the `ui#` shape, submits config Turtle via PUT. | Sonnet | P7-05 | `forge-admin/src/pages/modules/index.tsx` |
+| P7-06 | 6.3 | ~~Connect `UiFormRenderer` to modules page~~ **COMPLETED** — Modules page shows "Configure" button for modules with `configShape`. Opens modal with `UiFormRenderer` that fetches and renders the `ui#` shape, submits config Turtle via PUT. | Sonnet | P7-05 | `smithy-admin/src/pages/modules/index.tsx` |
 | P7-07 | 5.7 | Implement direct cash drawer mode — serial/USB I/O for direct cash drawer devices via `serialport` crate in Rust POS edge. | Sonnet | — | `native/pos-edge/src/hardware/drawer.rs` |
 | P7-08 | 5.8 | Clean up Rust warnings — remove unused imports, prefix unused variables, remove dead code in pos-edge. | Haiku | — | `native/pos-edge/src/*.rs` (multiple) |
 | P7-09 | 5.9 | Add fullscreen for customer display — `.with_fullscreen(Fullscreen::Borderless(None))` in tray supervisor. | Haiku | — | `native/tray-supervisor/src/main.rs` |
@@ -364,7 +364,7 @@ via mTLS. Website publishes public pages with SEO. Module config forms render vi
 | P8-11 | 6.1 | ~~Implement `mcp` module~~ **COMPLETED** — McpServerApi with SSE endpoint. | Sonnet | — | `src/databox/ipms/modules/mcp/` |
 | P8-12 | 6.1 | ~~Implement `pricing` module~~ **COMPLETED** — PricingApi with wholesale pricing. | Sonnet | P7-01 | `src/databox/ipms/modules/pricing/` |
 | P8-13 | 6.1 | ~~Implement `profile` module~~ **COMPLETED** — ProfileApi with build, provision, lifecycle, LDN, member interaction routes. | Sonnet | P2-03 | `src/databox/ipms/modules/profile/` |
-| P8-14 | 6.1 | ~~Implement `theming` module~~ **COMPLETED** — ThemingApi with validate, CSS, forge tokens routes. | Sonnet | — | `src/databox/ipms/modules/theming/` |
+| P8-14 | 6.1 | ~~Implement `theming` module~~ **COMPLETED** — ThemingApi with validate, CSS, smithy tokens routes. | Sonnet | — | `src/databox/ipms/modules/theming/` |
 | P8-15 | 6.1 | ~~Implement `a11y` module~~ **COMPLETED** — A11yApi with accessibility audit route. | Sonnet | — | `src/databox/ipms/modules/a11y/` |
 | P8-16 | new | ~~Implement `tax` module~~ **COMPLETED** — TaxApi with compute, report routes. 8 tests. | Opus | P7-01, P8-12 | `src/databox/ipms/modules/tax/` |
 | P8-17 | new | ~~Implement `concessions` module~~ **COMPLETED** — ConcessionsApi with eligibility, pricing, record routes. 7 tests. | Sonnet | P2-02, P8-12 | `src/databox/ipms/modules/concessions/` |
@@ -385,7 +385,7 @@ logic matching its manifest's `capabilities` and `routes`. All tests pass.
 | Task ID | Gap § | Description | Model | Deps | Files |
 |---------|-------|-------------|-------|------|-------|
 | P9-01 | 8.1 | ~~Add vocabulary unit tests~~ **COMPLETED** — Extended existing test with IPMS and UI vocabulary namespace/term resolution tests. 15 tests total. | Haiku | P3-01 | `test/unit/util/Vocabularies.test.ts` |
-| P9-02 | 8.2 | ~~Add `UiFormRenderer` tests~~ **COMPLETED** — 13 vitest tests: shape parsing (Turtle→form spec), field rendering (TextInput/Boolean/Integer/Choice), form value serialization (string/boolean/integer/decimal/skip-empty). Fixed rdf:List traversal bugs in parseUiShape. | Sonnet | P7-06 | `forge-admin/src/components/ui-form/__tests__/` |
+| P9-02 | 8.2 | ~~Add `UiFormRenderer` tests~~ **COMPLETED** — 13 vitest tests: shape parsing (Turtle→form spec), field rendering (TextInput/Boolean/Integer/Choice), form value serialization (string/boolean/integer/decimal/skip-empty). Fixed rdf:List traversal bugs in parseUiShape. | Sonnet | P7-06 | `smithy-admin/src/components/ui-form/__tests__/` |
 | P9-03 | 8.3 | Add Rust installer tests — unit tests for each step with mocked environment. | Sonnet | P0-04 | `native/installer/src/*.rs` (add `#[test]` functions) |
 | P9-04 | 8.3 | Add Rust POS edge tests — IPC protocol parsing, job queue state, hardware dispatch with mocked devices. | Sonnet | P7-07 | `native/pos-edge/src/*.rs` (add `#[test]` functions) |
 | P9-05 | 8.4 | Add POS edge IPC integration test — start binary, post cash-drawer job to `localhost:9100/jobs`, verify status transitions. | Opus | P7-07 | `test/integration/PosEdgeIpc.test.ts` (new) |
@@ -428,20 +428,20 @@ demos (AUTO, FOOD, MEMBER, HEALTH) are demonstrable end-to-end.
 
 | Task ID | Description | Model | Deps | Files |
 |---------|-------------|-------|------|-------|
-| P11-01 | Audit & remediate forge-admin **hosting wizard** — semantic HTML, ARIA, keyboard nav, contrast, i18n strings. Screen reader test (NVDA). | Sonnet | P1-06, P0-09, P0-10 | `forge-admin/src/pages/hosting/` |
-| P11-02 | Audit & remediate forge-admin **POS pages** (index, customer, display) — ARIA live regions for cart/order updates, keyboard accessible product grid, i18n strings. | Sonnet | P3-07, P0-09 | `forge-admin/src/pages/pos/` |
-| P11-03 | Audit & remediate forge-admin **waiter page** (pre-extraction) — keyboard accessible table/item selection, ARIA for order status, i18n. | Sonnet | P0-09 | `forge-admin/src/pages/waiter/` |
-| P11-04 | Audit & remediate forge-admin **modules page** — keyboard accessible module list, ARIA for enable/disable toggles, form labels, i18n. | Sonnet | P7-06, P0-09 | `forge-admin/src/pages/modules/` |
-| P11-05 | Audit & remediate forge-admin **setup/onboarding pages** — wizard keyboard flow, ARIA for vertical profile picker, form validation announcements, i18n. | Sonnet | P0-09 | `forge-admin/src/pages/setup/` |
-| P11-06 | Audit & remediate forge-admin **remaining pages** (receipts, events, access-requests, corrections, consumer-ledger, data-portability, programs, mappings) — semantic HTML, ARIA, keyboard, contrast, i18n. | Sonnet | P0-09 | `forge-admin/src/pages/` (all remaining) |
-| P11-07 | Audit & remediate forge-admin **layout/sidebar** — ARIA navigation landmarks, `aria-current` for active nav item, keyboard nav for sidebar, dynamic sidebar (P2-07) announces changes. Language selector in header. | Sonnet | P2-07, P0-09 | `forge-admin/src/components/layout/` |
+| P11-01 | Audit & remediate smithy-admin **hosting wizard** — semantic HTML, ARIA, keyboard nav, contrast, i18n strings. Screen reader test (NVDA). | Sonnet | P1-06, P0-09, P0-10 | `smithy-admin/src/pages/hosting/` |
+| P11-02 | Audit & remediate smithy-admin **POS pages** (index, customer, display) — ARIA live regions for cart/order updates, keyboard accessible product grid, i18n strings. | Sonnet | P3-07, P0-09 | `smithy-admin/src/pages/pos/` |
+| P11-03 | Audit & remediate smithy-admin **waiter page** (pre-extraction) — keyboard accessible table/item selection, ARIA for order status, i18n. | Sonnet | P0-09 | `smithy-admin/src/pages/waiter/` |
+| P11-04 | Audit & remediate smithy-admin **modules page** — keyboard accessible module list, ARIA for enable/disable toggles, form labels, i18n. | Sonnet | P7-06, P0-09 | `smithy-admin/src/pages/modules/` |
+| P11-05 | Audit & remediate smithy-admin **setup/onboarding pages** — wizard keyboard flow, ARIA for vertical profile picker, form validation announcements, i18n. | Sonnet | P0-09 | `smithy-admin/src/pages/setup/` |
+| P11-06 | Audit & remediate smithy-admin **remaining pages** (receipts, events, access-requests, corrections, consumer-ledger, data-portability, programs, mappings) — semantic HTML, ARIA, keyboard, contrast, i18n. | Sonnet | P0-09 | `smithy-admin/src/pages/` (all remaining) |
+| P11-07 | Audit & remediate smithy-admin **layout/sidebar** — ARIA navigation landmarks, `aria-current` for active nav item, keyboard nav for sidebar, dynamic sidebar (P2-07) announces changes. Language selector in header. | Sonnet | P2-07, P0-09 | `smithy-admin/src/components/layout/` |
 | P11-08 | Audit & remediate **org-mobile-apps** (all built apps) — each app: semantic HTML, ARIA, keyboard nav, contrast, i18n with locale files, RTL-safe CSS. One agent per app or batched. | Sonnet | P5-02 through P5-07 | `org-mobile-apps/*/src/` |
-| P11-09 | Audit & remediate **customer display renderer** — ARIA live for playlist transitions, alt text for QR codes, i18n for slide content. | Sonnet | P0-09 | `forge-admin/src/website/CustomerDisplayRenderer.ts` |
+| P11-09 | Audit & remediate **customer display renderer** — ARIA live for playlist transitions, alt text for QR codes, i18n for slide content. | Sonnet | P0-09 | `smithy-admin/src/website/CustomerDisplayRenderer.ts` |
 | P11-10 | Audit & remediate **website maker / public site** — semantic HTML, WCAG AA contrast in theme tokens, skip-to-content link, alt text, lang attribute, i18n for public content. | Sonnet | P7-03, P0-09 | `src/databox/ipms/modules/website/` |
-| P11-11 | Create **additional locale files** — translate `en.json` to `es.json`, `fr.json`, `de.json`, `zh.json`, `ar.json`, `ja.json` for all keys. Verify RTL layout with `ar.json`. | Haiku | P0-09, P11-01 through P11-06 | `forge-admin/src/locales/` |
+| P11-11 | Create **additional locale files** — translate `en.json` to `es.json`, `fr.json`, `de.json`, `zh.json`, `ar.json`, `ja.json` for all keys. Verify RTL layout with `ar.json`. | Haiku | P0-09, P11-01 through P11-06 | `smithy-admin/src/locales/` |
 | P11-12 | Add **server-side i18n message keys** — update all IPMS API error responses to include `messageKey` field alongside English fallback. Update `writeJson` error helpers. | Sonnet | — | `src/databox/ipms/` (error handlers) |
-| P11-13 | Add **axe-core automated accessibility tests** — integrate `@axe-core/playwright` or `jest-axe` into test suite. Add accessibility test per page component. | Sonnet | P11-01 through P11-07 | `forge-admin/src/__tests__/a11y/` (new) |
-| P11-14 | Add **i18n completeness test** — verify all locale files have the same keys as `en.json`. Fail if any key is missing. | Haiku | P11-11 | `forge-admin/src/__tests__/i18n.test.ts` (new) |
+| P11-13 | Add **axe-core automated accessibility tests** — integrate `@axe-core/playwright` or `jest-axe` into test suite. Add accessibility test per page component. | Sonnet | P11-01 through P11-07 | `smithy-admin/src/__tests__/a11y/` (new) |
+| P11-14 | Add **i18n completeness test** — verify all locale files have the same keys as `en.json`. Fail if any key is missing. | Haiku | P11-11 | `smithy-admin/src/__tests__/i18n.test.ts` (new) |
 
 **Phase 11 gate:** `eslint-plugin-jsx-a11y` passes with zero warnings. `axe-core`
 tests pass for all pages. All user-facing strings use `t()`. 7 locale files have
@@ -509,7 +509,7 @@ export PATH="/c/nvm4w/nodejs:$PATH"
 npx tsc --noEmit --project tsconfig.json
 npx eslint src/ --cache
 npx jest test/unit/databox --maxWorkers=2
-cd forge-admin && npx tsc --noEmit && npx vite build && cd ..
+cd smithy-admin && npx tsc --noEmit && npx vite build && cd ..
 cd native/installer && cargo test && cd ..
 cd native/pos-edge && cargo test && cd ..
 
@@ -522,9 +522,9 @@ npx jest test/integration --runInBand  # integration tests
 npx jest test/unit/databox/ipms --maxWorkers=2 --coverage
 
 # Accessibility (per UI task)
-cd forge-admin && npx eslint src/ --plugin jsx-a11y && cd ..
-cd forge-admin && npx jest src/__tests__/a11y --maxWorkers=2 && cd ..
+cd smithy-admin && npx eslint src/ --plugin jsx-a11y && cd ..
+cd smithy-admin && npx jest src/__tests__/a11y --maxWorkers=2 && cd ..
 
 # i18n (per UI task)
-cd forge-admin && npx jest src/__tests__/i18n.test.ts && cd ..
+cd smithy-admin && npx jest src/__tests__/i18n.test.ts && cd ..
 ```

@@ -5,6 +5,7 @@
     "css:config/app/main/default.json",
     "css:config/app/variables/default.json",
     "css:config/databox/live-variables.json",
+    "css:config/databox/live-authorization.json",
     "css:config/databox/live-handler.json",
     "css:config/http/middleware/default.json",
     "css:config/http/notifications/all.json",
@@ -17,7 +18,9 @@
     "css:config/identity/ownership/token.json",
     "css:config/identity/pod/static.json",
     "css:config/ldp/authentication/dpop-bearer.json",
-    "css:config/ldp/authorization/webacl.json",
+    "css:config/ldp/authorization/acl/wac-allow.json",
+    "css:config/ldp/authorization/readers/acl.json",
+    "css:config/ldp/authorization/readers/ownership.json",
     "css:config/ldp/handler/default.json",
     "css:config/ldp/metadata-parser/default.json",
     "css:config/ldp/metadata-writer/default.json",
@@ -39,7 +42,7 @@
       "comment": [
         "Experimental live Databox integration for DBX-25.",
         "Accepted institutional records are committed to the normal CSS ResourceStore and retrieved through Solid HTTP/WAC.",
-        "The Forge control plane is mounted at /.databox/forge and requires --databoxControlToken or CSS_DATABOX_CONTROL_TOKEN.",
+        "The Smithy control plane is mounted at /.databox/smithy and requires --databoxControlToken or CSS_DATABOX_CONTROL_TOKEN.",
         "This single-process control token is a demonstration boundary, not production organization IAM."
       ]
     }

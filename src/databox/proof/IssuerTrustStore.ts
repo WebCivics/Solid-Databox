@@ -69,7 +69,7 @@ export class IssuerTrustStore {
     // L1: a revoked descriptor MUST win over any active/rotated duplicate — otherwise a later `revoked`
     // entry is shadowed by an earlier match and a compromised key keeps verifying. Consult ALL matches.
     if (matches.some((entry): boolean => entry.status === 'revoked')) {
-      // T-20: a compromised/revoked signing key can forge records — reject even historical records outright.
+      // T-20: a compromised/revoked signing key can smithy records — reject even historical records outright.
       throw new BadRequestHttpError(`Record signing key is revoked/compromised: ${verificationMethod} (T-20).`);
     }
     const descriptor = matches[0];

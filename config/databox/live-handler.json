@@ -12,7 +12,8 @@
       "backend": { "@id": "urn:solid-server:default:ResourceStore_Backend" },
       "baseUrl": { "@id": "urn:solid-server:default:variable:baseUrl" },
       "controlToken": { "@id": "urn:solid-server:databox:variable:controlToken" },
-      "routeBase": "/.databox/forge"
+      "routeBase": "/.databox/smithy",
+      "relationshipRegistry": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" }
     },
     {
       "comment": "All HTTP handlers, with the Databox route before the general LDP handler.",

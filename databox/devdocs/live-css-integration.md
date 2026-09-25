@@ -2,8 +2,8 @@
 
 ## What is live
 
-The experimental `config/databox/live.json` preset runs the Mapping Forge inside Community Solid Server's
-Components.js composition. It keeps the control plane at `/.databox/forge` and puts provisioned Databox resources on
+The experimental `config/databox/live.json` preset runs the Mapping Smithy inside Community Solid Server's
+Components.js composition. It keeps the control plane at `/.databox/smithy` and puts provisioned Databox resources on
 the ordinary Solid data plane.
 
 The live path now:
@@ -43,10 +43,10 @@ All routes require `Authorization: Bearer <control token>` and return `Cache-Con
 
 | Method | Route | Purpose |
 |---|---|---|
-| `GET` | `/.databox/forge/programs` | List registered program summaries |
-| `POST` | `/.databox/forge/programs` | Register a validated institution profile |
-| `POST` | `/.databox/forge/mappings` | Provision one opaque relationship and issue its connection credential |
-| `POST` | `/.databox/forge/source-events` | Transform and commit an institutional source event, then issue its receipt |
+| `GET` | `/.databox/smithy/programs` | List registered program summaries |
+| `POST` | `/.databox/smithy/programs` | Register a validated institution profile |
+| `POST` | `/.databox/smithy/mappings` | Provision one opaque relationship and issue its connection credential |
+| `POST` | `/.databox/smithy/source-events` | Transform and commit an institutional source event, then issue its receipt |
 
 The control token is an intentionally small demonstration boundary. A deployable organisation service must replace
 it with authenticated operator/service identities, scoped authorization, tenant binding and auditable administration.
@@ -57,7 +57,7 @@ it with authenticated operator/service identities, scoped authorization, tenant 
 npx.cmd jest test/integration/DataboxLive.test.ts --runInBand --coverage=false
 ```
 
-The test starts a real CSS process and verifies that ordinary Solid routes remain available, the Forge route is
+The test starts a real CSS process and verifies that ordinary Solid routes remain available, the Smithy route is
 protected, provisioning is private, accepted bytes are physically in the configured CSS `ResourceStore`, anonymous
 retrieval fails, authenticated DPoP retrieval succeeds, and no raw customer identifier leaks in returned artifacts.
 
@@ -67,5 +67,5 @@ This is the instrumental live-server slice, not completion of the full DBX-25 ac
 scenario must still compose two isolated programs and cover low/high assurance, notifications, retained copies,
 consumer submissions, review/disposition, duties, supersession, revocation, rotation and recovery with an evidence
 bundle. Persistence across restart also remains production work: the current live preset uses memory storage and the
-Forge's program, key, mapping, outbox and committed-digest registries are process-local and fail closed when they
+Smithy's program, key, mapping, outbox and committed-digest registries are process-local and fail closed when they
 cannot prove an existing resource's digest.

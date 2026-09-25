@@ -1,6 +1,5 @@
 use anyhow::{Context, Result};
 use clap::Parser;
-use std::env;
 
 mod ldap_mapper;
 mod odbc_mapper;

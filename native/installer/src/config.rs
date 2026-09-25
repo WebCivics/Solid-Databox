@@ -50,3 +50,17 @@ fn random_token() -> String {
     rand::rng().fill_bytes(&mut bytes);
     bytes.iter().map(|byte| format!("{byte:02x}")).collect()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn random_token_is_64_hex_chars_and_unique_per_call() {
+        let a = random_token();
+        let b = random_token();
+        assert_eq!(a.len(), 64);
+        assert!(a.chars().all(|c| c.is_ascii_hexdigit()));
+        assert_ne!(a, b, "two tokens collided — not a CSPRNG");
+    }
+}

@@ -196,5 +196,41 @@
     "slug": "state",
     "title": "Government: State Applications",
     "description": "State and provincial governments are responsible for managing the core foundational registries of a citizen's life. The Databox architecture enables state agencies to issue highly secure, globally verifiable credentials for identity and ownership. This transforms how states manage Digital Driver's Licenses, Birth/Death/Marriage registries, vehicle registrations, and Land Titles. Instead of maintaining fragmented, vulnerable central databases, the state issues cryptographically verifiable claims directly to a citizen's Databox. This allows citizens to seamlessly prove their identity, age, or property ownership across state borders or to private entities with complete privacy-preserving consent mechanisms."
+  },
+  {
+    "category": "Sovereignty",
+    "slug": "personal-mobile-pod",
+    "title": "Sovereignty: The Personal Mobile Pod",
+    "description": "A person can run their entire databox on hardware they own — a laptop, a home server, or a phone as an installed PWA with WASM. The pod lives in persistent local storage, reachable through a cooperative or Cloudflare tunnel even behind a router, and its contents are protected by an owner-key-encrypted continuity snapshot: if the OS evicts the store or the device is lost, the pod is recovered from ciphertext the backup cooperative can't read. The person is the data's home — not a platform's account."
+  },
+  {
+    "category": "Sovereignty",
+    "slug": "household-guardianship",
+    "title": "Sovereignty: Household Custody & Guardianship",
+    "description": "A household databox holds shared data under declared custody — a family, a share-house, a supported-living arrangement. Guardianship is a deterministic boundary: a parent's or guardian's reach over a child or supported person is scoped, household-limited, and time-bounded, enforced by the policy engine rather than a convenience flag. Capacity-scaled delegation lets a maturing child take more as they grow, and a digital estate fires a person's standing instructions only when a quorum of named attestors confirm."
+  },
+  {
+    "category": "Community",
+    "slug": "community-economics",
+    "title": "Community: Cooperative Economics & the Contribution Ledger",
+    "description": "A cooperative's real work — time, skill, materials, funds — is counted in an append-only, hash-chained contribution ledger. When a project earns, a payback waterfall settles revenue across recognised contributions at declared rates, and a member can route their share to a named beneficiary. Milestone gates hold the project's lifecycle to quorum plus evidence, and anonymised community statistics publish only aggregates large enough to protect each contributor. The community's economics are auditable and fair by construction."
+  },
+  {
+    "category": "Community",
+    "slug": "community-library",
+    "title": "Community: The Living Library & Federated Sites",
+    "description": "A community's shared knowledge and tools live in a federated fabric, not a single host. A stable community namespace names a resource regardless of which site hosts it; a living archive replicates its collections across sites so the canonical copy moves rather than dies with a host; and a civic window renders a place's public data as the community's public face. Physical sites — a tool library, a seed library, a fridge — lend items to members under accountable, logged custody."
+  },
+  {
+    "category": "Civics",
+    "slug": "verifiable-entitlements",
+    "title": "Civics: Verifiable Entitlements & Offline Credentials",
+    "description": "A concession, membership, or entitlement is a holder-bound Verifiable Credential the person controls. Online, a verifier requests only the claims it needs through an OIDC4VP presentation — the holder's proof is bound to a fresh single-use nonce. Offline, a compressed signed credential carried on a card or QR verifies with no network against the verifier's trusted issuer keys. Every automated eligibility decision is logged and challengeable; a programmable grant is a bounded, rule-scoped balance; and an anonymous audit ledger proves a valid entitlement was used without recording which holder."
+  },
+  {
+    "category": "Community",
+    "slug": "device-fabric",
+    "title": "Community: The Device & Sensor Fabric",
+    "description": "A community's devices — solar meters, air-quality sensors, a co-op's shared tools — are discoverable as W3C Thing Descriptions stored in a pod. Their readings land as standard SOSA/SSN observations, and a telemetry-to-billing path prices meter readings into auditable line-items. Devices authenticate by mTLS or a scoped client-credential and DPoP fallback, so a sensor writes only into its own namespace — never a pod-wide key."
   }
 ]

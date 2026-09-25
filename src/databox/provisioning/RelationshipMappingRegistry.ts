@@ -49,6 +49,12 @@ export interface RelationshipMappingRegistry {
   findByBoxId: (boxId: string) => Promise<RelationshipRecord | undefined>;
 
   /**
+   * Resolves a relationship record by its opaque relationship identifier — the per-request lifecycle
+   * re-check (DBX-13) reads `status` here. Returns `undefined` for an unknown id (fail closed).
+   */
+  findByRelationshipId: (relationshipId: string) => Promise<RelationshipRecord | undefined>;
+
+  /**
    * Control-plane-only reverse resolution of relationship → raw institutional key (for correction
    * connectors, ADR-0023). Returns `undefined` for an unknown relationship. This is the single method
    * that exposes PII and exists only inside the control plane.
@@ -68,6 +74,7 @@ export interface RelationshipMappingRegistry {
 export class InMemoryRelationshipMappingRegistry implements RelationshipMappingRegistry {
   private readonly byIdempotencyKey = new Map<string, RelationshipRecord>();
   private readonly byBoxId = new Map<string, RelationshipRecord>();
+  private readonly byRelationshipId = new Map<string, RelationshipRecord>();
   private readonly customerByRelationship = new Map<string, InstitutionalKey>();
 
   public async register(registration: RelationshipRegistration): Promise<RelationshipRecord> {
@@ -88,6 +95,7 @@ export class InMemoryRelationshipMappingRegistry implements RelationshipMappingR
 
     this.byIdempotencyKey.set(idempotencyKey, record);
     this.byBoxId.set(record.boxId, record);
+    this.byRelationshipId.set(record.relationshipId, record);
     this.customerByRelationship.set(record.relationshipId, customer);
     return record;
   }
@@ -98,6 +106,10 @@ export class InMemoryRelationshipMappingRegistry implements RelationshipMappingR
 
   public async findByBoxId(boxId: string): Promise<RelationshipRecord | undefined> {
     return this.byBoxId.get(boxId);
+  }
+
+  public async findByRelationshipId(relationshipId: string): Promise<RelationshipRecord | undefined> {
+    return this.byRelationshipId.get(relationshipId);
   }
 
   public async resolveCustomer(relationshipId: string): Promise<InstitutionalKey | undefined> {

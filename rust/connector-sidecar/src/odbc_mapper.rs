@@ -9,11 +9,11 @@ pub async fn sync_odbc(conn_str: &str, solid: &SolidClient) -> Result<()> {
     let env = ENV.get_or_init(|| Environment::new().unwrap());
     
     // Connect
-    let conn = env.connect_with_connection_string(conn_str)
+    let conn = env.connect_with_connection_string(conn_str, odbc_api::ConnectionOptions::default())
         .context("Failed to connect to ODBC data source")?;
-    
+
     // Execute a query (we assume there's an 'employees' table for the example)
-    match conn.execute("SELECT id, name, department FROM employees", ())? {
+    match conn.execute("SELECT id, name, department FROM employees", (), None)? {
         Some(mut cursor) => {
             let mut buffers = odbc_api::buffers::TextRowSet::for_cursor(100, &mut cursor, Some(4096))?;
             let mut row_set_cursor = cursor.bind_buffer(&mut buffers)?;

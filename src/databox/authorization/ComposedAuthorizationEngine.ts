@@ -110,9 +110,26 @@ export function evaluateDataboxAuthorization(input: DataboxAuthorizationInput): 
     );
   }
 
-  // Stage 3 — token audience == tenant (DBX-11 hard conjunct). The resolver's origin check is
-  // attacker-controllable, so the audience/tenant binding is re-asserted here and never trusts origin.
-  if (context.audience === undefined || tenant.audience === undefined || context.audience !== tenant.audience) {
+  // Stage 3 — request-to-tenant binding (DBX-11 hard conjunct). Two binding modes, both re-asserted
+  // here because the resolver's inputs are attacker-controllable:
+  //  - PAIRWISE: the holder bound by `webId === pairwiseWebId` (the vault-controlled per-relationship
+  //    credential, ADR-0004) — the WebID match IS the binding; there is no program audience to check.
+  //  - PROGRAM: a system principal bound by `audience === tenant.audience` (DBX-11); a program-bound
+  //    token's audience must match the tenant's configured audience.
+  if (tenant.pairwiseWebId !== undefined) {
+    if (context.webId === undefined || context.webId !== tenant.pairwiseWebId) {
+      return deny(
+        'token-audience',
+        DATABOX_DENIAL_CODES.tokenAudienceMismatch,
+        'the acting WebID is not the relationship pairwise WebID',
+        requested,
+      );
+    }
+  } else if (
+    context.audience === undefined ||
+    tenant.audience === undefined ||
+    context.audience !== tenant.audience
+  ) {
     return deny(
       'token-audience',
       DATABOX_DENIAL_CODES.tokenAudienceMismatch,

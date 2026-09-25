@@ -22,7 +22,11 @@ import type { AssuranceDimension } from '../profile/InstitutionProfile';
  * name the exact dimension that failed. `0` is the lowest value on every dimension — the fail-closed
  * default for any dimension not derived from a *verified* signed claim.
  */
-export type AssuranceDimensionLevels = Readonly<Record<AssuranceDimension, number>>;
+// A `Record<>`/`Readonly<Record<>>` here is not loadable by the Components.js generator
+// (it resolves field types as class references — TS utility types are not classes). The
+// mapped form is equivalent and generator-safe (CIV-C26).
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export type AssuranceDimensionLevels = {readonly [K in AssuranceDimension]: number };
 
 /**
  * The assurance dimension of the verified context (ADR-0010 crosswalk).
@@ -48,7 +52,7 @@ export interface AssuranceContext {
    * Raw authentication-method / context-class references as asserted by the issuer, retained
    * for audit. Opaque strings; never re-interpreted as a grade.
    */
-  readonly methodRefs?: readonly string[];
+  readonly methodRefs?: string[];
   /**
    * Identifier + version of the signed, per-program crosswalk (ADR-0010) that produced these levels,
    * retained so an audit event can trace *which* crosswalk mapped which claim (accepted-claim

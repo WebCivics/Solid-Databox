@@ -57,7 +57,7 @@ export interface PolicyRefClaim {
 }
 
 /** Fields shared by a deposit and a submission request presented to the gateway. */
-interface GatewayRequestBase {
+export interface GatewayRequestBase {
   /** The container path the request POSTed to (the addressed target). */
   readonly target: string;
   /** The declared media type of the payload (declared, then checked against the class contract). */

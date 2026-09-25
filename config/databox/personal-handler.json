@@ -1,0 +1,37 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^1.0.0/components/context.jsonld",
+  "@graph": [
+    {
+      "comment": "Personal Databox person-facing surface (CIV-A07): connection registry, credential install target, notify-then-pull vault sync, scoped submission. Ordered before the catch-all LDP handler. Authenticates to the owner's WebID — never a shared bearer token.",
+      "@id": "urn:solid-server:databox:PersonalHttpHandler",
+      "@type": "PersonalDataboxHttpHandler",
+      "baseUrl": { "@id": "urn:solid-server:default:variable:baseUrl" },
+      "ownerWebId": { "@id": "urn:solid-server:databox:variable:personalOwnerWebId" },
+      "credentialsExtractor": { "@id": "urn:solid-server:default:CredentialsExtractor" },
+      "issuerKeysJson": { "@id": "urn:solid-server:databox:variable:personalIssuerKeys" },
+      "routeBase": "/.databox/personal"
+    },
+    {
+      "comment": "All HTTP handlers, with the personal Databox route before the general LDP handler.",
+      "@id": "urn:solid-server:default:HttpHandler",
+      "@type": "SequenceHandler",
+      "handlers": [
+        { "@id": "urn:solid-server:default:Middleware" },
+        {
+          "@id": "urn:solid-server:default:BaseHttpHandler",
+          "@type": "WaterfallHandler",
+          "handlers": [
+            { "@id": "urn:solid-server:default:StaticAssetHandler" },
+            { "@id": "urn:solid-server:default:OidcHandler" },
+            { "@id": "urn:solid-server:default:NotificationHttpHandler" },
+            { "@id": "urn:solid-server:default:StorageDescriptionHandler" },
+            { "@id": "urn:solid-server:default:AuthResourceHttpHandler" },
+            { "@id": "urn:solid-server:default:IdentityProviderHandler" },
+            { "@id": "urn:solid-server:databox:PersonalHttpHandler" },
+            { "@id": "urn:solid-server:default:LdpHandler" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -23,6 +23,20 @@ fn get_node_version(command: impl AsRef<std::ffi::OsStr>) -> Result<String, Stri
 
 fn compatible(version: &str) -> bool { version.starts_with("v24.") }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn compatible_accepts_only_node_24() {
+        assert!(compatible("v24.18.0"));
+        assert!(compatible("v24.0.0"));
+        for version in ["v22.23.2", "v26.3.0", "v20.19.0", "", "24.18.0", "latest"] {
+            assert!(!compatible(version), "{version} must be rejected");
+        }
+    }
+}
+
 fn provision(profile: &InstallProfile) -> Result<(), String> {
     let platform = if cfg!(target_os = "windows") { "win" } else if cfg!(target_os = "macos") { "darwin" } else if cfg!(target_os = "linux") { "linux" } else { return Err("This operating system is not supported for automatic Node provisioning.".to_owned()); };
     let architecture = if cfg!(target_arch = "x86_64") { "x64" } else if cfg!(target_arch = "aarch64") { "arm64" } else { return Err("This processor architecture is not supported for automatic Node provisioning.".to_owned()); };

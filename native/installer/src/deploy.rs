@@ -138,3 +138,72 @@ fn file_sha256(path: &Path) -> Result<String, String> {
     hash.update(fs::read(path).map_err(|error| format!("Could not read {}: {error}", display_path(path)))?);
     Ok(format!("{:x}", hash.finalize()))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn payload_dir(tag: &str) -> PathBuf {
+        let dir = std::env::temp_dir().join(format!("databox-deploy-test-{tag}-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        dir
+    }
+
+    #[test]
+    fn platform_and_architecture_report_supported_values() {
+        assert!(["windows", "macos", "linux"].contains(&current_platform()));
+        assert!(["x64", "arm64"].contains(&current_architecture()));
+    }
+
+    #[test]
+    fn manifest_validation_rejects_a_foreign_platform() {
+        let root = payload_dir("foreign");
+        fs::create_dir_all(root.join("app")).unwrap();
+        fs::write(
+            root.join("manifest.json"),
+            r#"{"platform":"invalid-os","architecture":"invalid-arch"}"#,
+        )
+        .unwrap();
+        let err = validate_payload_manifest(&root).unwrap_err();
+        assert!(err.contains("Download the matching Databox release"));
+        fs::remove_dir_all(&root).ok();
+    }
+
+    #[test]
+    fn manifest_validation_accepts_the_current_platform() {
+        let root = payload_dir("current");
+        fs::create_dir_all(root.join("app")).unwrap();
+        fs::write(
+            root.join("manifest.json"),
+            format!(
+                r#"{{"platform":"{}","architecture":"{}"}}"#,
+                current_platform(),
+                current_architecture()
+            ),
+        )
+        .unwrap();
+        validate_payload_manifest(&root).unwrap();
+        fs::remove_dir_all(&root).ok();
+    }
+
+    #[test]
+    fn manifest_validation_rejects_unparseable_manifest() {
+        let root = payload_dir("bad");
+        fs::create_dir_all(root.join("app")).unwrap();
+        fs::write(root.join("manifest.json"), "not json").unwrap();
+        assert!(validate_payload_manifest(&root).is_err());
+        fs::remove_dir_all(&root).ok();
+    }
+
+    #[test]
+    fn file_sha256_matches_the_known_digest() {
+        let dir = payload_dir("sha");
+        let file = dir.join("f.bin");
+        fs::write(&file, b"abc").unwrap();
+        assert_eq!(
+            file_sha256(&file).unwrap(),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+        fs::remove_dir_all(&dir).ok();
+    }
+}

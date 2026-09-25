@@ -86,9 +86,9 @@ export interface AssuranceCrosswalkDocument {
    */
   readonly signature: string;
   /** The program-approved issuers (`iss` values). An issuer not listed here is not trusted (ADR-0005). */
-  readonly approvedIssuers: readonly string[];
+  readonly approvedIssuers: string[];
   /** The mapping rows. */
-  readonly entries: readonly AssuranceCrosswalkEntry[];
+  readonly entries: AssuranceCrosswalkEntry[];
 }
 
 function lowestLevels(): Record<AssuranceDimension, number> {
@@ -138,13 +138,21 @@ export class SignedAssuranceCrosswalk {
   private readonly entries: readonly AssuranceCrosswalkEntry[];
 
   /**
-   * @param document - The raw crosswalk document.
+   * @param documentJson - The signed crosswalk document as a JSON string. A `string` param keeps the
+   *   constructor Components.js-loadable (a deployment binds it to a variable holding the signed
+   *   per-program document, CIV-C26); it is parsed then validated identically to a passed object.
    * @param expectedVersion - The version this deployment expects; a mismatch refuses admission.
    */
-  public constructor(document: AssuranceCrosswalkDocument, expectedVersion: string) {
+  public constructor(documentJson: string, expectedVersion: string) {
     // Fail-closed admission, robust against untyped JSON (finding 6): the document is validated as a raw
     // record so absent/wrong-typed fields raise InternalServerError, never a raw TypeError.
-    const raw = document as unknown as Record<string, unknown>;
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(documentJson);
+    } catch {
+      throw new InternalServerError('Assurance crosswalk document is not valid JSON.');
+    }
+    const raw = parsed as Record<string, unknown>;
     const crosswalkId = requireString(raw.crosswalkId, 'Assurance crosswalk is missing a crosswalkId.');
     const version = requireString(raw.version, 'Assurance crosswalk is missing a version.');
     if (version !== expectedVersion) {

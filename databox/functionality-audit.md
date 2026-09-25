@@ -5,7 +5,7 @@
 
 ## Method
 
-A full-tree inventory was performed of `src/databox/`, `forge-admin/`, `native/`, `rust/`, `org-mobile-apps/`, `apps/`, `docs/`, `documentation/`, `databox/`, `config/databox/`, `scripts/`, and `test/`. Each subsystem was classified by area, its source files listed, and its current documentation coverage assessed.
+A full-tree inventory was performed of `src/databox/`, `smithy-admin/`, `native/`, `rust/`, `org-mobile-apps/`, `apps/`, `docs/`, `documentation/`, `databox/`, `config/databox/`, `scripts/`, and `test/`. Each subsystem was classified by area, its source files listed, and its current documentation coverage assessed.
 
 ---
 
@@ -78,7 +78,7 @@ A full-tree inventory was performed of `src/databox/`, `forge-admin/`, `native/`
 | `TableSessionStore.ts` | Table session state for restaurant POS |
 | `VerticalProfile.ts` | Industry vertical profile system (restaurant, welfare, retail, etc.) |
 
-**Documented:** README mentions "IPMS Modules" in the gh-pages landing page feature list. Forge-admin README mentions modules page. Not documented in MkDocs. The full scope of the IPMS (50+ modules, Oxigraph sync, vertical profiles, module manifests) is not documented anywhere public-facing.
+**Documented:** README mentions "IPMS Modules" in the gh-pages landing page feature list. Smithy-admin README mentions modules page. Not documented in MkDocs. The full scope of the IPMS (50+ modules, Oxigraph sync, vertical profiles, module manifests) is not documented anywhere public-facing.
 
 ### 1.5 IPMS Modules (`src/databox/ipms/modules/`) — 50+ modules
 
@@ -185,14 +185,14 @@ A full-tree inventory was performed of `src/databox/`, `forge-admin/`, `native/`
 
 **Documented:** README mentions "recovery feeds". Not in gh-pages or MkDocs.
 
-### 1.10 Forge (`src/databox/forge/`)
+### 1.10 Smithy (`src/databox/smithy/`)
 
 | File | Purpose |
 |---|---|
-| `MappingForge.ts` | Core mapping forge: program registration, mapping, event dispatch |
-| `MappingForgeHttpApi.ts` | HTTP API for the forge control plane |
+| `MappingSmithy.ts` | Core mapping smithy: program registration, mapping, event dispatch |
+| `MappingSmithyHttpApi.ts` | HTTP API for the smithy control plane |
 
-**Documented:** README documents the forge API endpoints. Developer guide has a forge-api.md. gh-pages landing page mentions the forge. Well documented.
+**Documented:** README documents the smithy API endpoints. Developer guide has a smithy-api.md. gh-pages landing page mentions the smithy. Well documented.
 
 ### 1.11 Gateway (`src/databox/gateway/`)
 
@@ -355,7 +355,7 @@ A full-tree inventory was performed of `src/databox/`, `forge-admin/`, `native/`
 
 ---
 
-## 2. Forge Admin Console (`forge-admin/`)
+## 2. Smithy Admin Console (`smithy-admin/`)
 
 A Refine/React 19 / Vite 8 / Tailwind v4 single-page application.
 
@@ -393,7 +393,7 @@ A Refine/React 19 / Vite 8 / Tailwind v4 single-page application.
 
 | Provider | Mode | Purpose |
 |---|---|---|
-| `dataProvider.ts` | Live | Talks to Forge API at `/.databox/forge` |
+| `dataProvider.ts` | Live | Talks to Smithy API at `/.databox/smithy` |
 | `demoDataProvider.ts` | Demo | Fully in-memory, backendless (GitHub Pages) |
 | `standardSolidDataProvider.ts` | Standard Solid | Portable-core mode using Solid resource operations |
 
@@ -410,7 +410,7 @@ A Refine/React 19 / Vite 8 / Tailwind v4 single-page application.
 - `posOperations.ts` — POS operations reference data
 - `baseline-institution-profile.json` — Baseline profile fixture
 
-**Documented:** forge-admin/README.md is comprehensive. gh-pages landing page covers many features. MkDocs does not mention it.
+**Documented:** smithy-admin/README.md is comprehensive. gh-pages landing page covers many features. MkDocs does not mention it.
 
 ---
 
@@ -511,18 +511,18 @@ Separate Vite/React application.
 - Cross-platform installer section
 - Native POS Edge section
 - Industry applications (dynamic from `use-cases.json`)
-- Interactive demonstrators: Seraphim Consumer Portal, Seraphim Admin Panel, MegaMart Loyalty Forge
+- Interactive demonstrators: Seraphim Consumer Portal, Seraphim Admin Panel, MegaMart Loyalty Smithy
 - QR code provisioning demos
 
 ### 6.2 Admin Console Demo (`docs/admin/`)
 
-- Static build of forge-admin in demo mode
+- Static build of smithy-admin in demo mode
 - Published at `/admin/`
 
-### 6.3 Forge Control Panel (`docs/forge/`)
+### 6.3 Smithy Control Panel (`docs/smithy/`)
 
 - Minimal dependency-free Programs/Mappings/Events console
-- Published at `/forge/`
+- Published at `/smithy/`
 
 **Documented:** The landing page itself is the documentation. However, it is missing coverage of: the full 50+ IPMS module list, org mobile apps, tradie app, Rust components (connector-sidecar, pos-edge-proxy, tray-supervisor), the compliance engine, the evidence ledger, the policy engine, the review/disposition workflow, the connection credential lifecycle, and the test suite.
 
@@ -554,10 +554,10 @@ Separate Vite/React application.
 - Databox architecture (control plane / data plane, resource layout, topology)
 - Databox features (provisioning, credentials, policy, evidence, receipts, review, compliance)
 - IPMS module system and module catalog
-- Forge Admin console
+- Smithy Admin console
 - Native/Rust components
 - Org mobile apps
-- Developer guide (getting started, forge API, institution profile, records/receipts/evidence, policies/ODRL)
+- Developer guide (getting started, smithy API, institution profile, records/receipts/evidence, policies/ODRL)
 - ADR index
 - Threat model
 - Conformance requirements
@@ -578,7 +578,7 @@ Separate Vite/React application.
 | `deployment/ipms/` | Docker, K8s, secrets | No |
 | `devdocs/` | 58 documents | Partially |
 | `fixtures/` | 34 items | No |
-| `forge-plan/` | 14 documents | Yes (linked) |
+| `smithy-plan/` | 14 documents | Yes (linked) |
 | `guide/` | 7 documents | Yes (linked) |
 | `ontologies/` | 5 TTL files | No |
 | `vocab/` | 14 items | No |
@@ -589,7 +589,7 @@ Separate Vite/React application.
 |---|---|
 | `README.md` | Guide index |
 | `getting-started.md` | From checkout to live flow |
-| `forge-api.md` | Forge control-plane API reference |
+| `smithy-api.md` | Smithy control-plane API reference |
 | `institution-profile.md` | Institution profile definition |
 | `records-receipts-evidence.md` | Deposits, receipts, evidence |
 | `policies-and-odrl.md` | ODRL policy model |
@@ -617,7 +617,7 @@ Separate Vite/React application.
 | `evidence/` | 6 |
 | `feed/` | 1 |
 | `fixtures/` | 1 |
-| `forge/` | 1 |
+| `smithy/` | 1 |
 | `gateway/` | 6 |
 | `identifiers/` | 1 |
 | `notification/` | 6 |
@@ -665,12 +665,12 @@ Separate Vite/React application.
 
 | Script | Purpose |
 |---|---|
-| `add-forge-link.js` | Add forge link to templates |
+| `add-smithy-link.js` | Add smithy link to templates |
 | `build-databox-demo.mjs` | Build databox demo |
 | `build-docs.js` | Build MkDocs documentation |
-| `build-forge-ui.js` | Build embedded forge UI (16KB) |
+| `build-smithy-ui.js` | Build embedded smithy UI (16KB) |
 | `build-usecases.js` | Build use-cases JSON for gh-pages |
-| `databoxMappingForgeDemo.ts` | Databox mapping forge demo |
+| `databoxMappingSmithyDemo.ts` | Databox mapping smithy demo |
 | `finalizeRelease.ts` | Release finalization |
 | `formatChangelog.ts` | Changelog formatting |
 | `oxigraph-wasm-server.mjs` | Oxigraph WASM server |
@@ -678,13 +678,13 @@ Separate Vite/React application.
 | `run-ipms-migration-proof.mjs` | IPMS migration proof runner (19KB) |
 | `run-ipms-oxigraph-smoke.mjs` | IPMS Oxigraph smoke test (10KB) |
 | `run-eslint.mjs` | ESLint runner |
-| `seraphimForgeDemo.ts` | Seraphim forge demo |
+| `seraphimForgeDemo.ts` | Seraphim smithy demo |
 | `test-api.js` | API testing |
 | `update-workflows.js` | Workflow updater |
 | `upgradeConfig.ts` | Config upgrader |
 | `validate-ipms-deployment.mjs` | IPMS deployment validator (9KB) |
 
-**Documented:** `build-forge-ui.js` mentioned in README. Others not documented publicly.
+**Documented:** `build-smithy-ui.js` mentioned in README. Others not documented publicly.
 
 ---
 
@@ -704,11 +704,11 @@ Separate Vite/React application.
 
 ## Summary: Documentation Gap Matrix
 
-| Area | README.md | gh-pages | MkDocs | forge-admin README | databox/ README | guide/ |
+| Area | README.md | gh-pages | MkDocs | smithy-admin README | databox/ README | guide/ |
 |---|---|---|---|---|---|---|
 | Core Databox engine (24 subsystems) | Partial | Minimal | None | N/A | Good | Good |
 | IPMS (50+ modules) | Minimal | Partial | None | Partial | None | None |
-| Forge Admin (24 pages) | Brief | Good | None | Comprehensive | Brief | None |
+| Smithy Admin (24 pages) | Brief | Good | None | Comprehensive | Brief | None |
 | Native POS Edge (Rust) | None | Good | None | N/A | None | None |
 | Native Installer (Rust) | None | Good | None | N/A | None | None |
 | Rust components (3) | None | None | None | N/A | None | None |

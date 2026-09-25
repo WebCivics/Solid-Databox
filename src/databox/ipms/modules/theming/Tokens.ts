@@ -32,7 +32,7 @@ export interface PortableThemePackage {
   readonly portability: {
     readonly canonicalFormat: 'W3C DTCG design-token JSON';
     readonly cssOutput: 'CSS custom properties';
-    readonly forgeOutput: 'Tailwind-compatible Forge token projection';
+    readonly smithyOutput: 'Tailwind-compatible Smithy token projection';
     readonly nonPortableRuntimeWork: readonly string[];
   };
 }
@@ -49,7 +49,7 @@ export interface CssCompileOptions {
   readonly prefix?: string;
 }
 
-export interface ForgeCompatibleThemeTokens {
+export interface SmithyCompatibleThemeTokens {
   readonly cssVariables: Record<string, string>;
   readonly tailwindTheme: {
     readonly extend: {
@@ -75,7 +75,7 @@ interface FlattenedToken {
 /**
  * Validate and canonicalize a portable, declarative theme package.
  *
- * The token body stays standards-native DTCG JSON. CSS and Forge outputs are derived artifacts so the theme can
+ * The token body stays standards-native DTCG JSON. CSS and Smithy outputs are derived artifacts so the theme can
  * travel through ordinary JSON or RDF without depending on CSS-private runtime state.
  */
 export function validateThemePackage(input: unknown): PortableThemePackage {
@@ -133,7 +133,7 @@ export function themeToCss(theme: unknown, options: CssCompileOptions = {}): str
   return tokensToCss(validateThemePackage(theme).tokens, options);
 }
 
-export function themeToForgeTokens(theme: unknown, options: CssCompileOptions = {}): ForgeCompatibleThemeTokens {
+export function themeToForgeTokens(theme: unknown, options: CssCompileOptions = {}): SmithyCompatibleThemeTokens {
   const flattened = flattenTokens(validateThemePackage(theme).tokens, options);
   const cssVariables: Record<string, string> = {};
   const colors: Record<string, string> = {};
@@ -549,7 +549,7 @@ function portableThemePortability(): PortableThemePackage['portability'] {
   return {
     canonicalFormat: 'W3C DTCG design-token JSON',
     cssOutput: 'CSS custom properties',
-    forgeOutput: 'Tailwind-compatible Forge token projection',
+    smithyOutput: 'Tailwind-compatible Smithy token projection',
     nonPortableRuntimeWork: [
       'generated CSS files',
       'control-plane preview state',

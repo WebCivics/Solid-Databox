@@ -1,4 +1,5 @@
 import { gunzipSync, gzipSync } from 'node:zlib';
+import type { CredentialRevocationChecker } from '../authorization/ResolverCollaborators';
 import { BadRequestHttpError } from '../../util/errors/BadRequestHttpError';
 import { InternalServerError } from '../../util/errors/InternalServerError';
 import { base64UrlDecode, base64UrlEncode } from './Es256';
@@ -127,7 +128,7 @@ export interface PublishedStatusList {
  * only *this* program's indices; it never reveals the mapping and returns `false` for any index it did not
  * assign (no existence leak).
  */
-export class StatusListManager {
+export class StatusListManager implements CredentialRevocationChecker {
   private readonly list: BitstringStatusList;
   private readonly indexByConnection = new Map<string, number>();
   private nextIndex = 0;

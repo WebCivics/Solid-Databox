@@ -57,6 +57,12 @@ const esModules = [
   'escape-string-regexp',
   '@isaacs/ttlcache',
   'rdf-validate-shacl',
+  'shacl-engine',
+  'grapoi',
+  'rdf-literal',
+  'rdf-validation',
+  'rdf-ext',
+  'oxigraph',
   '@rdfjs/term-set',
   '@rdfjs/environment',
   '@rdfjs/data-model',
@@ -196,7 +202,7 @@ module.exports = {
   },
   // By default, node_modules are not transformed, but we want to transform the ESM packages
   transformIgnorePatterns: [ `/node_modules/(?!(${esModules.join('|')})/)` ],
-  testRegex: '/test/(unit|integration)/.*\\.test\\.ts$',
+  testRegex: '/test/(unit|integration|adversarial)/.*\\.test\\.ts$',
   moduleFileExtensions: [
     'ts',
     'js',

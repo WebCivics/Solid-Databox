@@ -16,6 +16,80 @@ The foundation is a standards-compliant Solid server:
 This layer is useful for individuals who want a personal data pod with no
 business features.
 
+### Personal profile (`config/databox/personal.json`)
+
+The person-side entry point: a file-backed Layer-1 pod on one's own machine —
+WebID/OIDC, WAC, LDN inbox — with the organisation control plane and IPMS
+deliberately absent. It is a complete pod today and the mount point for the
+person-facing Databox surface as it lands:
+
+- **Connection registry + credential install target** (CIV-A07): per-program
+  isolated registry recording which organisation Databoxes the person is
+  connected to, and the endpoint a connection credential is delivered to.
+- **Consumer-vault sync** (CIV-A07): notify-then-pull replication of records
+  the person's relationships have issued, with a durable cursor so recovery
+  after downtime is replay, not assumed delivery.
+- **Private submission composer** (CIV-A07): the person's side of the
+  symmetric exchange — what they submit, consent to, and revoke.
+
+Personal boxes authenticate to the owner's WebID; there is no control-plane
+bearer token. Two hosting shapes are supported (CIV-A03/A04): reachable on the
+open internet via a tunnel or port-forward, or local/LAN-only.
+
+#### Household profile (families, share-houses — CIV-A09/A10)
+
+The personal profile extends to multi-member households: one host runs one pod
+per member (`alice.<zone>`) plus a governed `commons.<zone>` pod for shared
+resources — the commons is governed, not owned. The governance policy answers
+the admin question explicitly:
+
+- **Admin models** (`HouseholdPolicy.adminQuorum`): `1` = any single admin acts
+  alone (a family — either parent); `n` = m-of-n admin approvals; `'all'` =
+  consensus (a share-house — commons changes need every member).
+- **Commons authority** (`commonsAuthority`): `'admins'` (parents set household
+  rules) or `'all-members'` (housemates co-govern the commons).
+- **Member consent** (`memberConsent`): one member may electronically grant
+  another member a scoped permission — the ask/approve/deny/revoke flow with an
+  audit trail. A `limited`-capacity member (a child) cannot be petitioned alone:
+  an admin counter-signature is required — the household seed of the
+  guardianship model (CIV-B01).
+- **Presets**: `familyPolicy` (parents admin, children members/limited) and
+  `shareHousePolicy` (all members admin, consensus on commons).
+
+Members each own their pod outright — household governance only ever applies
+to the commons and to admin actions, never to a member's own pod contents.
+
+#### Guardianship — children, disability, elder care (CIV-A11/A12)
+
+The household layer carries a rights-anchored guardianship model for members
+who cannot (or should not yet) decide alone — children across single or
+separated households, persons with disability, elders. Anchored to the CRC
+(the child's evolving capacity, Art. 5; their voice, Art. 12) and the CRPD
+(supported decision-making, Art. 12 — the person retains capacity):
+
+- **Guardian kinds with precedence** — `parent` (100) > `appointed` (90) >
+  `attorney` (80) > `kinship` (60) > `professional` (40) > `supporter` (0).
+  Defaults only — a court order can raise a kinship carer above a parent via a
+  per-relation `precedence` override. Equal-precedence co-guardians who
+  disagree deadlock to the recipe's escalation — never "first to click wins".
+- **Nine duty scopes** — residence, medical, financial, education,
+  online-contact, location-sharing, data-sharing, daily-care, legal. A
+  guardianship is a set of scoped authorities; zero scopes = inert.
+- **Multi-household** — a relation names the households it operates in; a
+  separated child carries guardians on both sides, each effective only in
+  their household.
+- **Capacity scale** — `full` / `emerging` (child: decides with counter-
+  signature, scope shrinking as capacity grows) / `limited` / `supported`
+  (retains capacity — supporters advise, never substitute).
+- **Safety recipes** (`SAFETY_RECIPES`) — SHACL-grounded decision templates:
+  online-contact boundary, third-party data sharing, location sharing,
+  residence schedule, major medical, supported decision, emergency break-glass.
+  Each declares its consent rule, whether the ward's voice is required, the
+  SHACL shape the decision record must satisfy, and the rights anchors.
+  **Guardians decide; the shape disposes** — an approved decision whose record
+  fails SHACL is `rejected-record`, never stored.
+
+
 ## Layer 2 — +Databox
 
 Adds the Databox orchestration layer:

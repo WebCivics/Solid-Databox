@@ -91,3 +91,66 @@ pub fn send_shutdown(writer: &mut impl Write) {
     let _ = writer.write_all(b"\n");
     let _ = writer.flush();
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_a_ready_event_with_port() {
+        let event = parse_lifecycle_event(r#"{"type":"ready","port":9100}"#).unwrap();
+        assert_eq!(event.event_type, "ready");
+        assert_eq!(event.port, Some(9100));
+        assert!(event.message.is_none());
+    }
+
+    #[test]
+    fn parses_an_error_event_with_message() {
+        let event = parse_lifecycle_event(r#"{"type":"error","message":"boom"}"#).unwrap();
+        assert_eq!(event.event_type, "error");
+        assert_eq!(event.message.as_deref(), Some("boom"));
+        assert!(event.port.is_none());
+    }
+
+    #[test]
+    fn ignores_non_json_lines_and_malformed_events() {
+        assert!(parse_lifecycle_event("plain log line").is_none());
+        assert!(parse_lifecycle_event("{ not json").is_none());
+        assert!(parse_lifecycle_event(r#"{"no_type":1}"#).is_none());
+        assert!(parse_lifecycle_event("").is_none());
+    }
+
+    #[test]
+    fn send_shutdown_writes_one_json_line() {
+        let mut buf: Vec<u8> = Vec::new();
+        send_shutdown(&mut buf);
+        let text = String::from_utf8(buf).unwrap();
+        assert_eq!(text, "{\"cmd\":\"shutdown\"}\n");
+        let parsed: serde_json::Value = serde_json::from_str(text.trim()).unwrap();
+        assert_eq!(parsed["cmd"], "shutdown");
+    }
+
+    /// IPC smoke test: run the lifecycle loop against a child process whose
+    /// stdout carries real lifecycle events; the loop must read them all and
+    /// terminate cleanly when the child exits. Uses Node — the same runtime
+    /// pos-edge supervises — when available, and is skipped otherwise.
+    #[test]
+    fn lifecycle_loop_reads_events_until_child_exits() {
+        let script = "console.log(JSON.stringify({type:'ready',port:1}));\
+                      console.log(JSON.stringify({type:'log',message:'hi'}));";
+        let spawn = std::process::Command::new("node")
+            .args(["-e", script])
+            .stdin(std::process::Stdio::piped())
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::null())
+            .spawn();
+        let Ok(child) = spawn else {
+            eprintln!("node not available — skipping lifecycle-loop smoke test");
+            return;
+        };
+        let child = Arc::new(Mutex::new(child));
+        let queue = Arc::new(Mutex::new(JobQueue::new()));
+        // Must return promptly rather than hang once the child closes stdout.
+        run_lifecycle_loop(child, queue);
+    }
+}

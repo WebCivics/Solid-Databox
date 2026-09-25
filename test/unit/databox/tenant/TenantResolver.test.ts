@@ -33,6 +33,7 @@ function mappingReturning(record: RelationshipRecord | undefined): RelationshipM
     register: jest.fn(),
     findByIdempotencyKey: jest.fn(),
     findByBoxId: jest.fn().mockResolvedValue(record),
+    findByRelationshipId: jest.fn(),
     resolveCustomer: jest.fn(),
   };
 }

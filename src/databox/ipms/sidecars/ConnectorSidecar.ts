@@ -1,4 +1,3 @@
-/* eslint-disable no-console, unicorn/no-process-exit */
 import { runLdapSync } from './LdapConnector';
 import { runOdbcSync } from './OdbcConnector';
 import type { LdapConfig } from './LdapConnector';

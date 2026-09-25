@@ -45,6 +45,12 @@ export interface TenantContext extends TenantScope {
   readonly audience?: string;
   /** The program service identity the tenant was validated against, when a bridge presented one. */
   readonly serviceIdentity?: string;
+  /**
+   * When the request bound via the holder's pairwise WebID (the vault-controlled per-relationship
+   * identity, ADR-0004), this carries it so the authorizer can re-assert `context.webId ===
+   * pairwiseWebId` independently — the pairwise match, not a program audience, is the binding.
+   */
+  readonly pairwiseWebId?: string;
 }
 
 /**
@@ -60,6 +66,12 @@ export interface TenantResolverInput {
   readonly audience?: string;
   /** The program service identity a bridge authenticated as (per-program, ADR-0016 HD-13). */
   readonly serviceIdentity?: string;
+  /**
+   * The verified WebID the request authenticates as (component C3). When it equals the relationship's
+   * `pairwiseWebId` the holder is bound directly — the pairwise WebID is the vault-controlled
+   * per-relationship identity (ADR-0004), a stronger binding than a program-level audience/origin.
+   */
+  readonly webId?: string;
   /** The request target path; the box identifier is derived from it (never from a name/slug). */
   readonly target: string;
 }
@@ -67,7 +79,7 @@ export interface TenantResolverInput {
 /**
  * The stable, opaque tenant identifier for a scope. Deterministic and reversible-free of PII: it is a
  * function of the two opaque provisioning identifiers only. Encoded so a `/` inside either value cannot
- * forge a different scope's id.
+ * smithy a different scope's id.
  */
 export function tenantIdOf(organisation: string, program: string): string {
   return `${encodeURIComponent(organisation)}/${encodeURIComponent(program)}`;

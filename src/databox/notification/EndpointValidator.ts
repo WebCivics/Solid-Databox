@@ -20,7 +20,7 @@ export interface EndpointValidatorOptions {
   /** The (injectable) DNS resolver. */
   readonly resolver: HostResolver;
   /** The permitted URL schemes; defaults to HTTPS only (ADR-0011 §4 scheme allowlist). */
-  readonly allowedSchemes?: readonly string[];
+  readonly allowedSchemes?: string[];
 }
 
 /** Parse a dotted-quad IPv4 literal into its four octets, or `undefined` if it is not one. */
@@ -171,7 +171,7 @@ const BLOCKED_MESSAGE =
 
 export class SsrfSafeEndpointValidator {
   private readonly resolver: HostResolver;
-  private readonly allowedSchemes: readonly string[];
+  private readonly allowedSchemes: string[];
 
   public constructor(options: EndpointValidatorOptions) {
     this.resolver = options.resolver;

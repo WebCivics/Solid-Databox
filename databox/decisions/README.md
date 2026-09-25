@@ -50,6 +50,8 @@ input that unblocks them and the prompts they block.
 | [0024](ADR-0024-track-separation-and-experimental-isolation.md) | Track separation & experimental isolation | Adopted | — | DBX-09, DBX-27, DBX-28 |
 | [0025](ADR-0025-solid-interoperability-guarantee.md) | Solid interoperability guarantee | Adopted | — | DBX-05, DBX-24, DBX-27 |
 | [0026](ADR-0026-deployment-and-customer-onboarding.md) | Single-org deployment & consumer-pod access | Adopted (consumer pod required) | identity, privacy | DBX-13, DBX-24 |
+| [0027](ADR-0027-personal-nat-traversal-and-tls.md) | Personal Databox NAT traversal & TLS delivery mode | Adopted-with-scope | privacy | CIV-A02, CIV-A05, CIV-A08 |
+| [0028](ADR-0028-interchangeable-rdf-store.md) | Interchangeable RDF/SPARQL store (Oxigraph ↔ QualiaDB, unbundled) | Adopted | extensibility, licensing | CIV-B53..56 |
 
 ## 3. Coverage — implementation-review items (1–18)
 

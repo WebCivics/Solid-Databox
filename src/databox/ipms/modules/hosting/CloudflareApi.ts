@@ -49,6 +49,14 @@ export class CloudflareApi {
   }
 
   /**
+   * Resolve the account ID that owns a zone — needed before tunnel provisioning.
+   */
+  public async getAccountId(zoneId: string): Promise<string> {
+    const zone = await this.request(`/zones/${zoneId}`) as CloudflareZone;
+    return zone.account.id;
+  }
+
+  /**
    * Create DNS records for a hosting plan. Skips records that already exist.
    */
   public async createDnsRecords(zoneId: string, records: DnsRecord[]): Promise<CreatedRecord[]> {
@@ -125,6 +133,18 @@ export class CloudflareApi {
     ingressRules.push({ hostname: plan.devicesHost, service: `http://${originTarget}:${originPort}` });
     ingressRules.push({ service: 'http_status:404' });
 
+    await this.setTunnelIngress(accountId, tunnelId, ingressRules);
+  }
+
+  /**
+   * Set a tunnel's ingress rules directly — used by the personal hosting path, which plans its
+   * own single-hostname rules rather than the organisation's databox/www/devices shape.
+   */
+  public async setTunnelIngress(
+    accountId: string,
+    tunnelId: string,
+    ingressRules: TunnelIngressRule[],
+  ): Promise<void> {
     await this.request(`/accounts/${accountId}/cfd_tunnel/${tunnelId}/configurations`, {
       method: 'PUT',
       body: JSON.stringify({

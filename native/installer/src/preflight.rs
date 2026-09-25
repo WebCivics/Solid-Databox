@@ -100,3 +100,34 @@ unsafe fn libc_getuid() -> u32 {
 unsafe fn libc_getuid() -> u32 {
     0
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn os_and_arch_detection_return_known_values() {
+        assert!(["windows", "linux", "macos", "unknown"].contains(&detect_os().as_str()));
+        assert!(["x86_64", "aarch64"].contains(&detect_arch().as_str())
+            || cfg!(not(any(target_arch = "x86_64", target_arch = "aarch64"))));
+    }
+
+    #[test]
+    fn check_port_reports_an_occupied_port_unavailable() {
+        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let port = listener.local_addr().unwrap().port();
+        assert!(!check_port(port));
+        drop(listener);
+    }
+
+    #[test]
+    fn check_port_reports_a_free_port_available() {
+        // Bind, record the port, release, then confirm it is reported free.
+        let port = std::net::TcpListener::bind("127.0.0.1:0")
+            .unwrap()
+            .local_addr()
+            .unwrap()
+            .port();
+        assert!(check_port(port));
+    }
+}

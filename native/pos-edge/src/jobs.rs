@@ -115,3 +115,60 @@ pub fn run_job_worker(job_queue: Arc<Mutex<JobQueue>>, hw_config: Arc<HardwareCo
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn queue_with(ids: &[&str]) -> JobQueue {
+        let mut q = JobQueue::new();
+        for id in ids {
+            q.enqueue(id.to_string(), "dev-1".to_string(), "cmd".to_string(), "{}".to_string());
+        }
+        q
+    }
+
+    #[test]
+    fn enqueued_jobs_start_queued_and_claim_in_fifo_order() {
+        let mut q = queue_with(&["a", "b"]);
+        assert_eq!(q.get("a").unwrap().status, "queued");
+        assert_eq!(q.claim_next().unwrap().id, "a");
+        assert_eq!(q.claim_next().unwrap().id, "b");
+        assert!(q.claim_next().is_none());
+    }
+
+    #[test]
+    fn claimed_jobs_are_not_claimed_twice() {
+        let mut q = queue_with(&["a"]);
+        assert_eq!(q.claim_next().unwrap().status, "claimed");
+        assert!(q.claim_next().is_none());
+    }
+
+    #[test]
+    fn cancel_only_works_on_queued_jobs() {
+        let mut q = queue_with(&["a", "b"]);
+        assert_eq!(q.cancel("a").unwrap().status, "cancelled");
+        q.claim_next(); // claims b
+        assert!(q.cancel("b").is_none());
+        assert!(q.cancel("missing").is_none());
+    }
+
+    #[test]
+    fn complete_and_fail_set_terminal_state_and_error() {
+        let mut q = queue_with(&["a", "b"]);
+        q.claim_next();
+        q.complete("a");
+        q.claim_next();
+        q.fail("b", "device gone");
+        assert_eq!(q.get("a").unwrap().status, "completed");
+        assert_eq!(q.get("b").unwrap().status, "failed");
+        assert_eq!(q.get("b").unwrap().error.as_deref(), Some("device gone"));
+    }
+
+    #[test]
+    fn cancelled_jobs_are_skipped_by_claim_next() {
+        let mut q = queue_with(&["a", "b"]);
+        q.cancel("a");
+        assert_eq!(q.claim_next().unwrap().id, "b");
+    }
+}

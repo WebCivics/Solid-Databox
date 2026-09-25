@@ -41,8 +41,13 @@ function assertOutbox(outbox: OutboxRecord, tenantId: string): void {
 }
 
 export class HashChainedEvidenceLedger {
-  private readonly chains = new Map<string, LedgerEntry[]>();
-  private readonly now: () => string;
+  /**
+   * `protected` so {@link DurableEvidenceLedger} can restore the exact persisted chain verbatim on
+   * rehydration — integrity lives in the entries' own digests, and `verify` re-checks the restored
+   * chain, so a subclass exposing this cannot weaken the WORM guarantee.
+   */
+  protected readonly chains = new Map<string, LedgerEntry[]>();
+  protected readonly now: () => string;
 
   public constructor(now: () => string = (): string => new Date().toISOString()) {
     this.now = now;

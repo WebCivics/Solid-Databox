@@ -103,16 +103,16 @@ describe('portable theme packages', (): void => {
     });
   });
 
-  it('projects Forge-compatible Tailwind token references.', (): void => {
-    const forge = themeToForgeTokens(theme);
+  it('projects Smithy-compatible Tailwind token references.', (): void => {
+    const smithy = themeToForgeTokens(theme);
 
-    expect(forge.cssVariables['--color-primary']).toBe('#d4af37');
-    expect(forge.tailwindTheme.extend.colors.primary).toBe('var(--color-primary)');
-    expect(forge.tailwindTheme.extend.spacing.sm).toBe('var(--space-sm)');
-    expect(forge.tailwindTheme.extend.borderRadius.card).toBe('var(--radius-card)');
-    expect(forge.tailwindTheme.extend.boxShadow.card).toBe('var(--shadow-card)');
-    expect(forge.tailwindTheme.extend.fontFamily.body).toStrictEqual([ 'var(--font-body)' ]);
-    expect(forge.tailwindTheme.extend.transitionDuration.fast).toBe('var(--motion-fast)');
+    expect(smithy.cssVariables['--color-primary']).toBe('#d4af37');
+    expect(smithy.tailwindTheme.extend.colors.primary).toBe('var(--color-primary)');
+    expect(smithy.tailwindTheme.extend.spacing.sm).toBe('var(--space-sm)');
+    expect(smithy.tailwindTheme.extend.borderRadius.card).toBe('var(--radius-card)');
+    expect(smithy.tailwindTheme.extend.boxShadow.card).toBe('var(--shadow-card)');
+    expect(smithy.tailwindTheme.extend.fontFamily.body).toStrictEqual([ 'var(--font-body)' ]);
+    expect(smithy.tailwindTheme.extend.transitionDuration.fast).toBe('var(--motion-fast)');
   });
 
   it('round-trips portable themes through RDF Turtle.', async(): Promise<void> => {

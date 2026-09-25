@@ -1,9 +1,9 @@
 #![windows_subsystem = "windows"]
 
 use anyhow::Result;
-use muda::{Menu, PredefinedMenuItem, Submenu, MenuItem};
+use muda::{Menu, PredefinedMenuItem, MenuItem};
 use tao::event_loop::{ControlFlow, EventLoopBuilder};
-use tray_icon::{TrayIconBuilder, MouseButton};
+use tray_icon::TrayIconBuilder;
 use std::sync::{Arc, Mutex};
 
 mod server_process;
@@ -30,7 +30,8 @@ async fn main() -> Result<()> {
     ])?;
 
     // We can use a transparent or simple embedded icon
-    let tray_icon = TrayIconBuilder::new()
+    // Kept alive for the program's lifetime — dropping it would remove the tray icon.
+    let _tray_icon = TrayIconBuilder::new()
         .with_menu(Box::new(menu))
         .with_tooltip("Databox CMS Supervisor")
         .with_title("CMS")
@@ -42,7 +43,7 @@ async fn main() -> Result<()> {
 
     let server = Arc::new(Mutex::new(server_process::ServerProcess::new()));
 
-    event_loop.run(move |event, _, control_flow| {
+    event_loop.run(move |_event, _, control_flow| {
         *control_flow = ControlFlow::Wait;
 
         if let Ok(event) = menu_channel.try_recv() {
@@ -69,7 +70,7 @@ async fn main() -> Result<()> {
             }
         }
         
-        if let Ok(event) = tray_channel.try_recv() {
+        if let Ok(_event) = tray_channel.try_recv() {
             // Optional: double click to open admin
             // if event.click_type == tray_icon::ClickType::Double {
             //     let _ = open::that("http://localhost:3000/.databox/forge");

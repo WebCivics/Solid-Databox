@@ -1,13 +1,13 @@
 # Organisation-hosted Solid Databox
 
 > **Looking to build with the Databox?** Start with the **[Databox Developer Guide](guide/README.md)** —
-> a practical walkthrough of running the server, the Forge control-plane API, the Institution Profile,
+> a practical walkthrough of running the server, the Smithy control-plane API, the Institution Profile,
 > and the deposit → receipt → evidence flow. This README and the documents it links are the underlying
 > **design corpus** (architecture, decisions, threat model, conformance).
 >
 > **Live demo:** [landing](https://mediaprophet.github.io/Solid-CSS-Databox/) ·
 > [admin console](https://mediaprophet.github.io/Solid-CSS-Databox/admin/) ·
-> [Forge control panel](https://mediaprophet.github.io/Solid-CSS-Databox/forge/)
+> [Smithy control panel](https://mediaprophet.github.io/Solid-CSS-Databox/smithy/)
 
 ## Purpose
 
@@ -92,13 +92,13 @@ under `config/databox/`). Progress follows the ordered prompts in the
 [`handoffs/`](handoffs) and consumes the binding decisions in the [decision register](decisions/README.md).
 
 **Completed: DBX-01 through DBX-24 of the 28-prompt plan** (Waves A–E). DBX-25 is active: its
-[live CSS integration slice](live-css-integration.md) now mounts the Forge in Components.js, provisions opaque
+[live CSS integration slice](live-css-integration.md) now mounts the Smithy in Components.js, provisions opaque
 WAC-protected Databox resources, commits exact accepted bytes to CSS storage before receipt issuance, and proves
 authenticated DPoP retrieval through the normal Solid HTTP route. The broader two-program lifecycle scenario remains
 before DBX-25 can be marked complete. DBX-26 adversarial, DBX-27 conformance and DBX-28 release readiness follow it.
-A separate [Forge productization plan](forge-plan/README.md) defines the polished demo, reusable organisation/industry
+A separate [Smithy productization plan](smithy-plan/README.md) defines the polished demo, reusable organisation/industry
 backplane and optional public-information adoption studio. Its operator control plane is implemented as the
-[Forge Admin console](../forge-admin/README.md) (Refine/React): program onboarding, relationship mapping, event
+[Smithy Admin console](../smithy-admin/README.md) (Refine/React): program onboarding, relationship mapping, event
 dispatch, the ANZSIC-tailored AU / multi-jurisdiction / standards information-obligation taxonomy, a data-portability
 registry and inbound access/correction handling.
 
@@ -111,7 +111,7 @@ registry and inbound access/correction handling.
 | E — integration endpoints | 22–24 | Synthetic institutional bridge, governed review/disposition workflow, reference consumer-pod agent |
 
 **How to read the code state:** the extension is a **reference implementation**. Every subsystem is fail-closed and
-unit tested. The experimental live preset is wired into Components.js, but its Forge registries, keys, outbox and
+unit tested. The experimental live preset is wired into Components.js, but its Smithy registries, keys, outbox and
 digest confirmation index are still process-local; production needs durable registries, a WORM/signed evidence
 ledger, KMS-held keys, and durable outbox/feed storage. The live preset's control bearer is a demonstration boundary,
 not organisation IAM. Every security, cryptography and legal-policy prompt also carries a residual human-review gate
@@ -132,7 +132,7 @@ signature verification against a pinned key.
   [test-identification scheme](dbx-05-test-identification-scheme.md).
 - [Prompt handoffs](handoffs) — one per completed prompt (inputs, decisions, tests, residual gates).
 - [Live CSS integration](live-css-integration.md) — run instructions, HTTP surface and current DBX-25 boundary.
-- [Forge Admin console](../forge-admin/README.md) — the Refine/React operator control plane for the Forge API.
+- [Smithy Admin console](../smithy-admin/README.md) — the Refine/React operator control plane for the Smithy API.
 
 ### Design specifications
 
@@ -158,7 +158,7 @@ signature verification against a pinned key.
   applies the CDR Rules and Privacy Act structure to record visibility, correction and downstream propagation without
   claiming that the broader legal mapping is complete.
 - [Prompt implementation plan](prompt-implementation-plan.md) provides the ordered, agent-level implementation prompts.
-- [Forge productization plan](forge-plan/README.md) defines MFG-01 through MFG-22 for the polished demo, tailoring
+- [Smithy productization plan](smithy-plan/README.md) defines MFG-01 through MFG-22 for the polished demo, tailoring
   backplane, industry packs, adoption studio, and independent readiness gates.
 
 ## Terminology

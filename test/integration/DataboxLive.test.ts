@@ -14,7 +14,7 @@ import { getDefaultVariables, getTestConfigPath, instantiateFromConfig } from '.
 
 const port = getPort('DataboxLive');
 const baseUrl = `http://localhost:${port}/`;
-const route = `${baseUrl}.databox/forge`;
+const route = `${baseUrl}.databox/smithy`;
 const controlToken = 'synthetic-dbx25-control-token-0000000000000001';
 const rawCustomerId = 'RAW-CUSTOMER-ID-DBX25';
 const profile = JSON.parse(readFileSync(
@@ -38,6 +38,18 @@ describe('live Databox integration in Community Solid Server', (): void => {
       {
         ...getDefaultVariables(port, baseUrl),
         'urn:solid-server:databox:variable:controlToken': controlToken,
+        // The composed-authorizer collaborators (CIV-C26) — bound at launch.
+        'urn:solid-server:databox:variable:databoxBoxBase': `${baseUrl}databox/relationships/`,
+        'urn:solid-server:databox:variable:crosswalkDocument': JSON.stringify({
+          crosswalkId: 'dbx-live',
+          version: 'dbx-crosswalk/1.0.0',
+          signature: 'sig:test',
+          approvedIssuers: [],
+          entries: [],
+        }),
+        'urn:solid-server:databox:variable:crosswalkVersion': 'dbx-crosswalk/1.0.0',
+        'urn:solid-server:databox:variable:recordClasses': [],
+        'urn:solid-server:databox:variable:statusListCredential': `${baseUrl}status/revocation`,
       },
     ) as { app: App; store: ResourceStore };
     ({ app, store } = instances);

@@ -1,0 +1,61 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^1.0.0/components/context.jsonld",
+  "@graph": [
+    {
+      "comment": "The owner WebID the personal Databox endpoints authenticate to. Supplied by CLI/environment or AppRunner variable binding.",
+      "@id": "urn:solid-server:databox:variable:personalOwnerWebId",
+      "@type": "Variable"
+    },
+    {
+      "comment": "JSON map of trusted connection-credential issuer → public JWK (the vault's root of trust for imports).",
+      "@id": "urn:solid-server:databox:variable:personalIssuerKeys",
+      "@type": "Variable"
+    },
+    {
+      "@id": "urn:solid-server-app-setup:default:CliExtractor",
+      "@type": "YargsCliExtractor",
+      "parameters": [
+        {
+          "@type": "YargsParameter",
+          "name": "databoxPersonalOwnerWebId",
+          "options": {
+            "requiresArg": true,
+            "type": "string",
+            "describe": "The owner WebID that personal Databox endpoints authenticate to."
+          }
+        },
+        {
+          "@type": "YargsParameter",
+          "name": "databoxPersonalIssuerKeys",
+          "options": {
+            "requiresArg": true,
+            "type": "string",
+            "describe": "JSON map of trusted connection-credential issuer to public JWK."
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:solid-server-app-setup:default:ShorthandResolver",
+      "@type": "CombinedShorthandResolver",
+      "resolvers": [
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:personalOwnerWebId",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxPersonalOwnerWebId",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:personalIssuerKeys",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxPersonalIssuerKeys",
+            "defaultValue": "{}"
+          }
+        }
+      ]
+    }
+  ]
+}

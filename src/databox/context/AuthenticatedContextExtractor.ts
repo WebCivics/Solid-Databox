@@ -132,7 +132,7 @@ export class VerifiedAssuranceContextExtractor extends AuthenticatedContextExtra
         LOWEST_ASSURANCE_GRADE,
       dimensions,
       authTime: verifiedClaims.authTime,
-      methodRefs,
+      methodRefs: [ ...methodRefs ],
       crosswalkVersion: this.crosswalk.version,
     };
 

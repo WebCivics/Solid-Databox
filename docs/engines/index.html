@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A plain-language comparison of the Oxigraph and Web Civics Qualia optional engines for Web Civics Databox.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Compare Databox engines | Web Civics Databox</title>
+  <link rel="canonical" href="https://web.civics.au/engines/">
+  <link rel="icon" href="../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="Web Civics Databox home">
+      <img src="../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+      <span>Web Civics Databox</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../">Plain-language guide</a>
+      <a href="#comparison">Comparison</a>
+      <a href="#licensing">Licence choices</a>
+      <a href="https://dev.civics.au/">The project</a>
+      <a href="#next-step">Next step</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome engine-welcome" aria-labelledby="engine-title">
+      <div>
+        <p class="eyebrow">A decision guide for two optional engines</p>
+        <h1 id="engine-title">Same portable records. Different tools, terms and capabilities.</h1>
+        <p class="lead">Web Civics Databox can use more than one underlying engine. This choice affects what the system can do, where it runs, and the legal and economic terms under which its creators make it available. It should not change who owns the record.</p>
+      </div>
+      <aside class="welcome-note" aria-label="The key point">
+        <p class="note-label">The key point</p>
+        <p>Accepted Databox records remain standard Solid RDF records. Solid is an open-standards protocol: it gives compatible servers a common way to identify, describe and exchange data across the web. An engine works with those records; it does not own them. Its creators retain the right to set fair terms for their work.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="before-title">
+      <p class="eyebrow">Before comparing</p>
+      <h2 id="before-title">Start with the information people need, then choose an engine on fair terms.</h2>
+      <div class="two-column">
+        <div>
+          <p>Think of the Databox as the filing system and an engine as a specialist tool used with that filing system. Both engines can work with information represented using open RDF web standards. The important records are kept in the Databox’s standard storage so that they can be moved or checked without being trapped in one engine.</p>
+          <p>This is why the comparison is not a competition. Oxigraph and Qualia are useful for different jobs, and a group can choose neither until there is a clear need. A source-available or open-source licence is not a claim that its authors, maintainers or support workers owe their labour, hosting, electricity, equipment or expertise for nothing.</p>
+        </div>
+        <div class="plain-box engine-path" aria-label="The relationship between records and engines">
+          <div class="engine-path-step"><strong>People and services</strong><span>create or receive records</span></div>
+          <div class="engine-path-arrow" aria-hidden="true">↓</div>
+          <div class="engine-path-step primary"><strong>Solid Databox records</strong><span>portable, long-term records in the Web of Data</span></div>
+          <div class="engine-path-split" aria-hidden="true"><span>↙</span><span>↘</span></div>
+          <div class="engine-path-options"><div><strong>Oxigraph</strong><span>RDF and SPARQL queries</span></div><div><strong>Qualia</strong><span>decision evidence and migration tools</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="web-of-data-title">
+      <p class="eyebrow">The Web of Data</p>
+      <h2 id="web-of-data-title">Like the web of pages, but for information that systems can understand together.</h2>
+      <div class="two-column">
+        <div>
+          <h3>What Solid contributes</h3>
+          <p>Ordinary web links connect one page to another. The Web of Data uses web addresses and shared data formats to connect information: for example, a person, a community project, a receipt or a service can each have a meaningful address and a clearly described relationship to the others.</p>
+          <p>Solid adds a permission-based way for people and organisations to keep this information on compatible servers. A Databox can therefore interact with another Solid server without both parties having to use the same supplier or database product. Permission still matters: compatibility is not a right to access somebody else’s information.</p>
+        </div>
+        <div>
+          <h3>What Qualia contributes</h3>
+          <p>Qualia works with these Solid and RDF protocols and adds richer ways to validate, reason over and produce evidence about information. It can check declared rules, trace a calculation, handle conflicting claims carefully and help move selected information between Qualia and Solid in a controlled way.</p>
+          <p>In other words: Solid helps compatible services exchange and link information; Qualia can add advanced logic and decision-evidence features while keeping that information connected to the wider Web of Data.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="comparison" class="content-section soft-section" aria-labelledby="comparison-title">
+      <p class="eyebrow">Side-by-side comparison</p>
+      <h2 id="comparison-title">What each engine is designed to do.</h2>
+      <p class="section-intro">Use this table for an initial discussion. It deliberately avoids claiming that one engine is “better” in every situation.</p>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <caption>Comparison of optional Databox engine paths</caption>
+          <thead>
+            <tr><th scope="col">Question</th><th scope="col">Oxigraph</th><th scope="col">Web Civics Qualia (WASM)</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Main job</th><td>A general-purpose RDF graph database and SPARQL query engine.</td><td>A decision-evidence and semantic-processing module, with specialised logic, validation and selected data-migration tools.</td></tr>
+            <tr><th scope="row">A good fit when you need…</th><td>Fast, standards-based searching and reporting across RDF records; for example, an internal reporting or administration view.</td><td>Qualia-specific decision evidence, rules and logic, or a managed path for moving selected Qualia information to and from Solid RDF.</td></tr>
+            <tr><th scope="row">How it works with records</th><td>Works directly with RDF triples and quads, using SPARQL 1.1 to search or update a graph.</td><td>Reads and writes Solid-friendly RDF formats, while using Qualia’s internal “Quin” representation for its own processing. Databox storage remains RDF, not Quins.</td></tr>
+            <tr><th scope="row">Where it can run</th><td>As a WASM-backed module in the Databox process; the same engine family can also be used in browser-based work.</td><td>In a browser — including an installed WebAssembly/PWA app with a persistent local database — as well as Node-based test environments and mobile WebViews through the <code>wasm-webcivics</code> build. Its Databox use is an optional, separately loaded integration.</td></tr>
+            <tr><th scope="row">What it includes</th><td>RDF loading and export, SPARQL 1.1 queries and updates, plus temporary or longer-lived graph workspaces.</td><td>Solid RDF formats, JSON-LD, N3, N-Triples, N-Quads, TriG, ordinary JSON and CSV exchange, a Qualia Quin-CBOR format, validated backups, SHACL validation, advanced logic, calculations and Qualia-to-Solid leave/return functions.</td></tr>
+            <tr><th scope="row">What it does not promise</th><td>It is not an AI decision-maker, consent process or governance policy by itself.</td><td>The Web Civics WASM profile does not include GPU/WebGPU features or a generative LLM. It also does not replace human review, consent or governance.</td></tr>
+            <tr><th scope="row">Current Databox readiness</th><td>Available as an optional in-process Databox RDF/SPARQL module.</td><td>The bridge, licence boundary and integrity checks exist. The repository’s user-facing import/export routes and sanctuary-choice screen are still listed as work to complete.</td></tr>
+            <tr><th scope="row">If the engine is unavailable</th><td>The standard Databox RDF records remain the source of truth and can be reloaded into a replacement query environment.</td><td>The standard Databox RDF records remain available. Qualia-only capabilities should be treated as optional, not as the sole way to access essential records.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="qualia-features-title">
+      <p class="eyebrow">Qualia’s advanced Web Civics features</p>
+      <h2 id="qualia-features-title">More than a graph store: a decision-evidence engine.</h2>
+      <p class="section-intro">The Web Civics Qualia WASM profile is intentionally broader than a database query engine. Its advanced features are designed to make decisions, evidence and boundaries inspectable. They do not make decisions on behalf of people.</p>
+      <div class="audience-grid advanced-grid">
+        <article>
+          <h3>Rules, rights and responsibilities</h3>
+          <p>It can evaluate permissions, obligations and prohibitions; reason about stated knowledge; and check agreement, rights, consent and harm boundaries. This supports reviewable rules rather than hidden automated judgment.</p>
+        </article>
+        <article>
+          <h3>Reasoning when information conflicts</h3>
+          <p>Paraconsistent routing can isolate a contradiction instead of treating it as a reason to discard everything. Temporal logic, description logic, answer-set and linear logic provide tools for checking sequences, categories and resource commitments.</p>
+        </article>
+        <article>
+          <h3>Evidence that can be checked</h3>
+          <p>It can validate RDF with SHACL, use pinned JSON-LD contexts and produce capability and computation receipts. This helps reviewers establish what rules, data form and engine capabilities were used in a result.</p>
+        </article>
+        <article>
+          <h3>Careful analysis, not black-box prediction</h3>
+          <p>Its Web Civics profile includes descriptive statistics, regression verification and diagnostics, economics and welfare calculations, exact arithmetic, numerical methods and linear algebra. Outliers are flagged for review, not silently deleted.</p>
+        </article>
+        <article>
+          <h3>A local database in an installed web app</h3>
+          <p>When Qualia is used as an installed WebAssembly/PWA application, it can keep a persistent local Qualia vault/database in the browser’s OPFS storage area. This is application data on the person’s device, not merely a temporary page cache.</p>
+        </article>
+        <article>
+          <h3>Personal continuity and migration</h3>
+          <p>The local database can be backed up to a user-selected folder and restored after a device or browser problem. It also supports leave-and-return paths between Qualia and Solid. Sensitive sanctuary information requires an explicit choice before export; classified information must not leave.</p>
+        </article>
+        <article>
+          <h3>Deliberately limited browser profile</h3>
+          <p>This particular WASM build excludes GPU/WebGPU, GGUF and generative LLM functions, full homomorphic encryption and native-device features. Its published capability list should be checked before any deployment claim is made.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="local-database-title">
+      <p class="eyebrow">Installed app capability</p>
+      <h2 id="local-database-title">A browser-based app can still have a real local database.</h2>
+      <div class="two-column">
+        <div>
+          <h3>What happens on the device</h3>
+          <p>When a person installs a Qualia-powered web app, the WebAssembly engine can use the browser’s Origin Private File System (OPFS) to keep the local Qualia vault/database. It stores its own durable data blocks there, rather than depending only on a web page remaining open.</p>
+          <p>This allows a person to work with their information locally in an installed app. It is useful where people want a personal device-based vault, including situations with intermittent connectivity.</p>
+        </div>
+        <div>
+          <h3>What it does not mean</h3>
+          <p>The database remains tied to the person’s browser and device until they back it up or migrate it. It is not automatically a public website, a shared cloud database or a substitute for a backup plan.</p>
+          <p>Qualia’s Web Civics profile includes a backup-folder link and verification process. When information needs to interoperate with a Solid service, Qualia can project the selected information into standard Solid RDF while respecting the required sanctuary choices.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="formats-title">
+      <p class="eyebrow">Interchange and serialisation formats</p>
+      <h2 id="formats-title">Qualia Web Civics can speak more than one data language.</h2>
+      <p class="section-intro">A serialisation is simply the form used to save or send information. Different forms suit different jobs. The Web Civics profile supports the following formats; a deployment should still check the engine’s published capability list before relying on a feature.</p>
+      <div class="table-wrap">
+        <table class="comparison-table format-table">
+          <caption>Qualia Web Civics WASM interchange and serialisation support</caption>
+          <thead><tr><th scope="col">Format or family</th><th scope="col">What it is used for</th><th scope="col">Important note</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Turtle, JSON-LD and N3</th><td>The main Solid-friendly RDF document forms for reading and writing linked data.</td><td>These are the primary RDF source types used for Solid interoperability.</td></tr>
+            <tr><th scope="row">N-Triples, N-Quads and TriG</th><td>Additional RDF forms for data exchange, datasets and named graphs.</td><td>They are mapped by the profile and can be used where their particular structure is useful.</td></tr>
+            <tr><th scope="row">Compact JSON-LD</th><td>A more readable JSON-LD form for linked-data exchange.</td><td>It uses a pinned Qualia context rather than fetching a context from a third-party website while a record is being admitted.</td></tr>
+            <tr><th scope="row">Plain JSON and CSV</th><td>Everyday data exchange with forms, spreadsheets, reports and ordinary applications.</td><td>The profile can parse and serialise JSON and CSV, including JSON mapping helpers.</td></tr>
+            <tr><th scope="row">Qualia Quin-CBOR</th><td>A compact binary form for Qualia’s internal Quin data.</td><td>Its media type is <code>application/vnd.qualia.nquin-cbor</code>. It is a Qualia vendor format, not the W3C CBOR-LD standard and not a primary Solid RDF source.</td></tr>
+            <tr><th scope="row">Qualia vault backup JSON</th><td>A backup and restore package for a person’s local Qualia vault/database.</td><td>It uses the <code>webcivics.vault-backup.v1</code> schema and <code>application/vnd.web-civics.vault-backup+json</code> media type.</td></tr>
+            <tr><th scope="row">Numeric buffers</th><td>Moving numeric arrays used by calculations and verification work.</td><td>The profile includes float and float64 array serialisers alongside its analytical features.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <h3>Interoperability comes first</h3>
+        <p>Qualia’s internal formats can make advanced local processing efficient, while Solid-friendly RDF formats keep selected information able to interoperate across the Web of Data. The Databox does not require another Solid server to adopt Qualia’s internal Quin format in order to exchange standard RDF.</p>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="symbolic-ai-title">
+      <p class="eyebrow">What “symbolic AI” means</p>
+      <h2 id="symbolic-ai-title">AI that works with stated facts, concepts and rules.</h2>
+      <div class="two-column">
+        <div>
+          <h3>Symbolic AI, in plain language</h3>
+          <p>Symbolic AI represents things explicitly: “this person is eligible”, “this rule applies until this date”, “a guardian may view but not decide”, or “these two claims conflict”. It then follows declared rules and relationships to test a conclusion. The value is that a reviewer can inspect the facts and rules used.</p>
+          <p>Qualia’s logic, validation, rights, consent, temporal and contradiction-handling tools are symbolic-AI capabilities. They can support a decision process, but they do not remove the need for a human decision-maker who is accountable for the outcome.</p>
+        </div>
+        <div>
+          <h3>How this differs from the AI people usually know</h3>
+          <p>When people say “AI” today, they often mean a generative language model: a system trained to recognise patterns in large amounts of text and generate likely words, images or code. It can be useful for drafting, explaining or helping someone find information, but its answer is not automatically a verified rule or a reliable record.</p>
+          <p>The two approaches can complement each other. A generative tool may help a person ask a question in ordinary language; symbolic AI can then check permissions, apply declared rules and provide a reviewable trail. The current Web Civics Qualia WASM profile does not itself include a generative LLM or GPU runtime, so any such tool must be separately chosen and governed.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <h3>A sensible boundary</h3>
+        <p>Use generative AI to assist people with language and exploration. Use explicit rules, evidence and accountable human review for decisions that affect people’s rights, services, money, safety or dignity.</p>
+      </div>
+    </section>
+
+    <section id="licensing" class="content-section" aria-labelledby="licensing-title">
+      <p class="eyebrow">Licence choices matter</p>
+      <h2 id="licensing-title">The engines have different terms of use — and both deserve respect.</h2>
+      <p class="section-intro">A core Web Civics Works principle is that people must be able to be paid fairly for their work. This includes the people who design, build, host, maintain and support technology for communities. The value created by code, data, knowledge, care work and computing infrastructure must not be treated as something that can be taken without meaningful consent, recognition or a fair opportunity to agree terms.</p>
+      <div class="licence-grid">
+        <article class="licence-card open">
+          <p class="licence-label">Oxigraph</p>
+          <h3>Permissively licensed open-source choice</h3>
+          <p>Oxigraph is offered under your choice of the MIT licence or Apache License 2.0. Those licences grant broad permissions subject to their terms and notices; they do not erase the cost or value of the people and resources behind a deployment.</p>
+          <p><strong>Practical implication:</strong> an organisation may use this licence path where it suits its policy, while still budgeting fairly for implementation, maintenance, security, support, hosting and energy.</p>
+          <a class="text-link" href="https://github.com/oxigraph/oxigraph#license">Read Oxigraph’s licence notice <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="licence-card restricted">
+          <p class="licence-label">Web Civics Qualia (WASM)</p>
+          <h3>Purpose-bound, separately licensed choice</h3>
+          <p>The named <code>wasm-webcivics</code> engine binary is proprietary freeware with a Web Civics Databox field-of-use restriction. It may be used only as the authorised integrated Databox component and must travel with its licence. This boundary protects the creator’s stated conditions for the advanced engine rather than making its work available for unbounded extraction.</p>
+          <p>The Databox bridge source is separately licensed under CC BY-NC-ND 4.0. It is not covered by the Databox repository’s MIT licence.</p>
+          <p><strong>Practical implication:</strong> obtain a licence review and, where needed, an appropriate agreement before procurement, redistribution, commercial use, changes or use outside the authorised Web Civics Databox ecosystem. Do not assume that another party’s code, computing resources or specialist work is free to take.</p>
+        </article>
+      </div>
+      <div class="callout fair-work-callout">
+        <h3>Rejecting digital slavery</h3>
+        <p>Digital slavery includes systems that extract labour, data, creative work, hosting, computing or support from people while denying them meaningful choice, credit, bargaining power or fair compensation. A choice is not meaningful when a person risks losing income, housing, care, safety, essential services or their ability to live with dignity by refusing. A responsible deployment budgets for the real work behind it and works toward protecting economic rights. This is an ongoing social, technical and governance objective—not an easy binary fix—and its direction is clear: basic needs should never depend on giving away a person’s work, data or future.</p>
+      </div>
+      <p class="legal-note"><strong>Please note:</strong> this page is a plain-language summary, not legal advice. The licence files supplied with the exact release are the authoritative terms. Get legal advice for a decision that creates obligations for your organisation, and make sure the budget recognises the real costs of people, maintenance, equipment, electricity and support.</p>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="safety-title">
+      <p class="eyebrow">A protection that applies to both</p>
+      <h2 id="safety-title">Sensitive information must not be moved silently.</h2>
+      <p class="section-intro">Qualia’s migration path includes a deliberate choice when restricted “sanctuary” information is present: leave it behind, or explicitly reclassify it before creating a Solid export. Classified information must not be exported. This is a useful governance rule regardless of which engine is chosen.</p>
+    </section>
+
+    <section id="next-step" class="content-section" aria-labelledby="next-title">
+      <p class="eyebrow">Choosing a path</p>
+      <h2 id="next-title">A simple starting recommendation.</h2>
+      <div class="audience-grid choose-grid">
+        <article>
+          <h3>Choose Oxigraph first when…</h3>
+          <p>Your immediate need is standards-based RDF search or reporting, and you want the clearest open-source licence path.</p>
+        </article>
+        <article>
+          <h3>Explore Qualia when…</h3>
+          <p>You have a specific requirement for its decision-evidence capabilities or Qualia leave/return workflow, and can meet the separate licence and deployment conditions.</p>
+        </article>
+        <article>
+          <h3>Pause the engine choice when…</h3>
+          <p>The service purpose, information boundaries, support model or governance responsibilities are not yet clear. Start there; no engine fixes an unclear service.</p>
+        </article>
+      </div>
+      <div class="callout">
+        <h3>A good committee resolution</h3>
+        <p>“We will keep our essential records in portable Solid RDF so they can interact, by permission, with compatible Solid services in the Web of Data. We will use optional engines to add stated capabilities — including Qualia’s advanced logic and decision-evidence features where appropriate — and approve each component only after its licence, support, security, human-rights and exit arrangements have been reviewed.”</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; community-made software built on open web standards.</p>
+    <p><a href="../">Return to the plain-language guide</a></p>
+  </footer>
+</body>
+</html>

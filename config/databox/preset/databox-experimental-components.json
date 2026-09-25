@@ -4,43 +4,142 @@
     {
       "comment": [
         "EXPERIMENTAL Track B (LWS) Databox component wiring (ADR-0024, DBX-09 scaffold).",
-        "These are the accepted Databox-owned component seams from DBX-04, wired here as fail-closed",
-        "placeholders. They are declared as named instances but are deliberately NOT yet spliced into",
-        "the core PermissionReader union or the ResourceStore middleware chain: DBX-14 splices the",
-        "composed authorizer, DBX-17 splices the append-only store. Nothing here widens access; every",
-        "placeholder refuses (throws NotImplemented) or grants nothing. Loading this preset does not",
-        "change any Track A representation (ADR-0024 §3, S-25)."
+        "CIV-C26 update: the seam layer IS now Components.js-registered — the classes emit components",
+        "(strict `componentsjs-generator` clean), so entries below are real wiring where the seam's",
+        "constructor params are config-loadable. Seams whose params are function-typed or need a",
+        "config-loadable source (the crosswalk document, the input-resolver's per-request collaborators)",
+        "are still composed programmatically — named honestly in their comments.",
+        "Where a DBX prompt delivered a real implementation, the seam names it; the DBX-09 fail-closed",
+        "placeholders remain in source and are exercised by FailClosedStubs. Nothing here is spliced",
+        "into the core PermissionReader union or ResourceStore middleware chain: DBX-14 splices the",
+        "composed authorizer, DBX-17 splices the append-only store. Loading this preset does not change",
+        "any Track A representation (ADR-0024 §3, S-25)."
       ]
     },
     {
-      "comment": "C3 authenticated-context extractor seam (DBX-12 replaces this fail-closed stub).",
+      "comment": "C3 authenticated-context extractor seam: VerifiedAssuranceContextExtractor (DBX-12) over a SignedAssuranceCrosswalk carrying the per-program signed crosswalk document. CIV-C26: now real wiring — the crosswalk document is bound from a variable (the deployment's signed per-program document, verified + version-checked on admission).",
       "@id": "urn:solid-server:databox:AuthenticatedContextExtractor",
-      "@type": "NotImplementedContextExtractor"
+      "@type": "VerifiedAssuranceContextExtractor",
+      "crosswalk": { "@id": "urn:solid-server:databox:AssuranceCrosswalk" }
     },
     {
-      "comment": "C5 tenant resolver seam (DBX-11 replaces this fail-closed stub).",
+      "comment": "The per-program signed assurance crosswalk (ADR-0010) — the claim→assurance escalation surface, admitted only through signature + version checks. A real deployment inlines its OWN signed, verified crosswalk document; the document here is the experimental reference shape.",
+      "@id": "urn:solid-server:databox:AssuranceCrosswalk",
+      "@type": "SignedAssuranceCrosswalk",
+      "documentJson": "{\"crosswalkId\":\"experimental-crosswalk\",\"version\":\"dbx-crosswalk/1.0.0\",\"signature\":\"experimental-signature-ref\",\"approvedIssuers\":[\"https://idp.example.org/\"],\"entries\":[{\"issuer\":\"https://idp.example.org/\",\"claim\":\"amr\",\"value\":\"pwd\",\"dimension\":\"authenticatorStrength\",\"level\":1}]}",
+      "expectedVersion": "dbx-crosswalk/1.0.0"
+    },
+    {
+      "comment": [
+        "C5 tenant resolver seam: RegistryTenantResolver (DBX-11) over a RelationshipMappingRegistry and",
+        "TenantBindingRegistry plus the box-root base. CIV-C26: these seams now EMIT Components.js",
+        "components, so this is REAL wiring — the in-memory registries are process-local reference",
+        "stores (ADR-0016/HD-10); a production deployment substitutes durable, access-audited stores",
+        "behind the same interfaces."
+      ],
       "@id": "urn:solid-server:databox:TenantResolver",
-      "@type": "NotImplementedTenantResolver"
+      "@type": "RegistryTenantResolver",
+      "boxBase": "https://databox.example.org/",
+      "mapping": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" },
+      "bindings": { "@id": "urn:solid-server:databox:TenantBindingRegistry" }
     },
     {
-      "comment": "C4 composed Databox authorizer seam — a narrow-never-broaden PermissionReader (DBX-14).",
+      "comment": "The relationship-mapping registry backing the tenant resolver — process-local reference store (ADR-0016; a durable store substitutes behind the interface).",
+      "@id": "urn:solid-server:databox:RelationshipMappingRegistry",
+      "@type": "InMemoryRelationshipMappingRegistry"
+    },
+    {
+      "comment": "The tenant-binding registry backing the tenant resolver — process-local reference store (DBX-11).",
+      "@id": "urn:solid-server:databox:TenantBindingRegistry",
+      "@type": "InMemoryTenantBindingRegistry"
+    },
+    {
+      "comment": "C4 composed Databox authorizer (DBX-14) — REAL wiring. ComposedDataboxPermissionReader over the production input resolver (CIV-C25) + the collaborators (CIV-C26). It composes the Track-A WAC source with the Databox conjuncts — a Databox rule can only NARROW, never broaden (two-plane).",
       "@id": "urn:solid-server:databox:ComposedAuthorizer",
-      "@type": "DenyAllDataboxPermissionReader"
+      "@type": "ComposedDataboxPermissionReader",
+      "source": { "@id": "urn:solid-server:default:PermissionReader" },
+      "resolver": { "@id": "urn:solid-server:databox:AuthorizationInputResolver" }
     },
     {
-      "comment": "C10 opaque box-identifier generator seam (DBX-10 replaces this fail-closed stub).",
+      "comment": "The production authorization-input resolver (CIV-C25) — assembles the per-request conjuncts from their authoritative sources; every collaborator is a wired concrete impl (CIV-C26).",
+      "@id": "urn:solid-server:databox:AuthorizationInputResolver",
+      "@type": "ProductionDataboxAuthorizationInputResolver",
+      "deps_contextExtractor": { "@id": "urn:solid-server:databox:AuthenticatedContextExtractor" },
+      "deps_tenantResolver": { "@id": "urn:solid-server:databox:TenantResolver" },
+      "deps_defaultExistenceVisibility": "suppressed",
+      "deps_classifier": { "@id": "urn:solid-server:databox:ResourceClassifier" },
+      "deps_relationshipSource": { "@id": "urn:solid-server:databox:RelationshipStatusSource" },
+      "deps_acceptedIndex": { "@id": "urn:solid-server:databox:AcceptedResourceIndex" },
+      "deps_odrlPrecondition": { "@id": "urn:solid-server:databox:OdrlPreconditionSource" },
+      "deps_delegationChecker": { "@id": "urn:solid-server:databox:DelegationChecker" }
+    },
+    {
+      "comment": "Path→class convention classifier — the deployment's record/submission classes are bound here (reference impl; a deployment substitutes its catalog).",
+      "@id": "urn:solid-server:databox:ResourceClassifier",
+      "@type": "PathSegmentResourceClassifier",
+      "classes": []
+    },
+    {
+      "comment": "Per-request relationship + credential-status re-check (DBX-13) over the relationship registry + the credential status list.",
+      "@id": "urn:solid-server:databox:RelationshipStatusSource",
+      "@type": "RegistryRelationshipStatusSource",
+      "registry": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" },
+      "revocation": { "@id": "urn:solid-server:databox:CredentialStatusList" }
+    },
+    {
+      "comment": "The credential status list (ADR-0007) backing the revocation re-check — the herd-privacy bitstring the verifier reads.",
+      "@id": "urn:solid-server:databox:CredentialStatusList",
+      "@type": "StatusListManager",
+      "statusListCredential": "https://databox.example.org/status/revocation"
+    },
+    {
+      "comment": "The append-only accepted-resource index (C6 / ADR-0018) — reads the governed store's existence so a replace/delete on an accepted resource is denied for EVERY actor.",
+      "@id": "urn:solid-server:databox:AcceptedResourceIndex",
+      "@type": "ResourceStoreAcceptedIndex",
+      "source": { "@id": "urn:solid-server:default:ResourceStore" }
+    },
+    {
+      "comment": "The per-op ODRL precondition (C12 / ADR-0013) — PolicyEvaluator over the immutable PolicyRegistry, with the trusted decision clock.",
+      "@id": "urn:solid-server:databox:OdrlPreconditionSource",
+      "@type": "PolicyEvaluatorOdrlSource",
+      "evaluator": { "@id": "urn:solid-server:databox:PolicyEvaluator" }
+    },
+    {
+      "comment": "The deterministic ODRL policy evaluator (DBX-20) over the immutable policy registry.",
+      "@id": "urn:solid-server:databox:PolicyEvaluator",
+      "@type": "PolicyEvaluator",
+      "registry": { "@id": "urn:solid-server:databox:PolicyRegistry" }
+    },
+    {
+      "comment": "The immutable policy registry the evaluator resolves governing versions from.",
+      "@id": "urn:solid-server:databox:PolicyRegistry",
+      "@type": "PolicyRegistry"
+    },
+    {
+      "comment": "The delegation-grant validity check (C9) over the grant registry + trusted clock.",
+      "@id": "urn:solid-server:databox:DelegationChecker",
+      "@type": "RegistryDelegationChecker",
+      "grants": { "@id": "urn:solid-server:databox:DelegationGrantRegistry" }
+    },
+    {
+      "comment": "The delegation-grant registry (reference in-memory; a durable grant store substitutes).",
+      "@id": "urn:solid-server:databox:DelegationGrantRegistry",
+      "@type": "InMemoryDelegationGrantRegistry"
+    },
+    {
+      "comment": "C10 opaque box-identifier generator seam: RandomOpaqueIdentifierGenerator (DBX-10), 128-bit CSPRNG identifiers under the deployment base URL.",
       "@id": "urn:solid-server:databox:OpaqueIdentifierGenerator",
-      "@type": "NotImplementedOpaqueIdentifierGenerator"
+      "@type": "RandomOpaqueIdentifierGenerator"
     },
     {
-      "comment": "C13 evidence ledger seam (DBX-18/DBX-19 replace this fail-closed stub).",
+      "comment": "C13 evidence ledger seam: HashChainedEvidenceLedger, the real DBX-19 ledger. The contract evolved past the DBX-09 seam shape: it appends LedgerAppendInput/LedgerEntry (databox/evidence/EvidenceLedgerStore), superseding EvidenceEvent. Process-local until a durable store backs it (CIV-C10).",
       "@id": "urn:solid-server:databox:EvidenceLedger",
-      "@type": "NotImplementedEvidenceLedger"
+      "@type": "HashChainedEvidenceLedger"
     },
     {
-      "comment": "C15 cursor / committed-event feed seam (DBX-21 replaces this fail-closed stub).",
+      "comment": "C15 cursor / committed-event feed seam: RetentionBoundedCursorFeed (DBX-21), retention-bounded in-memory feed; AuthorizedCursorFeed wraps it with the connection's tenant binding. A production deployment wires the durable outbox-backed feed.",
       "@id": "urn:solid-server:databox:CursorFeed",
-      "@type": "NotImplementedCursorFeed"
+      "@type": "RetentionBoundedCursorFeed"
     }
   ]
 }

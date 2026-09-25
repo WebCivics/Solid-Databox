@@ -33,5 +33,5 @@ Furthermore, business systems (e.g. transactional modules, operational data laye
 
 ### Phase 3: Setup Wizard & UI Alignment
 
-- Update the Forge Admin interface and Semantic Setup Wizard to reflect the new IPMS terminology.
+- Update the Smithy Admin interface and Semantic Setup Wizard to reflect the new IPMS terminology.
 - The `schema:SoftwareApplication` deployed by the organization will now be explicitly typed and identified as an **IPMS** rather than a CMS.

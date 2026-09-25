@@ -7,7 +7,6 @@ import type { ResourceIdentifier } from '../../http/representation/ResourceIdent
 import { IdentifierMap } from '../../util/map/IdentifierMap';
 import type { ExistenceVisibility } from '../profile/InstitutionProfile';
 import type { DataboxAuthorizationDecision } from './AuthorizationReasonCodes';
-import { DATABOX_DENIAL_CODES } from './AuthorizationReasonCodes';
 import { evaluateDataboxAuthorization } from './ComposedAuthorizationEngine';
 import type { DataboxAuthorizationInput } from './DataboxAuthorizationInput';
 import type { ComposedDataboxAuthorizer } from './DataboxAuthorizer';
@@ -107,18 +106,25 @@ export class ComposedDataboxPermissionReader extends PermissionReader implements
     for (const [ identifier, modes ] of input.requestedModes.entrySets()) {
       const wacSet = upstream.get(identifier) ?? {};
       const resolved = await this.resolver.resolve(identifier, modes, input.credentials);
-      const decision = this.evaluate(resolved, identifier, modes);
-      const narrowed = this.narrow(wacSet, decision);
+      // `undefined` means the resource is NOT databox-governed (not a relationship-box path) — pass
+      // through the upstream WAC result unchanged rather than deny: ordinary Solid resources (pods,
+      // public documents) carry no Databox conjuncts, and a box path that cannot resolve a tenant
+      // degrades to its own ACL. Narrowing applies only when a databox context actually resolved.
+      const decision = resolved === undefined ? undefined : this.evaluate(resolved, identifier, modes);
+      const narrowed = decision === undefined ? { ...wacSet } : this.narrow(wacSet, decision);
       result.set(identifier, narrowed);
       // The audit event carries the POST-narrow (composed) Read grant, NOT the pre-narrow WAC one
       // (round-2 fix M2): an assurance denial that narrows Read→false must NOT surface a 403 step-up that
-      // would confirm existence. Existence visibility (ADR-0023) defaults to `suppressed` when unresolved.
-      this.sink?.record({
-        resource: identifier,
-        decision,
-        composedReadObservable: narrowed[AccessMode.read] === true,
-        existenceVisibility: resolved?.existenceVisibility ?? 'suppressed',
-      });
+      // would confirm existence. A pass-through (non-databox resource) emits no decision event —
+      // existence visibility defaults to `suppressed` for any resolved databox context.
+      if (decision !== undefined) {
+        this.sink?.record({
+          resource: identifier,
+          decision,
+          composedReadObservable: narrowed[AccessMode.read] === true,
+          existenceVisibility: resolved?.existenceVisibility ?? 'suppressed',
+        });
+      }
     }
 
     // Pass through any upstream entries the request did not ask about, UNCHANGED. This is faithful to the
@@ -132,23 +138,14 @@ export class ComposedDataboxPermissionReader extends PermissionReader implements
   }
 
   /**
-   * Evaluate the conjunction for one resource. A resolver that returned `undefined` fails closed: every
-   * requested mode is denied with {@link DATABOX_DENIAL_CODES.missingInput}.
+   * Evaluate the conjunction for one resolved databox resource. Called only when the resolver produced
+   * inputs (the path is databox-governed); a missing conjunct inside those inputs is what fails closed.
    */
   private evaluate(
-    resolved: DataboxPolicyInputs | undefined,
+    resolved: DataboxPolicyInputs,
     identifier: ResourceIdentifier,
     modes: ReadonlySet<AccessMode>,
   ): DataboxAuthorizationDecision {
-    if (!resolved) {
-      return {
-        allowed: false,
-        conjunct: 'tenant',
-        code: DATABOX_DENIAL_CODES.missingInput,
-        reason: 'no Databox authorization context could be resolved',
-        deniedModes: [ ...modes ],
-      };
-    }
     return evaluateDataboxAuthorization({ ...resolved, requestedModes: modes, resourcePath: identifier.path });
   }
 

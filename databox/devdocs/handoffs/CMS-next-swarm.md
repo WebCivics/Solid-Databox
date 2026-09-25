@@ -116,7 +116,7 @@ npm.cmd run build
 npm.cmd run lint
 ```
 
-Run those from `forge-admin`.
+Run those from `smithy-admin`.
 
 ## Stop condition
 

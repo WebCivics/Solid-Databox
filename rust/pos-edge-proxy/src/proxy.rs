@@ -6,7 +6,6 @@ use hyper::body::Incoming;
 use reqwest::{Client, Identity};
 use std::fs::File;
 use std::io::Read;
-use std::sync::Arc;
 
 use crate::Args;
 

@@ -63,7 +63,7 @@ export class RegistryTenantResolver extends TenantResolver {
   }
 
   public async handle(input: TenantResolverInput): Promise<TenantContext> {
-    const { origin, audience, serviceIdentity, target } = input;
+    const { origin, audience, serviceIdentity, webId, target } = input;
 
     // 1. Derive the opaque box id from the (possibly rewritten) target path; fail closed on a target
     //    outside the box namespace or with no box segment (never a name/slug, ADR-0004).
@@ -77,6 +77,26 @@ export class RegistryTenantResolver extends TenantResolver {
     const record = await this.mapping.findByBoxId(boxId);
     if (!record) {
       throw this.deny('no relationship is bound to the target box');
+    }
+
+    // 2b. Holder binding — the request's verified WebID IS the relationship's pairwise WebID. The
+    //     pairwise identity is the vault-controlled per-relationship credential (ADR-0004): it binds
+    //     the holder directly to this tenant without a program-level audience/origin fact (the holder's
+    //     own data-plane access to their box). Any OTHER webId is not a pairwise match.
+    const holderBound = webId !== undefined && webId === record.pairwiseWebId;
+    if (holderBound) {
+      return freezeTenantContext({
+        tenantId: tenantIdOf(record.organisation, record.program),
+        organisation: record.organisation,
+        program: record.program,
+        boxId,
+        boxRoot: record.boxRoot,
+        relationshipId: record.relationshipId,
+        pairwiseWebId: record.pairwiseWebId,
+        origin,
+        audience,
+        serviceIdentity,
+      });
     }
 
     // 3. The tenant MUST have program-bound facts configured; absence fails closed (never default).

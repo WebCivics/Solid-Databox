@@ -2,7 +2,7 @@ import { BadRequestHttpError } from '../../util/errors/BadRequestHttpError';
 
 /**
  * Normalise a IPMS control-plane base path to a leading slash and no trailing slash
- * (or the empty string for a root mount), matching the Forge API's convention.
+ * (or the empty string for a root mount), matching the Smithy API's convention.
  */
 function normalizeBase(value: string): string {
   if (value.length === 0 || value === '/') {
@@ -20,7 +20,7 @@ function routeKey(method: string, path: string): string {
  * A minimal method + path router for IPMS module control-plane routes
  * (see `databox/solid-ipms-plan.md`, §5.1).
  *
- * It generalises the hardcoded route ladder of {@link MappingForgeHttpApi} into a table every
+ * It generalises the hardcoded route ladder of {@link MappingSmithyHttpApi} into a table every
  * module registers into: a module contributes `(method, subpath) -> handler` entries under the
  * shared IPMS base (default `/.databox/ipms`), and the router resolves an incoming request to its
  * handler. It is deliberately transport-agnostic — it stores and resolves handlers of a

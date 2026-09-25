@@ -1,1389 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Solid Databox - Solid for Organisations</title>
-  <meta name="description" content="Solid Databox — an organisation-hosted, governed Solid data exchange. A private, two-way postbox between an organisation and a person, built on the Community Solid Server."/>
-  <link rel="canonical" href="https://mediaprophet.github.io/Solid-CSS-Databox/"/>
-  <link rel="icon" href="./assets/images/favicon.ico" sizes="any"/>
-
-  <!-- Open Graph / Facebook / LinkedIn / Slack / iMessage rich preview -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Solid Databox"/>
-  <meta property="og:title" content="Solid Databox — Solid for Organisations"/>
-  <meta property="og:description" content="A governed, two-way data exchange — a private postbox between an organisation and a person. Built on the Community Solid Server."/>
-  <meta property="og:url" content="https://mediaprophet.github.io/Solid-CSS-Databox/"/>
-  <meta property="og:image" content="https://mediaprophet.github.io/Solid-CSS-Databox/assets/images/og-image.jpg"/>
-  <meta property="og:image:type" content="image/jpeg"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Solid Databox — Solid for Organisations"/>
-  <meta property="og:locale" content="en"/>
-
-  <!-- Twitter / X large-image card -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Solid Databox — Solid for Organisations"/>
-  <meta name="twitter:description" content="A governed, two-way data exchange — a private postbox between an organisation and a person. Built on the Community Solid Server."/>
-  <meta name="twitter:image" content="https://mediaprophet.github.io/Solid-CSS-Databox/assets/images/og-image.jpg"/>
-  <meta name="twitter:image:alt" content="Solid Databox — Solid for Organisations"/>
-
-  <!-- Schema.org structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://mediaprophet.github.io/Solid-CSS-Databox/#website",
-        "url": "https://mediaprophet.github.io/Solid-CSS-Databox/",
-        "name": "Solid Databox",
-        "description": "An organisation-hosted, governed Solid data exchange.",
-        "inLanguage": "en"
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "Solid Databox",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Node.js",
-        "url": "https://mediaprophet.github.io/Solid-CSS-Databox/",
-        "downloadUrl": "https://github.com/mediaprophet/Solid-CSS-Databox",
-        "description": "An organisation-hosted, governed Solid data exchange — a private, two-way postbox between an organisation and a person, built on the Community Solid Server.",
-        "license": "https://opensource.org/licenses/MIT",
-        "isBasedOn": "https://github.com/CommunitySolidServer/CommunitySolidServer",
-        "image": "https://mediaprophet.github.io/Solid-CSS-Databox/assets/images/og-image.jpg",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-      }
-    ]
-  }
-  </script>
-  <link rel="stylesheet" href="./assets/styles/main.css" type="text/css">
-  <script src="./assets/scripts/qrcode.min.js"></script>
-  <script src="./assets/scripts/three.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A plain-language introduction to Web Civics Databox: a way for people and organisations to exchange information with clear permission and accountability.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Web Civics Databox | Information people can understand and control</title>
+  <link rel="canonical" href="https://web.civics.au/">
+  <link rel="icon" href="./assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="./assets/images/webcivics-mark.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Web Civics Databox">
+  <meta property="og:title" content="Web Civics Databox | Information people can understand and control">
+  <meta property="og:description" content="A practical, people-first way to exchange information with clear permission and accountability.">
+  <meta property="og:url" content="https://web.civics.au/">
+  <meta property="og:image" content="https://web.civics.au/assets/images/webcivics-logo.jpg">
+  <meta property="og:image:alt" content="Web Civics logo">
+  <link rel="stylesheet" href="./assets/styles/main.css">
 </head>
 <body>
-  <canvas id="three-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.5;"></canvas>
-  <header>
-    <div class="logo-container">
-      <img src="./assets/images/solid.svg" alt="Solid Logo" />
-      <h1>Solid Databox</h1>
-    </div>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Web Civics Databox home">
+      <img src="./assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+      <span>Web Civics Databox</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#what-it-is">What it is</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#decision-guide">For decision-makers</a>
+      <a href="./engines/">Compare engines</a>
+      <a href="https://dev.civics.au/">The project</a>
+      <a href="#learn-more">Learn more</a>
+    </nav>
   </header>
-  
-  <main class="main-container">
-    <div class="hero-text">
-      <h2>Solid for Organisations</h2>
-      <p>A hypermedia communications service—like a modern-day postbox—acting as a private, two-way exchange point between one organisation program and its community.</p>
-    </div>
 
-    <!-- Marketing Section -->
-    <section class="info-card reveal">
-      <h3>What is the Solid Databox?</h3>
-      <p>
-        The Databox is not the person's general-purpose wallet. It is a relationship-specific post-box operated for a declared program. It enables the organisation to securely provide records, receipts, credentials, warranty information, and notices to the consumer, while enabling the consumer to return submissions, corrections, claims, preferences, or evidence.
-      </p>
-      
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Key Features</h4>
-          <ul class="feature-list">
-            <li><strong>Isolated Security:</strong> Every program relationship is a separate security domain.</li>
-            <li><strong>Immutable Records:</strong> Accepted records are not silently overwritten; changes create linked, auditable events.</li>
-            <li><strong>Long-term Connections:</strong> Connection credentials are portable, rotatable, and holder-bound API keys.</li>
-            <li><strong>Cryptographic Receipts:</strong> Every accepted submission produces a signed receipt.</li>
-          </ul>
+  <main id="main-content">
+    <section class="welcome" aria-labelledby="welcome-title">
+      <div>
+        <p class="eyebrow">Plain-language introduction</p>
+        <h1 id="welcome-title">Information should work for people, not the other way around.</h1>
+        <p class="lead">Web Civics Databox is a way for a person, family, community group or organisation to keep important information in a place they can understand, and share it only for clear reasons.</p>
+        <div class="button-row">
+          <a class="action-btn" href="#decision-guide">Start with the decision guide</a>
+          <a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
         </div>
+      </div>
+      <aside class="welcome-note" aria-label="A simple promise">
+        <p class="note-label">The simple idea</p>
+        <p>Instead of handing everything to one large platform, people and organisations can keep their own records and make specific, reviewable sharing arrangements.</p>
+      </aside>
+    </section>
+
+    <section id="what-it-is" class="content-section" aria-labelledby="what-it-is-title">
+      <p class="eyebrow">What it is</p>
+      <h2 id="what-it-is-title">Think of it as a secure filing cabinet with a clear visitors’ book.</h2>
+      <div class="two-column">
         <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Developer Resources</h4>
-          <p style="margin-bottom: 2rem;">
-            To set up a Databox for your organisation, you must define an <em>Institution Profile</em> and connect it to the Databox Forge control plane.
-          </p>
-          <a href="https://github.com/mediaprophet/Solid-CSS-Databox/tree/main/databox/guide" target="_blank" class="action-btn">
-            Read the Documentation
-          </a>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
-            <a href="./admin/" class="action-btn">Open the Admin Demo &rarr;</a>
-            <a href="./forge/" class="action-btn" style="background-color: var(--color-accent);">Forge Control Panel &rarr;</a>
-          </div>
-          <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary);">
-            Live in-browser demos with synthetic data — no backend required.
-          </p>
+          <p>Many services ask people to give up copies of their information. It can then be hard to know where those copies have gone, who can see them, or how to correct a mistake.</p>
+          <p>A Databox is designed to make the arrangement clearer. It gives each relationship its own place: for example, one place for a library membership, another for a local support service, and another for a community project.</p>
+        </div>
+        <div class="plain-box">
+          <h3>In everyday language</h3>
+          <dl class="word-list">
+            <div><dt>Databox</dt><dd>A protected place for records and messages.</dd></div>
+            <div><dt>Permission</dt><dd>A clear rule about who may do what, and why.</dd></div>
+            <div><dt>Record</dt><dd>Something worth keeping: a receipt, notice, form, decision or correction.</dd></div>
+            <div><dt>Audit trail</dt><dd>A dated record of an important action, so it can be checked later.</dd></div>
+          </dl>
         </div>
       </div>
     </section>
 
-    <!-- ESG Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--success);">Transformational ESG Governance & Compliance</h3>
-      <p style="margin-bottom: 0;">
-        The Databox provides a globally standards-based method to transformationally improve the governance, delivery, and auditability of ESG (Environmental, Social, and Governance) obligations. It achieves this by encoding rights and obligations as versioned, machine-readable <strong>ODRL policies</strong> that produce auditable duties. Every transaction generates cryptographically signed receipts and immutable evidence ledgers, ensuring verifiable, zero-knowledge compliance with complex data privacy frameworks.
-      </p>
-    </section>
+    <section id="how-it-works" class="content-section soft-section" aria-labelledby="how-it-works-title">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-it-works-title">One clear relationship at a time.</h2>
+      <p class="section-intro">The exact steps depend on the service. This picture shows the basic pattern without technical jargon.</p>
 
-    <!-- Platform Features Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">Platform Features</h3>
-      <p style="margin-bottom: 2rem;">The Forge Admin console provides a comprehensive suite of tools for organisations to manage their Solid Databox infrastructure, programs, and consumer relationships.</p>
+      <ol class="flow-diagram" aria-label="A four-step information-sharing flow">
+        <li>
+          <span class="flow-number">1</span>
+          <h3>Agree the purpose</h3>
+          <p>People decide what the service is for and what information it needs.</p>
+        </li>
+        <li>
+          <span class="flow-number">2</span>
+          <h3>Set the boundaries</h3>
+          <p>The group records who may see, add or change information, and under what conditions.</p>
+        </li>
+        <li>
+          <span class="flow-number">3</span>
+          <h3>Exchange what is needed</h3>
+          <p>Only the relevant record is shared. A service does not need a person’s whole digital life.</p>
+        </li>
+        <li>
+          <span class="flow-number">4</span>
+          <h3>Review and correct</h3>
+          <p>Important actions can be checked. A correction is recorded rather than quietly hiding the earlier record.</p>
+        </li>
+      </ol>
 
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Commerce &amp; POS</h4>
-          <ul class="feature-list">
-            <li><strong>POS Terminal:</strong> Full point-of-sale interface with cart, checkout, tax handling, cash/card payments, and receipt generation.</li>
-            <li><strong>Waiter Ordering:</strong> Table-side order management with kitchen dispatch, real-time order tracking, and item-level quantity control.</li>
-            <li><strong>Customer Self-Order:</strong> Kiosk-style self-service ordering for customers, reducing friction at the counter.</li>
-            <li><strong>Promotional Display:</strong> Digital signage and promotional display preview for in-store screens.</li>
-            <li><strong>Receipt Management:</strong> Browse, search, and view all issued receipts with full order details.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Infrastructure &amp; Hosting</h4>
-          <ul class="feature-list">
-            <li><strong>Hosting Setup:</strong> One-click Cloudflare DNS and tunnel configuration with apex domain, www subdomain, and origin binding.</li>
-            <li><strong>IPMS Modules:</strong> Dynamic module system with enable/disable toggles, capability declarations, and route management.</li>
-            <li><strong>Connector Mappings:</strong> ODBC and LDAP connector simulator with connection string testing and query preview.</li>
-            <li><strong>Event Dispatcher:</strong> Dispatch and monitor typed events across the Databox infrastructure.</li>
-            <li><strong>Program Management:</strong> Create and manage organisation programs with full lifecycle support.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="grid-2" style="margin-top: 2rem;">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Governance &amp; Credentials</h4>
-          <ul class="feature-list">
-            <li><strong>Governance:</strong> Role bindings, ODRL policy management, approval gates, and resolution workflows.</li>
-            <li><strong>Verifiable Credentials:</strong> Issue, verify, and revoke W3C verifiable credentials for members and programs.</li>
-            <li><strong>Member Management:</strong> Provision member pods, manage lifecycle states, and send LDN notifications.</li>
-            <li><strong>Operations:</strong> Phase 3 operational horizontals — consent, delegation, emergency, inventory, loyalty, and pricing.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Consumer Rights (ADR-0023)</h4>
-          <ul class="feature-list">
-            <li><strong>Access Requests:</strong> Receive and process consumer access requests with approve/deny workflows.</li>
-            <li><strong>Correction Requests:</strong> Handle consumer-initiated data corrections with field-level change tracking.</li>
-            <li><strong>Consumer Ledger:</strong> Immutable event ledger tracking all consumer interactions and transactions.</li>
-            <li><strong>Data Portability:</strong> Export and import data in standard formats, with full portability registry tracking.</li>
-          </ul>
-        </div>
+      <div class="callout">
+        <h3>What this means in practice</h3>
+        <p>A community organisation might send a member a program notice, a receipt or an eligibility decision. The member can see what has arrived, request a correction where appropriate, and choose whether to share relevant information back.</p>
       </div>
     </section>
 
-    <!-- IPMS Module Catalog Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">IPMS Module Catalog — 50+ Industry Modules</h3>
-      <p style="margin-bottom: 2rem;">The Databox IPMS ships with a dynamic module system of <strong>50+ industry modules</strong>, each with capability declarations, route management, and enable/disable toggles. Modules are organised into industry verticals and can be tailored per organisation profile.</p>
-
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Commerce &amp; Retail</h4>
-          <ul class="feature-list">
-            <li><strong>POS:</strong> Full point-of-sale — cart, cash register, customer ordering, table sessions, promotions, tickets, native device contract.</li>
-            <li><strong>Menu:</strong> Menu management with item categories, pricing, and availability.</li>
-            <li><strong>Catalogue:</strong> Product catalogue with variants and attributes.</li>
-            <li><strong>Pricing:</strong> Retail pricing and wholesale pricing engine.</li>
-            <li><strong>Discounts:</strong> Discount engine with rules, stacking, and conditional logic.</li>
-            <li><strong>Loyalty:</strong> Loyalty program management with points and tiers.</li>
-            <li><strong>Barcode:</strong> Barcode scanning and lookup.</li>
-            <li><strong>EFTPOS:</strong> EFTPOS terminal integration.</li>
-            <li><strong>Payments:</strong> Payments, refunds, splits, subscriptions, and tax.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Food &amp; Health Safety</h4>
-          <ul class="feature-list">
-            <li><strong>Allergy Profile:</strong> Allergen matching, ingredient declarations, consumer allergy profiles.</li>
-            <li><strong>Concessions:</strong> Concession and entitlement management.</li>
-            <li><strong>Emergency:</strong> Break-glass emergency access controls.</li>
-            <li><strong>Consent:</strong> Consent management and tracking.</li>
-            <li><strong>Delegation:</strong> Delegation of authority management.</li>
-            <li><strong>Device Auth:</strong> Device authentication and registration.</li>
-          </ul>
-        </div>
+    <section class="content-section" aria-labelledby="choice-title">
+      <p class="eyebrow">Different settings, same principle</p>
+      <h2 id="choice-title">It can support people working alone or together.</h2>
+      <div class="audience-grid">
+        <article>
+          <h3>For a person or household</h3>
+          <p>Keep personal or shared records in an arrangement the household understands. Any support or guardianship arrangements should be explicit, limited and reviewable.</p>
+        </article>
+        <article>
+          <h3>For a local group</h3>
+          <p>Keep a clear record of memberships, contributions, shared equipment or project decisions without turning a volunteer group into a data broker.</p>
+        </article>
+        <article>
+          <h3>For an organisation</h3>
+          <p>Create a defined channel for a particular service or program, with clear records, responsibilities and a way to handle corrections.</p>
+        </article>
       </div>
+    </section>
 
-      <div class="grid-2" style="margin-top: 2rem;">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Operations &amp; Logistics</h4>
-          <ul class="feature-list">
-            <li><strong>Delivery:</strong> Delivery management, driver dispatch, and driver management.</li>
-            <li><strong>Inventory:</strong> Stock management and inventory tracking.</li>
-            <li><strong>Bookings:</strong> Reservation and availability management.</li>
-            <li><strong>Jobs:</strong> Work-order and job management.</li>
-            <li><strong>Events:</strong> Event management and dispatching.</li>
-            <li><strong>Feeds:</strong> Product feed generation.</li>
-            <li><strong>Print:</strong> Print shop management and job routing.</li>
-            <li><strong>Quotations:</strong> Quotation management and rendering.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Governance &amp; Identity</h4>
-          <ul class="feature-list">
-            <li><strong>Governance:</strong> Role bindings, ODRL policy management, approval gates, resolution workflows.</li>
-            <li><strong>Credentials:</strong> W3C VC issuance, verification, revocation, and lifecycle.</li>
-            <li><strong>Access:</strong> Credential-gated access control.</li>
-            <li><strong>Consumer:</strong> Consumer access requests, correction requests, and rights management.</li>
-            <li><strong>Provenance:</strong> Provenance tracking and chain of custody.</li>
-            <li><strong>Reputation:</strong> Reputation management.</li>
-            <li><strong>Licensing:</strong> Licensing management.</li>
-            <li><strong>Org Network:</strong> Organisational unit and network management.</li>
-          </ul>
-        </div>
+    <section id="decision-guide" class="content-section decision-section" aria-labelledby="decision-title">
+      <p class="eyebrow">For councils, boards and committees</p>
+      <h2 id="decision-title">Start with the public benefit, not the technology.</h2>
+      <p class="section-intro">You do not need to be a technical expert to decide whether this approach is worth exploring. Ask the questions below before approving a pilot or program.</p>
+      <div class="question-grid">
+        <article>
+          <h3>1. What problem are we solving?</h3>
+          <p>Describe the real-world problem in a sentence. For example: “Members cannot easily find their receipts or ask for a correction.”</p>
+        </article>
+        <article>
+          <h3>2. What is the smallest amount of information needed?</h3>
+          <p>Do not collect information merely because it may be useful later. Name each type of information and its purpose.</p>
+        </article>
+        <article>
+          <h3>3. Who is responsible?</h3>
+          <p>Identify the people or roles who may add records, approve access, respond to corrections and deal with a problem.</p>
+        </article>
+        <article>
+          <h3>4. How will people get help?</h3>
+          <p>Plan for a phone number, a face-to-face option, accessible instructions and a process for people who cannot or do not wish to use a smartphone.</p>
+        </article>
+        <article>
+          <h3>5. How will we know it is fair?</h3>
+          <p>Decisions should be explainable. Keep a process for checking errors, challenging decisions and reviewing whether the system is helping.</p>
+        </article>
+        <article>
+          <h3>6. What happens if we stop?</h3>
+          <p>Agree how people will receive their records, how long information is retained, and who is accountable for closing the service safely.</p>
+        </article>
       </div>
+    </section>
 
-      <div class="grid-2" style="margin-top: 2rem;">
+    <section class="content-section soft-section" aria-labelledby="safety-title">
+      <p class="eyebrow">An honest note about safety</p>
+      <h2 id="safety-title">Good technology helps, but good governance is still essential.</h2>
+      <div class="two-column">
         <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Infrastructure &amp; Integration</h4>
-          <ul class="feature-list">
-            <li><strong>Hosting:</strong> Cloudflare DNS, tunnel configuration, and hosting setup.</li>
-            <li><strong>Integration:</strong> ODBC/LDAP connector contracts, R2RML mapping, runtime plans.</li>
-            <li><strong>Backups:</strong> Backup management and scheduling.</li>
-            <li><strong>Accounting:</strong> Accounting bridge and ledger integration.</li>
-            <li><strong>Tax:</strong> Tax engine with jurisdiction-aware calculation.</li>
-            <li><strong>Notifications:</strong> Notification management and delivery.</li>
-            <li><strong>I18n:</strong> Internationalisation and locale negotiation.</li>
-            <li><strong>A11y:</strong> Accessibility auditing and contrast checking.</li>
-            <li><strong>Theming:</strong> Theming tokens and customisation system.</li>
+          <h3>Designed to support</h3>
+          <ul class="check-list">
+            <li>clear reasons for sharing information;</li>
+            <li>separate spaces for separate relationships;</li>
+            <li>records of important actions and corrections;</li>
+            <li>open standards, so one supplier does not own everyone’s data.</li>
           </ul>
         </div>
         <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Web &amp; Social</h4>
-          <ul class="feature-list">
-            <li><strong>Website:</strong> Public website with customer display renderer, public feed renderer, SEO, sitemap/robots.</li>
-            <li><strong>Social:</strong> Social notes and interactions.</li>
-            <li><strong>Business:</strong> Business information and opening hours.</li>
-            <li><strong>HR:</strong> Human resources module.</li>
-            <li><strong>Household:</strong> Household management.</li>
-            <li><strong>Records:</strong> Record entries and management.</li>
-            <li><strong>Receipt:</strong> Receipt documents and management.</li>
-            <li><strong>Ticketing:</strong> Ticketing system.</li>
-            <li><strong>MCP:</strong> Model Context Protocol server API.</li>
+          <h3>It cannot replace</h3>
+          <ul class="check-list">
+            <li>consent, privacy and records-management obligations;</li>
+            <li>staff training, accessible support and careful service design;</li>
+            <li>independent oversight and a process for complaints;</li>
+            <li>ordinary security work such as updates, backups and incident response.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Databox Engine Subsystems Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">Databox Engine Subsystems</h3>
-      <p style="margin-bottom: 2rem;">Beyond the IPMS modules, the Databox engine provides 24 core subsystems that implement the governed data exchange, policy enforcement, evidence chain, and compliance decision support.</p>
-
-      <div class="grid-2">
+    <section class="content-section fair-work-section" aria-labelledby="fair-work-title">
+      <p class="eyebrow">A Web Civics Works principle</p>
+      <h2 id="fair-work-title">Good technology should help people be paid fairly for the value they create.</h2>
+      <div class="two-column">
         <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Identity &amp; Authorization</h4>
-          <ul class="feature-list">
-            <li><strong>Opaque Provisioning:</strong> 128-bit cryptographically secure opaque Databox URL generation — no customer identifiers in paths.</li>
-            <li><strong>Tenant Isolation:</strong> Per-program tenant binding, context, isolation guard, and resolver.</li>
-            <li><strong>Authenticated Context:</strong> Assurance crosswalk between IdP claims and Databox assurance levels, step-up authentication.</li>
-            <li><strong>Connection Credentials:</strong> Holder-bound, program-specific, revocable W3C Verifiable Credentials with bitstring status lists, ES256 signing, and RFC 8693 token exchange.</li>
-            <li><strong>Composed Authorizer:</strong> Integrates Databox policy with WAC/ACP, reason codes, and step-up response handling.</li>
-          </ul>
+          <p>Web Civics Works rejects digital slavery: the extraction of people’s labour, knowledge, creative work, data, computing resources or support work without meaningful consent, recognition and a fair opportunity to agree terms and payment.</p>
+          <p>That principle includes the people who build, host, maintain and support community technology. Open standards and voluntary sharing can be valuable, but neither makes a person’s time, skill, electricity, equipment or care work free to take.</p>
         </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Policy &amp; Compliance</h4>
-          <ul class="feature-list">
-            <li><strong>ODRL Policy Engine:</strong> Versioned policy bundles, conflict strategy, constraint evaluation, duty engine with state machine and handlers.</li>
-            <li><strong>Compliance Engine:</strong> Australian compliance registry with pinned legislation, compliance digest, and decision-support views.</li>
-            <li><strong>Policy Evaluator:</strong> ODRL permission/prohibition/duty evaluation with complexity guard and bundle admission.</li>
+        <div class="plain-box">
+          <h3>What fair participation asks for</h3>
+          <ul class="check-list">
+            <li>clear, voluntary terms before a person’s work, data or resources are used;</li>
+            <li>credit and a traceable record of meaningful contributions;</li>
+            <li>a fair way to agree compensation, costs or shared benefit where value is created;</li>
+            <li>no hidden dependence on unpaid work, coerced data extraction or one-sided platform rules.</li>
           </ul>
         </div>
       </div>
-
-      <div class="grid-2" style="margin-top: 2rem;">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Exchange &amp; Evidence</h4>
-          <ul class="feature-list">
-            <li><strong>Deposit/Submission Gateway:</strong> Idempotency registry, RDF shape validation, binary evidence quarantine, and real evidence scanners.</li>
-            <li><strong>Record Proof Validation:</strong> Canonicalization, issuer trust store, offline verification, and record proof suite.</li>
-            <li><strong>Signed Receipts:</strong> Durable commit before receipt issuance, state progression, and receipt verification.</li>
-            <li><strong>Evidence Ledger:</strong> Append-only evidence chain with audit projection and ledger store.</li>
-            <li><strong>Append-Only Storage:</strong> Supersession links, tombstone handling, and correction history.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Review &amp; Notification</h4>
-          <ul class="feature-list">
-            <li><strong>Governed Review Queue:</strong> Review assurance, disposition workflow, signed dispositions, and append-only disposition store.</li>
-            <li><strong>Transactional Outbox:</strong> Outbox drainer with cursor recovery, SSRF-guarded endpoint validation, and outbound notification channels.</li>
-            <li><strong>Cursor Feed:</strong> Cursor-based recovery feed with pagination for catch-up after disconnection.</li>
-            <li><strong>Institutional Bridge:</strong> Source-outbox consumption, relationship resolution, and institutional record builder.</li>
-            <li><strong>Reference Consumer Agent:</strong> Consumer connection registry, local knowledge store, scoped submissions, and ODRL terms presenter.</li>
-          </ul>
-        </div>
+      <div class="callout">
+        <h3>Consent is not meaningful under economic coercion</h3>
+        <p>People and communities may volunteer, donate, share or contribute to a commons, but a choice is not genuinely free when a person faces poverty, loss of housing, loss of income, loss of care, loss of essential services, threats to their safety or no reasonably safe alternative. Protecting people’s economic rights and ability to live with dignity is a demanding, ongoing Web Civics Works objective. It requires work on technology, governance, funding, support and accountability; it is not an easy binary fix. The direction is clear: access to basic needs should never depend on surrendering a person’s work, data, rights or future.</p>
       </div>
     </section>
 
-    <!-- Org Mobile Apps Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">Org Mobile Apps — WASM/PWA Container</h3>
-      <p style="margin-bottom: 1.5rem;">A unified WASM/PWA container that fetches its identity, features, and permissions from the IPMS at runtime based on the org's vertical profile and the app's purpose. Instead of building separate apps for each purpose, one container dynamically loads UI modules from the IPMS.</p>
-
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">App Profiles</h4>
-          <ul class="feature-list">
-            <li><strong>Waiter App:</strong> Table-side order management (local-only network scope).</li>
-            <li><strong>Driver App:</strong> Delivery driver management (remote-capable).</li>
-            <li><strong>Tradie App:</strong> Trade/tradie field service (local-only).</li>
-            <li><strong>Print App:</strong> Print shop operations (local-only).</li>
-            <li><strong>Scorekeeper App:</strong> Scorekeeping for events (local-only).</li>
-            <li><strong>Referee App:</strong> Referee management for sports (local-only).</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Container Features</h4>
-          <ul class="feature-list">
-            <li><strong>Dynamic Module Loading:</strong> UI component bundles fetched from IPMS at boot.</li>
-            <li><strong>Per-Install VC Licensing:</strong> Each install receives a Verifiable Credential licence binding app, org, device, scope, and permissions.</li>
-            <li><strong>Network Scope Enforcement:</strong> Service worker enforces local-only vs remote-capable access.</li>
-            <li><strong>Solid-OIDC Auth:</strong> PWA shell with Solid-OIDC authentication.</li>
-            <li><strong>Profile-Driven Availability:</strong> Apps filtered by org's enabled IPMS modules and vertical profile.</li>
-          </ul>
-        </div>
+    <section id="learn-more" class="content-section learn-section" aria-labelledby="learn-title">
+      <p class="eyebrow">Learn more</p>
+      <h2 id="learn-title">Choose the next step that suits you.</h2>
+      <div class="audience-grid">
+        <article>
+          <h3>The project</h3>
+          <p>Civics.au brings together the wider work: resilient community infrastructure, fair participation, local capability and the practical ideas that the Databox can support.</p>
+          <a class="text-link" href="https://dev.civics.au/">Visit Civics.au <span aria-hidden="true">↗</span></a>
+        </article>
+        <article>
+          <h3>Discuss a possible use</h3>
+          <p>Use the decision questions above as the agenda for a first conversation with your committee, staff or community.</p>
+          <a class="text-link" href="#decision-guide">Read the questions again <span aria-hidden="true">↑</span></a>
+        </article>
+        <article>
+          <h3>Try the demonstration</h3>
+          <p>The demonstration uses made-up information. It is for learning how an organisation might set up a program, not for managing real people’s records.</p>
+          <a class="text-link" href="./smithy/">Open the demonstration <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Compare the two engines</h3>
+          <p>Oxigraph and Web Civics Qualia have different purposes, deployment options and licence terms. The comparison explains the choice without assuming technical knowledge.</p>
+          <a class="text-link" href="./engines/">Compare engines <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Read the technical material</h3>
+          <p>Implementation notes, developer guidance and the source code are available for technical teams and independent review.</p>
+          <a class="text-link" href="https://github.com/WebCivics/Solid-Databox/tree/main/databox/guide">Open technical documentation <span aria-hidden="true">↗</span></a>
+        </article>
       </div>
     </section>
-
-    <!-- Rust Components Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">Rust Native Components</h3>
-      <p style="margin-bottom: 1.5rem;">Beyond the Node.js server and admin console, the Databox ecosystem includes Rust native components for hardware integration, system management, and connector bridging.</p>
-
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">POS Edge &amp; Proxy</h4>
-          <ul class="feature-list">
-            <li><strong>POS Edge (native):</strong> Rust POS edge with ESC/POS thermal printer support, cash drawer control, QR code generation, local HTTP server, and IPC.</li>
-            <li><strong>POS Edge Proxy (rust):</strong> Proxy layer for POS edge communication.</li>
-            <li><strong>Hardware Abstraction:</strong> Hardware abstraction layer for printers, cash drawers, and barcode scanners.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">System &amp; Integration</h4>
-          <ul class="feature-list">
-            <li><strong>Installer (native):</strong> Cross-platform installer with macOS launchd service registration, platform-aware Node.js provisioning, pre-flight checks, and deployment handoff.</li>
-            <li><strong>Tray Supervisor (rust):</strong> System tray supervisor for desktop lifecycle management.</li>
-            <li><strong>Connector Sidecar (rust):</strong> Connector sidecar for IPMS integration with ODBC/LDAP bridging and RDF mapping.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CKAN Bridge Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">CKAN Bridge — Pod→CKAN Publication Pipeline</h3>
-      <p style="margin-bottom: 2rem;">An opt-in microservice that publishes governed Solid Pod data to a CKAN open-data portal. The bridge reads from Pods via Solid-OIDC, validates with SHACL, translates RDF to tabular form, and publishes via the CKAN Action API — with idempotent retries, reconciliation drift detection, and correction propagation.</p>
-
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Bridge Microservice (TypeScript)</h4>
-          <ul class="feature-list">
-            <li><strong>Solid-OIDC Client:</strong> DPoP-bound access tokens for reading Pods; short-lived, cached, fail-closed on expiry.</li>
-            <li><strong>CKAN Action API Client:</strong> HTTP-only RPC client (<code>package_show</code>, <code>package_create</code>, <code>package_update</code>, <code>datastore_create/upsert/search</code>, <code>organization_show/create</code>, <code>user_show</code>, <code>activity_data_list</code>).</li>
-            <li><strong>SHACL Validator:</strong> Fail-closed validation before any data reaches CKAN; non-compliant data is quarantined.</li>
-            <li><strong>RDF→Tabular Translator:</strong> Program-profile-driven field mapping with PII anonymisation (stripped, hashed, generalised) and evidence recording.</li>
-            <li><strong>Publication Pipeline:</strong> Idempotent via <code>sha256(podIri:contentDigest)</code>; bounded retries with quarantine on max-retries-exceeded.</li>
-            <li><strong>Webhook Handler:</strong> HMAC-SHA256 signature verification, idempotent event deduplication, routes <code>dataset_created/updated/deleted</code> events.</li>
-            <li><strong>Reconciliation &amp; Drift Detection:</strong> Periodic sweeps compare Pod state with CKAN state; detects editor-originated drift and orphaned CKAN datasets.</li>
-            <li><strong>Correction Propagation:</strong> Propagates Databox review dispositions (corrected, statement-associated, partially-corrected, etc.) to CKAN datasets with per-recipient notification duties.</li>
-            <li><strong>Metadata Feedback:</strong> Writes append-only feedback entries back to the Pod when CKAN metadata changes.</li>
-            <li><strong>Disclosure Ledger:</strong> Append-only evidence chain recording every publication, correction, and anonymisation event.</li>
-            <li><strong>HTTP Endpoints:</strong> <code>/health</code>, <code>/publish</code>, <code>/webhook</code>.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">CKAN Plugin (Python)</h4>
-          <ul class="feature-list">
-            <li><strong>Thin Plugin:</strong> <code>ckanext-databox-bridge</code> — no business logic, no RDF parsing, no Solid auth. All heavy lifting is in the bridge microservice.</li>
-            <li><strong>Webhook Emission:</strong> Emits HMAC-signed webhooks on dataset lifecycle events (created, updated, deleted) to the bridge.</li>
-            <li><strong>Custom Action API:</strong> <code>ckan_bridge_status</code> (public read-only) and <code>ckan_bridge_sync</code> (service-token-only) for callback synchronisation.</li>
-            <li><strong>Dataset Schema Extensions:</strong> Adds <code>databox_provenance_iri</code>, <code>databox_policy_iri</code>, <code>databox_shacl_shape_iri</code>, <code>databox_consent_receipt_iri</code> fields to CKAN dataset schemas.</li>
-            <li><strong>Write Access Control:</strong> Bridge service API token is the only authorised writer; public users get read-only.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="grid-2" style="margin-top: 2rem;">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Testing</h4>
-          <ul class="feature-list">
-            <li><strong>197 unit tests</strong> across 18 test suites — 92.5% statement coverage.</li>
-            <li><strong>Adversarial security tests:</strong> HMAC replay, signature forgery, token expiry fail-closed, DPoP key load failure.</li>
-            <li><strong>Conformance tests:</strong> SHACL fail-closed, idempotency dedup, max-retries quarantine, Pod 403 fail-closed.</li>
-            <li><strong>E2E integration test:</strong> Full Pod→SHACL→translate→CKAN publish→ledger flow.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Deployment</h4>
-          <ul class="feature-list">
-            <li><strong>Kubernetes:</strong> Deployment, Service, ConfigMap, NetworkPolicies, Kustomize manifests included.</li>
-            <li><strong>Secrets:</strong> CKAN API token, DPoP key, webhook secret mounted from Kubernetes Secrets — never inlined.</li>
-            <li><strong>Config:</strong> SHACL shapes and program profile mounted from ConfigMaps.</li>
-            <li><strong>Strict ESLint:</strong> TypeScript strict + stylistic presets; zero lint errors.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testing & Deployment Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--text-accent);">Testing &amp; Deployment</h3>
-      <p style="margin-bottom: 1.5rem;">The Databox extension is fail-closed and unit-tested across all subsystems, with integration tests proving live CSS/OIDC/WAC operation. Deployment guides cover Docker Compose and Kubernetes.</p>
-
-      <div class="grid-2">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Test Coverage</h4>
-          <ul class="feature-list">
-            <li><strong>188 unit test files</strong> across 24 Databox subsystems (agent, authorization, bridge, IPMS, compliance, context, credential, evidence, feed, gateway, identifiers, notification, ODRL, policy, profile, proof, provisioning, receipt, review, storage, tenant).</li>
-            <li><strong>99 IPMS-specific unit tests</strong> covering module APIs, stores, and handlers.</li>
-            <li><strong>6 integration tests</strong> including live CSS/OIDC/WAC, IPMS handler, IPMS accessibility, Oxigraph sync, vanilla mode, and vertical profiles.</li>
-            <li><strong>Fail-closed stubs</strong> verified by dedicated test — no stub silently permits access.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Deployment Options</h4>
-          <ul class="feature-list">
-            <li><strong>Docker Compose:</strong> IPMS deployment via <code>docker-compose.ipms.yml</code> with environment configuration.</li>
-            <li><strong>Kubernetes:</strong> Kubernetes manifests for production IPMS deployment.</li>
-            <li><strong>Secret Management:</strong> Secret templates for deployment configuration.</li>
-            <li><strong>Live CSS Preset:</strong> Experimental Components.js preset for mounting the Forge inside a running CSS instance.</li>
-            <li><strong>Native Installer:</strong> Cross-platform installer for macOS with service registration.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Multi-Language Support Section -->
-    <section class="info-card reveal">
-      <h3 style="color: var(--success);">41-Language International Support</h3>
-      <p style="margin-bottom: 1.5rem;">The Forge Admin console ships with full internationalisation (i18n) across <strong>41 languages</strong> spanning European, South American, Asian, and Middle Eastern regions. A built-in language selector in the sidebar allows instant switching with preference persistence.</p>
-
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇬🇧 English</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇫🇷 Français</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇹 Italiano</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇳🇱 Nederlands</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇪🇸 Español</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇩🇪 Deutsch</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇬🇷 Ελληνικά</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇵🇹 Português</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇵🇱 Polski</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇸🇪 Svenska</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇩🇰 Dansk</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇳🇴 Norsk</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇫🇮 Suomi</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇨🇿 Čeština</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇭🇺 Magyar</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇷🇴 Română</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇧🇬 Български</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇭🇷 Hrvatski</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇸🇰 Slovenčina</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇸🇮 Slovenščina</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇪🇪 Eesti</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇱🇻 Latviešu</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇱🇹 Lietuvių</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇧🇷 Português (BR)</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇨🇳 中文 (简体)</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇹🇼 中文 (繁體)</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇯🇵 日本語</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇰🇷 한국어</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇻🇳 Tiếng Việt</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇹🇭 ไทย</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇩 Bahasa Indonesia</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇲🇾 Bahasa Melayu</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇵🇭 Filipino</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇳 हिन्दी</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇧🇩 বাংলা</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇳 தமிழ்</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇸🇦 العربية</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇱 עברית</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇮🇷 فارسی</span>
-        <span style="background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); border-radius: 99px; padding: 0.35rem 0.85rem; font-size: 0.85rem;">🇹🇷 Türkçe</span>
-      </div>
-
-      <div class="grid-2" style="margin-top: 1.5rem;">
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Cross-Platform Installer</h4>
-          <ul class="feature-list">
-            <li><strong>macOS Support:</strong> Universal installer for both Intel (x86_64) and Apple Silicon (Metal/aarch64) architectures.</li>
-            <li><strong>Platform-Aware Node.js Provisioning:</strong> Automatically downloads the correct Node.js binary for the host platform and architecture.</li>
-            <li><strong>Native Service Registration:</strong> Uses <code>launchd</code> and <code>launchctl</code> for macOS service management with privilege detection.</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-bottom: 1rem;">Native POS Edge</h4>
-          <ul class="feature-list">
-            <li><strong>Rust Hardware Bridge:</strong> Native POS-edge component in Rust for direct hardware integration.</li>
-            <li><strong>Thermal Printer Support:</strong> ESC/POS protocol support for thermal receipt printers.</li>
-            <li><strong>Cash Drawer Control:</strong> Direct cash drawer kick-out commands via connected printer hardware.</li>
-            <li><strong>HTTP &amp; IPC:</strong> Local HTTP server with IPC for inter-process communication and lifecycle events.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Industry Applications Section -->
-    <div class="divider"></div>
-    <div class="hero-text reveal">
-      <h2 style="font-size: 2.5rem;">Industry Applications</h2>
-      <p style="font-size: 1.15rem;">Discover how the Solid Databox fundamentally transforms data governance and relationships across every sector.</p>
-    </div>
-    
-    <div class="tabs" id="category-tabs" style="display: flex; flex-wrap: wrap;">
-      <!-- Category Tabs generated dynamically -->
-    </div>
-
-    <div id="use-cases-grid" class="record-grid" style="margin-bottom: 3rem;">
-      <!-- Use Case Cards generated dynamically -->
-      <div style="text-align: center; width: 100%; color: var(--text-secondary);">Loading applications...</div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="hero-text reveal">
-      <h2 style="font-size: 2.5rem;">Interactive Demonstrators</h2>
-      <p style="font-size: 1.15rem;">Explore the live integrations currently running on this Databox server instance.</p>
-    </div>
-
-    <div class="tabs">
-      <button class="tab-btn demo-tab active" onclick="switchTab('consumer')">Seraphim: Consumer Portal</button>
-      <button class="tab-btn demo-tab" onclick="switchTab('admin')">Seraphim: Admin Panel</button>
-      <button class="tab-btn demo-tab" onclick="switchTab('loyalty')">MegaMart: Loyalty Forge</button>
-    </div>
-
-    <!-- Consumer Tab -->
-    <div id="tab-consumer" class="tab-content active reveal">
-      <div class="info-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
-        <div class="demo-banner" style="background: rgba(220,38,38,0.2); border: 1px solid rgba(220,38,38,0.4); margin-bottom: 1rem;">NOTE: This static GitHub Pages version cannot run the backend provisioner APIs. Clone the repo and run locally for full interactivity.</div>
-        <h3>Seraphim Welfare Demonstrator</h3>
-        <p style="max-width: 600px; margin: 0 auto 2.5rem auto;">
-          Generate a secure connection string for a new welfare consumer ("Charles James"). The consumer can scan this QR code with their mobile Databox app to establish a trust relationship.
-        </p>
-        
-        <button id="btn-provision" class="action-btn" onclick="provisionCharles()">
-          <span>Provision "Charles James"</span>
-          <span class="loading-spinner" id="spinner-provision"></span>
-        </button>
-
-        <div id="qr-section" class="qr-container hidden">
-          <div class="demo-banner">DEMO EXAMPLE - SYNTHETIC DATA</div>
-          <p style="margin-bottom: 0.75rem; color: var(--text-secondary); font-size: 0.9rem;">
-            Scan this QR code with a Solid pod app to pair your WebID with the organisation's programme.
-          </p>
-          <div id="qrcode"></div>
-          <p style="margin: 1rem 0 0.25rem; font-size: 0.85rem;"><strong>Connection URI:</strong></p>
-          <div class="code-block" id="connection-uri" style="word-break: break-all; font-size: 0.75rem;"></div>
-          <details style="margin-top: 1rem;">
-            <summary style="cursor: pointer; color: var(--text-accent); font-weight: 600; font-size: 0.9rem;">Connection Details</summary>
-            <div style="margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.7;">
-              <p><strong>Pairwise WebID:</strong> <span id="lbl-pair-webid" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Organisation (Issuer):</strong> <span id="lbl-issuer" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Programme:</strong> <span id="lbl-programme" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Databox Root:</strong> <span id="lbl-databox" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Storage Description:</strong> <span id="lbl-storage-desc" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Connection ID:</strong> <span id="lbl-conn-id" style="color: var(--text-secondary);"></span></p>
-            </div>
-            <p style="margin-top: 0.75rem; font-size: 0.85rem;"><strong>Securing JWS:</strong></p>
-            <div class="code-block" id="jws-string" style="max-height: 120px; overflow-y: auto; font-size: 0.7rem;"></div>
-          </details>
-        </div>
-      </div>
-    </div>
-
-    
-    <!-- Loyalty Tab -->
-    <div id="tab-loyalty" class="tab-content reveal">
-      <div class="info-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
-        <h3>MegaMart Loyalty Forge</h3>
-        <p style="max-width: 600px; margin: 0 auto 2.5rem auto;">
-          Generate a secure connection string for a new synthetic loyalty customer ("Customer 042"). This will forge a new program relationship and post a digital receipt to their Databox.
-        </p>
-        
-        <button id="btn-provision-loyalty" class="action-btn" onclick="provisionMegaMart()" style="background-color: var(--color-accent);">
-          <span>Provision "Customer 042"</span>
-          <span class="loading-spinner" id="spinner-provision-loyalty"></span>
-        </button>
-
-        <div id="qr-section-loyalty" class="qr-container hidden">
-          <div class="demo-banner">DEMO EXAMPLE - SYNTHETIC DATA</div>
-          <p style="margin-bottom: 0.75rem; color: var(--text-secondary); font-size: 0.9rem;">
-            Scan this QR code with a Solid pod app to pair your WebID with MegaMart Rewards.
-          </p>
-          <div id="qrcode-loyalty"></div>
-          <p style="margin: 1rem 0 0.25rem; font-size: 0.85rem;"><strong>Connection URI:</strong></p>
-          <div class="code-block" id="connection-uri-loyalty" style="word-break: break-all; font-size: 0.75rem;"></div>
-          <details style="margin-top: 1rem;">
-            <summary style="cursor: pointer; color: var(--text-accent); font-weight: 600; font-size: 0.9rem;">Connection Details</summary>
-            <div style="margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.7;">
-              <p><strong>Pairwise WebID:</strong> <span id="lbl-pair-webid-loyalty" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Organisation (Issuer):</strong> <span id="lbl-issuer-loyalty" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Programme:</strong> <span id="lbl-programme-loyalty" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Databox Root:</strong> <span id="lbl-databox-loyalty" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Storage Description:</strong> <span id="lbl-storage-desc-loyalty" style="color: var(--text-secondary);"></span></p>
-              <p><strong>Connection ID:</strong> <span id="lbl-conn-id-loyalty" style="color: var(--text-secondary);"></span></p>
-            </div>
-            <p style="margin-top: 0.75rem; font-size: 0.85rem;"><strong>Securing JWS:</strong></p>
-            <div class="code-block" id="jws-string-loyalty" style="max-height: 120px; overflow-y: auto; font-size: 0.7rem;"></div>
-          </details>
-        </div>
-      </div>
-    </div>
-  
-
-    <!-- Admin Tab -->
-    <div id="tab-admin" class="tab-content reveal">
-      <div class="info-card">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-          <h3 style="margin: 0;">Case Worker Dashboard</h3>
-          <span style="background: rgba(251, 191, 36, 0.15); color: var(--text-accent); padding: 0.5rem 1rem; border-radius: 99px; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(251, 191, 36, 0.3);">
-            Active Case: Charles James
-          </span>
-        </div>
-        
-        <p>This panel securely renders the cryptographic receipts and live references for the data physically committed to the Databox server.</p>
-        
-        <div id="admin-empty-state" style="text-align: center; padding: 4rem 2rem; background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px dashed var(--border-light);">
-          <p style="margin: 0; color: var(--text-secondary); font-size: 1.25rem;">No case data provisioned yet. Please provision the consumer first.</p>
-        </div>
-
-        <div id="admin-data-state" class="hidden">
-          <div class="record-grid">
-            <div class="record-box">
-              <h4>Program Mapping</h4>
-              <p><strong>Relationship ID:</strong> <br/><span id="lbl-relationship"></span></p>
-              <p><strong>Pairwise WebID:</strong> <br/><span id="lbl-pairwise"></span></p>
-            </div>
-            <div class="record-box">
-              <h4 style="color: var(--success);">Case Note Dispatched</h4>
-              <p><strong>Status:</strong> Reconciled & Accepted</p>
-              <p><strong>Notes:</strong> Initial intake completed. Immediate stability goals set.</p>
-            </div>
-          </div>
-          
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-top: 3rem; margin-bottom: 0.5rem;">Live CSS Resource Locator</h4>
-          <p>The accepted resource has been physically committed to the CSS storage under the relationship root:</p>
-          <div class="code-block" id="lbl-resource"></div>
-
-          <h4 style="color: var(--text-accent); font-size: 1.25rem; margin-top: 3rem; margin-bottom: 0.5rem;">Cryptographic Receipt (JWS)</h4>
-          <p>The Forge issued this cryptographically signed receipt as proof of acceptance:</p>
-          <div class="code-block" id="lbl-receipt"></div>
-        </div>
-      </div>
-    </div>
   </main>
 
   <footer>
-    <p>Community Solid Server &middot; Databox Experimental Track B</p>
+    <p><strong>Web Civics Databox</strong> &middot; community-made software built on open web standards.</p>
+    <p>Not a government service. Demonstrations use synthetic information only.</p>
   </footer>
-
-  <script>
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-btn.demo-tab').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      
-      event.target.classList.add('active');
-      document.getElementById('tab-' + tabId).classList.add('active');
-    }
-
-    let allUseCases = [];
-
-    async function loadUseCases() {
-      try {
-        const res = await fetch('./assets/scripts/use-cases.json');
-        if (!res.ok) throw new Error('Failed to load');
-        allUseCases = await res.json();
-        
-        // Extract unique categories
-        const categories = [...new Set(allUseCases.map(uc => uc.category))];
-        
-        // Build Tabs
-        const tabsContainer = document.getElementById('category-tabs');
-        tabsContainer.innerHTML = `<button class="tab-btn category-tab active" onclick="filterUseCases('All')">All</button>`;
-        categories.forEach(cat => {
-          tabsContainer.innerHTML += `<button class="tab-btn category-tab" onclick="filterUseCases('${cat}')">${cat}</button>`;
-        });
-        
-        filterUseCases('All');
-      } catch (e) {
-        document.getElementById('use-cases-grid').innerHTML = '<p style="color: #ef4444; text-align: center; width: 100%;">Failed to load industry applications.</p>';
-      }
-    }
-
-    function filterUseCases(category) {
-      // Update Tab Styles
-      document.querySelectorAll('.tab-btn.category-tab').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.innerText === category) btn.classList.add('active');
-      });
-
-      // Filter and Render Cards
-      const filtered = category === 'All' ? allUseCases : allUseCases.filter(uc => uc.category === category);
-      const grid = document.getElementById('use-cases-grid');
-      
-      grid.innerHTML = filtered.map(uc => `
-        <div class="record-box" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-accent); margin-bottom: 0.5rem; font-weight: 700;">${uc.category}</span>
-          <h4 style="color: white; font-size: 1.4rem; margin-bottom: 1rem; margin-top: 0;">${uc.title}</h4>
-          <p style="margin-bottom: 0; color: var(--text-secondary); flex: 1;">${uc.description}</p>
-        </div>
-      `).join('');
-    }
-
-    // Load use cases on boot
-    loadUseCases();
-
-    const FORGE_URL = 'http://localhost:3000/.databox/forge';
-    const TOKEN = '12345678901234567890123456789012';
-
-    const profile = {
-      "schemaVersion": "dbx-institution-profile/1.0.0",
-      "profileId": "prog-seraphim-welfare",
-      "profileVersion": "1.0.0",
-      "effectiveInterval": { "effectiveFrom": "2026-01-01T00:00:00Z", "effectiveUntil": "2027-01-01T00:00:00Z" },
-      "synthetic": true,
-      "program": {
-        "principal": { "id": "party-principal", "legalName": "Seraphim Welfare Demonstrator (SYNTHETIC)", "jurisdiction": "AU", "contact": "mailto:privacy@seraphim.example" },
-        "accountableParty": { "id": "party-accountable", "legalName": "Seraphim Case Management (SYNTHETIC)", "jurisdiction": "AU" }
-      },
-      "processors": [],
-      "tenancy": { "deploymentModel": "path-only", "origin": "https://localhost:3000/", "tokenAudience": "https://localhost:3000/" },
-      "crypto": { "signingSuite": "ES256", "signingKeyRef": "kms://program/seraphim/signing/1", "atRestEncryption": { "required": true, "perTenantKeys": true }, "applicationLevelEncryption": "optional" },
-      "identityProviders": [ { "id": "idp-govid", "issuer": "https://id.govid.example/", "protocol": "oidc", "accreditation": "SYNTHETIC-TDIF:IP3", "claimContract": [ "sub", "ial", "aal", "iss", "acr" ] } ],
-      "assuranceMappings": [ { "issuer": "idp-govid", "dimension": "identityProofing", "claim": "ial", "level": 3 } ],
-      "tokenBroker": { "adopted": true, "brokerOrigin": "https://broker.seraphim.example/", "tokenExchange": "rfc8693", "senderConstraint": "dpop" },
-      "offlineGrantPolicy": { "allowOffline": true, "maxOfflineMinutes": 60 },
-      "recordClasses": [ { "id": "rc-case-note", "label": "Case Note", "minimumAssurance": [ { "dimension": "identityProofing", "minLevel": 2 } ], "policyTemplate": "pt-records", "legalBasis": "lb-consent", "purposes": [ "p-service-delivery" ], "existenceVisibility": "visible" } ],
-      "submissionClasses": [],
-      "policies": { "templates": [ { "id": "pt-records", "version": "1.0.0", "odrlProfile": "https://w3id.org/solid-databox/odrl-profile/v1" } ], "conflictStrategy": "prohibition-overrides", "effectiveTimeBehavior": "prospective" },
-      "compiledPolicy": { "compiledPolicyDigest": "urn:sha256:SYNTHETIC-compiled-seraphim-0001", "corpusManifestDigest": "urn:sha256:SYNTHETIC-corpus-seraphim-0001", "attestationId": "attest-synthetic-seraphim-0001", "evaluatorVersion": "dbx-eval/1.0.0", "profileDigest": "urn:sha256:SYNTHETIC-profile-seraphim-0001", "attestationStatus": "attested", "legalComplianceClaimed": false },
-      "legislativeCorpus": { "manifestDigest": "urn:sha256:SYNTHETIC-corpus-seraphim-0001", "entries": [] },
-      "legalBases": [ { "id": "lb-consent", "description": "Consent for case management (SYNTHETIC)." } ],
-      "declaredPurposes": [ { "id": "p-service-delivery", "description": "Welfare service delivery and case management (SYNTHETIC)." } ],
-      "retention": [ { "recordClass": "rc-case-note", "retentionDays": 2555, "deletionMode": "crypto-erase", "tombstoneOnExpiry": false } ],
-      "systemsOfRecord": [ { "id": "sor-seraphim", "label": "Seraphim Core", "recordClasses": [ "rc-case-note" ] } ],
-      "notifications": { "notificationFormat": "solid-notification/websocket", "receiptFormat": "vc-jose-cose/es256" },
-      "redress": { "stepUpSupported": true, "existenceVisibilityDefault": "visible", "correctionResponseDays": 30, "appealRoutes": [] }
-    };
-
-    const mockJwk = {
-      "kty": "EC",
-      "crv": "P-256",
-      "x": "oQQoBP_7TGokLmOSY76Kcshohk1gTCTjV3_JM6IM51E",
-      "y": "mCglNTjMscfg15aePByHpC8FHnE71VZeNg81TUxuUAw"
-    };
-
-    async function apiPost(path, body) {
-      const res = await fetch(`${FORGE_URL}${path}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${TOKEN}`
-        },
-        body: JSON.stringify(body)
-      });
-      if (!res.ok) {
-        const text = await res.text();
-        if (text.includes('already registered')) return { profileId: profile.profileId };
-        throw new Error(`API error ${res.status}: ${text}`);
-      }
-      return res.json();
-    }
-
-    
-    const megaMartProfile = {
-  "schemaVersion": "dbx-institution-profile/1.0.0",
-  "profileId": "prog-megamart-rewards-loyalty",
-  "profileVersion": "1.0.0",
-  "effectiveInterval": {
-    "effectiveFrom": "2026-01-01T00:00:00Z",
-    "effectiveUntil": "2027-01-01T00:00:00Z"
-  },
-  "synthetic": true,
-  "program": {
-    "principal": {
-      "id": "party-principal",
-      "legalName": "MegaMart Rewards Pty Ltd (SYNTHETIC — not a real organisation)",
-      "jurisdiction": "AU",
-      "contact": "mailto:privacy@megamart-rewards.example"
-    },
-    "accountableParty": {
-      "id": "party-accountable",
-      "legalName": "MegaMart Loyalty Program Office (SYNTHETIC)",
-      "jurisdiction": "AU"
-    }
-  },
-  "processors": [
-    {
-      "id": "proc-notify",
-      "legalName": "Synthetic Notification Processor Pty Ltd (SYNTHETIC)",
-      "jurisdiction": "AU",
-      "purposes": [ "p-account" ],
-      "readsPayload": false
-    },
-    {
-      "id": "proc-safety",
-      "legalName": "Synthetic Allergen & Recall Alerting Processor (SYNTHETIC)",
-      "jurisdiction": "AU",
-      "purposes": [ "p-safety" ],
-      "readsPayload": true
-    }
-  ],
-  "tenancy": {
-    "deploymentModel": "program-subdomain",
-    "origin": "https://databox.megamart-rewards.example/",
-    "tokenAudience": "https://databox.megamart-rewards.example/"
-  },
-  "crypto": {
-    "signingSuite": "ES256",
-    "signingKeyRef": "kms://program/megamart-rewards/signing/1",
-    "atRestEncryption": { "required": true, "perTenantKeys": true },
-    "applicationLevelEncryption": "optional"
-  },
-  "identityProviders": [
-    {
-      "id": "idp-mega-oidc",
-      "issuer": "https://id.megamart-rewards.example/",
-      "protocol": "solid-oidc",
-      "accreditation": "SYNTHETIC-FRAMEWORK:IP2",
-      "claimContract": [ "sub", "ial", "aal", "auth_time", "iss" ]
-    },
-    {
-      "id": "idp-govid",
-      "issuer": "https://id.govid.example/",
-      "protocol": "oidc",
-      "accreditation": "SYNTHETIC-TDIF:IP3",
-      "claimContract": [ "sub", "ial", "aal", "iss", "acr" ]
-    }
-  ],
-  "assuranceMappings": [
-    { "issuer": "idp-govid", "dimension": "identityProofing", "claim": "ial", "level": 3 },
-    { "issuer": "idp-mega-oidc", "dimension": "identityProofing", "claim": "ial", "level": 2 },
-    { "issuer": "idp-govid", "dimension": "authenticatorStrength", "claim": "aal", "level": 3 },
-    { "issuer": "idp-mega-oidc", "dimension": "authenticatorStrength", "claim": "aal", "level": 2 },
-    { "issuer": "idp-mega-oidc", "dimension": "authenticationFreshness", "claim": "auth_time", "level": 2 },
-    { "issuer": "idp-govid", "dimension": "federationTrust", "claim": "iss", "level": 2 },
-    { "issuer": "idp-mega-oidc", "dimension": "federationTrust", "claim": "iss", "level": 1 },
-    { "issuer": "idp-govid", "dimension": "stepUpState", "claim": "acr", "level": 1 }
-  ],
-  "tokenBroker": {
-    "adopted": true,
-    "brokerOrigin": "https://broker.megamart-rewards.example/",
-    "tokenExchange": "rfc8693",
-    "senderConstraint": "dpop"
-  },
-  "offlineGrantPolicy": {
-    "allowOffline": true,
-    "maxOfflineMinutes": 60
-  },
-  "recordClasses": [
-    {
-      "id": "rc-receipt",
-      "label": "Digital receipt (line items, product info, allergen metadata)",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 2 },
-        { "dimension": "authenticatorStrength", "minLevel": 2 },
-        { "dimension": "authenticationFreshness", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-contract",
-      "purposes": [ "p-account" ],
-      "existenceVisibility": "visible"
-    },
-    {
-      "id": "rc-warranty",
-      "label": "Warranty record",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 2 },
-        { "dimension": "authenticatorStrength", "minLevel": 2 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-contract",
-      "purposes": [ "p-warranty" ],
-      "existenceVisibility": "visible"
-    },
-    {
-      "id": "rc-product-info",
-      "label": "Product information & allergen metadata",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-legal-obligation",
-      "purposes": [ "p-safety" ],
-      "existenceVisibility": "visible"
-    },
-    {
-      "id": "rc-recall",
-      "label": "Product recall notice",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-legal-obligation",
-      "purposes": [ "p-safety" ],
-      "existenceVisibility": "visible"
-    },
-    {
-      "id": "rc-rewards",
-      "label": "Rewards / loyalty points statement",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 1 },
-        { "dimension": "authenticatorStrength", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-contract",
-      "purposes": [ "p-rewards" ],
-      "existenceVisibility": "visible"
-    },
-    {
-      "id": "rc-disposition",
-      "label": "Review disposition (staff correction / warranty outcome)",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 2 },
-        { "dimension": "authenticatorStrength", "minLevel": 2 },
-        { "dimension": "stepUpState", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-records",
-      "legalBasis": "lb-contract",
-      "purposes": [ "p-correction" ],
-      "existenceVisibility": "suppressed"
-    }
-  ],
-  "submissionClasses": [
-    {
-      "id": "sc-correction",
-      "label": "Correction request",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-submissions",
-      "purposes": [ "p-correction" ]
-    },
-    {
-      "id": "sc-warranty-claim",
-      "label": "Warranty claim",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 2 },
-        { "dimension": "authenticatorStrength", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-submissions",
-      "purposes": [ "p-warranty" ]
-    },
-    {
-      "id": "sc-dietary-pref",
-      "label": "Dietary / allergen warning preference",
-      "minimumAssurance": [
-        { "dimension": "identityProofing", "minLevel": 1 }
-      ],
-      "policyTemplate": "pt-submissions",
-      "purposes": [ "p-safety" ]
-    }
-  ],
-  "policies": {
-    "templates": [
-      { "id": "pt-records", "version": "1.0.0", "odrlProfile": "https://w3id.org/solid-databox/odrl-profile/v1" },
-      { "id": "pt-submissions", "version": "1.0.0", "odrlProfile": "https://w3id.org/solid-databox/odrl-profile/v1" }
-    ],
-    "conflictStrategy": "prohibition-overrides",
-    "effectiveTimeBehavior": "prospective"
-  },
-  "compiledPolicy": {
-    "compiledPolicyDigest": "urn:sha256:SYNTHETIC-compiled-loyalty-0001",
-    "corpusManifestDigest": "urn:sha256:SYNTHETIC-corpus-loyalty-0001",
-    "attestationId": "attest-synthetic-loyalty-0001",
-    "evaluatorVersion": "dbx-eval/1.0.0",
-    "profileDigest": "urn:sha256:SYNTHETIC-profile-loyalty-0001",
-    "attestationStatus": "attested",
-    "legalComplianceClaimed": false
-  },
-  "legislativeCorpus": {
-    "manifestDigest": "urn:sha256:SYNTHETIC-corpus-loyalty-0001",
-    "entries": [
-      {
-        "sourceUri": "https://legislation.example/synthetic/consumer-guarantees-act",
-        "jurisdiction": "AU",
-        "expressionVersion": "2025-01-01",
-        "retrievedAt": "2026-01-01T00:00:00Z",
-        "mediaType": "text/html",
-        "contentDigest": "urn:sha256:SYNTHETIC-source-consumer-0001"
-      },
-      {
-        "sourceUri": "https://legislation.example/synthetic/food-safety-standards",
-        "jurisdiction": "AU",
-        "expressionVersion": "2025-06-01",
-        "retrievedAt": "2026-01-01T00:00:00Z",
-        "mediaType": "text/html",
-        "contentDigest": "urn:sha256:SYNTHETIC-source-foodsafety-0001"
-      }
-    ]
-  },
-  "legalBases": [
-    { "id": "lb-contract", "description": "Performance of the loyalty-membership contract (SYNTHETIC)." },
-    { "id": "lb-legal-obligation", "description": "Product-safety / recall legal obligation (SYNTHETIC)." },
-    { "id": "lb-consent", "description": "Consent for dietary / allergen warning preferences (SYNTHETIC)." }
-  ],
-  "declaredPurposes": [
-    { "id": "p-account", "description": "Maintain the loyalty account relationship (SYNTHETIC)." },
-    { "id": "p-correction", "description": "Handle correction requests and their dispositions (SYNTHETIC)." },
-    { "id": "p-warranty", "description": "Warranty servicing and claims (SYNTHETIC)." },
-    { "id": "p-safety", "description": "Product safety, recall and allergen alerting (SYNTHETIC)." },
-    { "id": "p-rewards", "description": "Loyalty rewards administration (SYNTHETIC)." }
-  ],
-  "retention": [
-    { "recordClass": "rc-receipt", "retentionDays": 2555, "deletionMode": "tombstone", "tombstoneOnExpiry": true },
-    { "recordClass": "rc-warranty", "retentionDays": 3650, "deletionMode": "supersede", "tombstoneOnExpiry": false },
-    { "recordClass": "rc-product-info", "retentionDays": 1825, "deletionMode": "crypto-erase", "tombstoneOnExpiry": false },
-    { "recordClass": "rc-recall", "retentionDays": 3650, "deletionMode": "tombstone", "tombstoneOnExpiry": true },
-    { "recordClass": "rc-rewards", "retentionDays": 2555, "deletionMode": "supersede", "tombstoneOnExpiry": false },
-    { "recordClass": "rc-disposition", "retentionDays": 3650, "deletionMode": "tombstone", "tombstoneOnExpiry": true }
-  ],
-  "systemsOfRecord": [
-    { "id": "sor-pos", "label": "Point of sale", "recordClasses": [ "rc-receipt", "rc-warranty", "rc-rewards" ] },
-    { "id": "sor-catalog", "label": "Product catalogue & safety", "recordClasses": [ "rc-product-info", "rc-recall" ] },
-    { "id": "sor-care", "label": "Customer care review queue", "recordClasses": [ "rc-disposition" ] }
-  ],
-  "notifications": {
-    "notificationFormat": "solid-notification/websocket",
-    "receiptFormat": "vc-jose-cose/es256"
-  },
-  "redress": {
-    "stepUpSupported": true,
-    "existenceVisibilityDefault": "visible",
-    "correctionResponseDays": 30,
-    "appealRoutes": [
-      {
-        "id": "appeal-internal",
-        "responsibleBody": "MegaMart Rewards Internal Review (SYNTHETIC)",
-        "filingMethod": "https://appeal.megamart-rewards.example/file"
-      },
-      {
-        "id": "appeal-regulator",
-        "responsibleBody": "Synthetic Information Commissioner (SYNTHETIC — not a real regulator)",
-        "filingMethod": "https://appeal.regulator.example/file"
-      }
-    ]
-  }
-}
-;
-
-    async function provisionMegaMart() {
-      const btn = document.getElementById('btn-provision-loyalty');
-      const spinner = document.getElementById('spinner-provision-loyalty');
-      
-      btn.disabled = true;
-      spinner.style.display = 'inline-block';
-      
-      try {
-        throw new Error('Backend APIs are disabled on the static GitHub Pages deployment.');
-        throw new Error('Backend APIs are disabled on the static GitHub Pages deployment.');
-        const program = await apiPost('/programs', {
-          profile: megaMartProfile,
-          programUri: 'http://localhost:3000/megamart/program',
-          databoxBaseUrl: 'http://localhost:3000/megamart/boxes/'
-        });
-
-        const mapping = await apiPost('/mappings', {
-          profileId: program.profileId,
-          sourceSystem: 'sor-pos',
-          customerIdNamespace: 'loyalty',
-          customerId: 'SYNTHETIC-CUSTOMER-042',
-          pairwiseWebId: 'https://consumer-pod.example/profile/card#megamart',
-          holderPublicJwk: mockJwk
-        });
-
-        const deposit = await apiPost('/source-events', {
-          profileId: program.profileId,
-          sourceSystem: 'sor-pos',
-          eventType: 'digital-receipt',
-          sourceEventId: 'SYNTHETIC-EVENT-001' + Date.now(),
-          customerIdNamespace: 'loyalty',
-          customerId: 'SYNTHETIC-CUSTOMER-042',
-          recordClass: 'rc-receipt',
-          legalBasis: 'lb-contract',
-          purpose: 'p-account',
-          payload: { merchant: 'MegaMart Demo', total: '42.00', currency: 'AUD', items: ['Oat Milk', 'Apples'] }
-        });
-
-        if (deposit.status !== 'reconciled') {
-          throw new Error('Deposit was not reconciled: ' + (deposit.reconciliation?.reason || deposit.status));
-        }
-
-        const cred = mapping.credential.credential;
-        const conn = cred.credentialSubject.connection;
-        const pairwiseWebId = cred.credentialSubject.id;
-        const connectionId = mapping.credential.connectionId;
-
-        const connectUri = new URL('solid-databox://connect');
-        connectUri.searchParams.set('webid', pairwiseWebId);
-        connectUri.searchParams.set('issuer', cred.issuer);
-        connectUri.searchParams.set('program', conn.program);
-        connectUri.searchParams.set('databox', conn.databox);
-        connectUri.searchParams.set('storage', conn.storageDescription);
-        connectUri.searchParams.set('connection', connectionId);
-        connectUri.searchParams.set('grant', conn.accessGrant);
-        const connectionUri = connectUri.toString();
-
-        document.getElementById('qr-section-loyalty').classList.remove('hidden');
-        document.getElementById('connection-uri-loyalty').innerText = connectionUri;
-        document.getElementById('jws-string-loyalty').innerText = mapping.credential.jws;
-
-        document.getElementById('lbl-pair-webid-loyalty').innerText = pairwiseWebId;
-        document.getElementById('lbl-issuer-loyalty').innerText = cred.issuer;
-        document.getElementById('lbl-programme-loyalty').innerText = conn.program;
-        document.getElementById('lbl-databox-loyalty').innerText = conn.databox;
-        document.getElementById('lbl-storage-desc-loyalty').innerText = conn.storageDescription;
-        document.getElementById('lbl-conn-id-loyalty').innerText = connectionId;
-        
-        document.getElementById('qrcode-loyalty').innerHTML = '';
-        try {
-          new QRCode(document.getElementById("qrcode-loyalty"), {
-            text: connectionUri,
-            width: 280, height: 280,
-            colorDark : "#0f172a", colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.L
-          });
-        } catch (qrErr) {
-          document.getElementById('qrcode-loyalty').innerHTML = '<p style="color: var(--text-secondary); font-size: 0.85rem;">QR code unavailable.</p>';
-        }
-
-        btn.querySelector('span:first-child').innerText = 'Provisioned Successfully!';
-
-      } catch (e) {
-        alert('Provisioning failed: ' + e.message);
-        btn.disabled = false;
-        btn.querySelector('span:first-child').innerText = 'Provision "Customer 042"';
-      } finally {
-        spinner.style.display = 'none';
-      }
-    }
-  
-
-    async function provisionCharles() {
-      const btn = document.getElementById('btn-provision');
-      const spinner = document.getElementById('spinner-provision');
-      
-      btn.disabled = true;
-      spinner.style.display = 'inline-block';
-      
-      try {
-        const program = await apiPost('/programs', {
-          profile,
-          programUri: 'http://localhost:3000/program',
-          databoxBaseUrl: 'http://localhost:3000/boxes/'
-        });
-
-        const mapping = await apiPost('/mappings', {
-          profileId: program.profileId,
-          sourceSystem: 'seraphim-intake',
-          customerIdNamespace: 'welfare',
-          customerId: 'CHARLES-JAMES-ID-001',
-          pairwiseWebId: 'https://v-8a7b6c5d.example/profile/card#seraphim',
-          holderPublicJwk: mockJwk
-        });
-
-        const deposit = await apiPost('/source-events', {
-          profileId: program.profileId,
-          sourceSystem: 'seraphim-intake',
-          eventType: 'welfare-checkin',
-          sourceEventId: 'SYNTHETIC-CHECKIN-001' + Date.now(),
-          customerIdNamespace: 'welfare',
-          customerId: 'CHARLES-JAMES-ID-001',
-          recordClass: 'rc-case-note',
-          legalBasis: 'lb-consent',
-          purpose: 'p-service-delivery',
-          payload: { notes: 'Initial intake completed. Immediate stability goals set.', status: 'active' }
-        });
-
-        if (deposit.status !== 'reconciled') {
-          throw new Error('Deposit was not reconciled: ' + (deposit.reconciliation?.reason || deposit.status));
-        }
-
-        // Extract credential fields for the connection URI
-        const cred = mapping.credential.credential;
-        const conn = cred.credentialSubject.connection;
-        const pairwiseWebId = cred.credentialSubject.id;
-        const connectionId = mapping.credential.connectionId;
-
-        // Build a connection URI that pairs the user's WebID with the org's programme
-        const connectUri = new URL('solid-databox://connect');
-        connectUri.searchParams.set('webid', pairwiseWebId);
-        connectUri.searchParams.set('issuer', cred.issuer);
-        connectUri.searchParams.set('program', conn.program);
-        connectUri.searchParams.set('databox', conn.databox);
-        connectUri.searchParams.set('storage', conn.storageDescription);
-        connectUri.searchParams.set('connection', connectionId);
-        connectUri.searchParams.set('grant', conn.accessGrant);
-        const connectionUri = connectUri.toString();
-
-        document.getElementById('qr-section').classList.remove('hidden');
-        document.getElementById('connection-uri').innerText = connectionUri;
-        document.getElementById('jws-string').innerText = mapping.credential.jws;
-
-        // Populate connection detail fields
-        document.getElementById('lbl-pair-webid').innerText = pairwiseWebId;
-        document.getElementById('lbl-issuer').innerText = cred.issuer;
-        document.getElementById('lbl-programme').innerText = conn.program;
-        document.getElementById('lbl-databox').innerText = conn.databox;
-        document.getElementById('lbl-storage-desc').innerText = conn.storageDescription;
-        document.getElementById('lbl-conn-id').innerText = connectionId;
-        
-        // Generate QR code from the connection URI (short enough for QR)
-        document.getElementById('qrcode').innerHTML = '';
-        try {
-          new QRCode(document.getElementById("qrcode"), {
-            text: connectionUri,
-            width: 280,
-            height: 280,
-            colorDark : "#0f172a",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.L
-          });
-        } catch (qrErr) {
-          document.getElementById('qrcode').innerHTML = '<p style="color: var(--text-secondary); font-size: 0.85rem;">QR code unavailable — URI too large for QR encoding.</p>';
-        }
-
-        document.getElementById('admin-empty-state').classList.add('hidden');
-        document.getElementById('admin-data-state').classList.remove('hidden');
-        
-        document.getElementById('lbl-relationship').innerText = conn.relationship;
-        document.getElementById('lbl-pairwise').innerText = pairwiseWebId;
-        document.getElementById('lbl-resource').innerText = deposit.reconciliation.acceptedResource || 'N/A';
-        document.getElementById('lbl-receipt').innerText = deposit.receipt ? deposit.receipt.jws : 'N/A';
-
-        btn.querySelector('span:first-child').innerText = 'Provisioned Successfully!';
-
-      } catch (e) {
-        alert('Provisioning failed: ' + e.message);
-        btn.disabled = false;
-        btn.querySelector('span:first-child').innerText = 'Provision "Charles James"';
-      } finally {
-        spinner.style.display = 'none';
-      }
-    }
-
-    // --- Intersection Observer for Scroll Reveals ---
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      // Any part visible reveals the element. A positive threshold can never fire
-      // for a section taller than the viewport, which silently hides it.
-      threshold: 0
-    };
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // --- Three.js Background Animation ---
-    function initThreeJS() {
-      const canvas = document.getElementById('three-canvas');
-      if (!canvas || typeof THREE === 'undefined') return;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      // Create textures from emojis
-      function createEmojiTexture(emoji) {
-        const size = 64;
-        const texCanvas = document.createElement('canvas');
-        texCanvas.width = size;
-        texCanvas.height = size;
-        const ctx = texCanvas.getContext('2d');
-        ctx.font = '48px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(emoji, size/2, size/2 + 4);
-        return new THREE.CanvasTexture(texCanvas);
-      }
-
-      const emojis = ['👨', '👩', '🧒', '👧', '👴', '👵', '🧔', '👱‍♀️'];
-      const totalParticles = 700;
-      const particlesPerGroup = Math.floor(totalParticles / emojis.length);
-      const particleMeshes = [];
-
-      emojis.forEach((emoji) => {
-        const texture = createEmojiTexture(emoji);
-        const geometry = new THREE.BufferGeometry();
-        const posArray = new Float32Array(particlesPerGroup * 3);
-
-        for(let i = 0; i < particlesPerGroup * 3; i++) {
-          posArray[i] = (Math.random() - 0.5) * 25;
-        }
-        geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const material = new THREE.PointsMaterial({
-          size: 0.35, // Larger size to see the emojis
-          map: texture,
-          transparent: true,
-          opacity: 0.65,
-          alphaTest: 0.1, // Discard empty pixels
-          sizeAttenuation: true
-        });
-
-        const mesh = new THREE.Points(geometry, material);
-        scene.add(mesh);
-        particleMeshes.push(mesh);
-      });
-
-      camera.position.z = 5;
-
-      // Mouse Interaction
-      let mouseX = 0;
-      let mouseY = 0;
-      let targetX = 0;
-      let targetY = 0;
-      const windowHalfX = window.innerWidth / 2;
-      const windowHalfY = window.innerHeight / 2;
-
-      document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX - windowHalfX);
-        mouseY = (event.clientY - windowHalfY);
-      });
-
-      const clock = new THREE.Clock();
-
-      function animate() {
-        requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
-
-        targetX = mouseX * 0.001;
-        targetY = mouseY * 0.001;
-
-        particleMeshes.forEach((mesh, index) => {
-          mesh.rotation.y += 0.001 + (index * 0.0001);
-          mesh.rotation.x += 0.0005 + (index * 0.00005);
-
-          // Subtle Parallax
-          mesh.rotation.y += 0.05 * (targetX - mesh.rotation.y);
-          mesh.rotation.x += 0.05 * (targetY - mesh.rotation.x);
-          
-          // Gentle vertical floating with slight offsets
-          mesh.position.y = Math.sin(elapsedTime * 0.5 + index) * 0.2;
-        });
-
-        renderer.render(scene, camera);
-      }
-      
-      animate();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-    }
-
-    // Initialize Three.js after a brief delay to ensure layout is ready
-    setTimeout(initThreeJS, 100);
-  </script>
 </body>
 </html>

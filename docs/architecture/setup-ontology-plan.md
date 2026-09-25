@@ -2,7 +2,7 @@
 
 ## Goal
 
-Revamp the Forge Admin "Setup Wizard" to generate a strict, semantically-correct, multi-tiered RDF graph topology when establishing a new organization on a Solid Pod, properly defining stewardship, software agents, and human operators.
+Revamp the Smithy Admin "Setup Wizard" to generate a strict, semantically-correct, multi-tiered RDF graph topology when establishing a new organization on a Solid Pod, properly defining stewardship, software agents, and human operators.
 
 ## The Problem
 
@@ -25,7 +25,7 @@ When the Setup Wizard is executed, it will generate a linked graph:
 
 ## Implementation Steps
 
-### 1. Update UI (`forge-admin/src/pages/setup/index.tsx`)
+### 1. Update UI (`smithy-admin/src/pages/setup/index.tsx`)
 
 Add a new "Stewards & Operators" section to the form:
 

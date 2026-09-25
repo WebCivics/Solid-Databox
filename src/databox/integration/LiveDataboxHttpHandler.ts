@@ -4,26 +4,28 @@ import type { HttpHandlerInput } from '../../server/HttpHandler';
 import { HttpHandler } from '../../server/HttpHandler';
 import { NotImplementedHttpError } from '../../util/errors/NotImplementedHttpError';
 import type { DurableCommitInput } from '../bridge/DataboxBridge';
-import { MappingForge } from '../forge/MappingForge';
-import { MappingForgeHttpApi } from '../forge/MappingForgeHttpApi';
+import { MappingSmithy } from '../smithy/MappingSmithy';
+import { MappingSmithyHttpApi } from '../smithy/MappingSmithyHttpApi';
+import type { RelationshipMappingRegistry } from '../provisioning/RelationshipMappingRegistry';
 import type { DurableCommit } from '../receipt/DurableCommit';
 import { CssDataboxStore } from './CssDataboxStore';
 
 /**
- * Mounts the Databox Forge control plane in a live CSS process while all accepted resources are committed to
+ * Mounts the Databox Smithy control plane in a live CSS process while all accepted resources are committed to
  * CSS's ResourceStore. This is an experimental single-process integration profile, not the production IAM model.
  */
 export class LiveDataboxHttpHandler extends HttpHandler {
   private readonly routeBase: string;
   private readonly token: Buffer;
-  private readonly api: MappingForgeHttpApi;
+  private readonly api: MappingSmithyHttpApi;
 
   public constructor(
     source: ResourceStore,
     backend: ResourceStore,
     baseUrl: string,
     controlToken: string,
-    routeBase = '/.databox/forge',
+    routeBase = '/.databox/smithy',
+    relationshipRegistry?: RelationshipMappingRegistry,
   ) {
     super();
     if (typeof controlToken !== 'string' || Buffer.byteLength(controlToken, 'utf8') < 32) {
@@ -35,13 +37,16 @@ export class LiveDataboxHttpHandler extends HttpHandler {
     async function durableCommit(input: DurableCommitInput): Promise<DurableCommit> {
       return store.commit(input);
     }
-    const forge = new MappingForge({
+    const smithy = new MappingSmithy({
       provision: async(result): Promise<void> => {
         await store.provision(result);
       },
       durableCommit,
+      // Share the relationship-mapping registry with the composed authorizer when one is injected —
+      // provisioned box records then resolve for the holder's own reads (DBX-26 shared-state wiring).
+      ...relationshipRegistry === undefined ? {} : { registry: relationshipRegistry },
     });
-    this.api = new MappingForgeHttpApi(forge, this.routeBase);
+    this.api = new MappingSmithyHttpApi(smithy, this.routeBase);
   }
 
   public async canHandle({ request }: HttpHandlerInput): Promise<void> {

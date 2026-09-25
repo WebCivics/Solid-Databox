@@ -86,3 +86,73 @@ pub fn default_install_dir() -> PathBuf {
 }
 
 pub fn display_path(path: &Path) -> String { path.display().to_string() }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn profile(type_name: &str) -> InstallProfile {
+        InstallProfile::from_type(type_name, "/tmp/install", None).unwrap()
+    }
+
+    #[test]
+    fn each_product_maps_to_its_preset_and_binaries() {
+        let server = profile("cms:ServerInstall");
+        assert_eq!(server.config_preset, "config/cms/cms.json");
+        assert!(server.required_binaries.is_empty());
+        assert!(!server.includes_tray());
+
+        let pos = profile("cms:PosInstall");
+        assert_eq!(pos.config_preset, "config/cms/pos.json");
+        assert_eq!(pos.required_binaries, ["pos-edge"]);
+        assert_eq!(pos.native_edge_binary.as_deref(), Some("pos-edge"));
+
+        let connector = profile("cms:ConnectorInstall");
+        assert_eq!(connector.required_binaries, ["connector-sidecar"]);
+        assert!(!connector.includes_tray());
+
+        let tray = profile("cms:TraySupervisorInstall");
+        assert!(tray.includes_tray());
+
+        let combined = profile("cms:CombinedInstall");
+        assert_eq!(combined.required_binaries, ["pos-edge", "tray-supervisor"]);
+        assert!(combined.includes_tray());
+    }
+
+    #[test]
+    fn unknown_product_types_fail_closed() {
+        let err = InstallProfile::from_type("cms:Bogus", "/tmp", None).unwrap_err();
+        assert!(err.contains("cms:Bogus"));
+    }
+
+    #[test]
+    fn config_override_replaces_the_default_preset() {
+        let p = InstallProfile::from_type(
+            "cms:ServerInstall",
+            "/tmp",
+            Some("config/databox/personal.json".to_owned()),
+        )
+        .unwrap();
+        assert_eq!(p.config_preset, "config/databox/personal.json");
+    }
+
+    #[test]
+    fn derived_paths_stay_under_the_install_dir() {
+        let p = profile("cms:PosInstall");
+        assert_eq!(p.app_dir(), Path::new("/tmp/install/app"));
+        assert_eq!(p.data_dir(), Path::new("/tmp/install/data"));
+        assert_eq!(p.logs_dir(), Path::new("/tmp/install/data/logs"));
+        assert_eq!(
+            p.binary_path("pos-edge"),
+            Path::new("/tmp/install/bin").join(format!("pos-edge{}", exe_suffix()))
+        );
+    }
+
+    #[test]
+    fn exe_suffix_matches_the_platform() {
+        #[cfg(target_os = "windows")]
+        assert_eq!(exe_suffix(), ".exe");
+        #[cfg(not(target_os = "windows"))]
+        assert_eq!(exe_suffix(), "");
+    }
+}

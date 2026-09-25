@@ -37,7 +37,7 @@ classifies by version delta will mis-sort these into the "safe" bucket.
 
 `npm outdated` reports `@types/node 24.13.3 -> 26.1.1`. **Taking it is wrong.** We pinned 24.x because
 `engines: >=24.0`. Upgrading the types means typechecking against APIs absent from the runtime we ship
-to. Same for `forge-admin`.
+to. Same for `smithy-admin`.
 
 **Rule: `@types/node`'s major is set by the engines floor, never by `latest`.** Any agent told to "update
 everything" will get this wrong unless explicitly forbidden.
@@ -76,7 +76,7 @@ regressions. Verify centrally, in a queue.
 ### 2.2 `npm run typedocs` destroys `docs/`
 
 `typedoc.json` sets `"out": "docs"`. Upstream CSS owns `docs/` for typedoc; **this fork put the published
-GitHub Pages site there** (landing page, admin demo, forge demo). Running typedocs deletes all of it.
+GitHub Pages site there** (landing page, admin demo, smithy demo). Running typedocs deletes all of it.
 Recoverable from git, and the live site is safe (CI publishes typedoc to the `gh-pages` branch while
 Pages serves `main:/docs`) — but it is a live footgun for any agent that runs the docs build.
 **Either fix `out` first, or forbid agents from running typedocs.**
@@ -108,7 +108,7 @@ first; it changes the estimate by an order of magnitude.**
   - 5 via `@comunica/query-sparql@5` (RDF cluster)
   - 5 via `markdownlint-cli2@0.23` (lint cluster)
   - (0 critical, 0 high, 0 low — the 2 highs were cleared by the free-wins pass)
-- `forge-admin`: 4 majors, incl. `@refinedev/core 4 -> 5`.
+- `smithy-admin`: 4 majors, incl. `@refinedev/core 4 -> 5`.
 
 ## 4. Clusters — the upgrade unit is a cluster, never a package
 
@@ -122,7 +122,7 @@ first; it changes the estimate by an order of magnitude.**
 | F | **Git hooks** | `husky 4.3.8 -> 9.1.7` (**5 majors**) | v4 configures hooks in `package.json`; v9 uses `.husky/` + a different install | Medium — changes everyone's commit workflow |
 | G | **TypeScript line** | `typescript 5.9.3 -> 6 -> 7` | `typedoc` peer follows it | Medium — nothing forces it |
 | H | **Independent singletons** | `bcryptjs 2->3`, `@isaacs/ttlcache 1->2`, `set-cookie-parser 2->3`, `mime-types 2->3` (+types), `cookie 0.7->2`, `ejs 3->6`, `marked 9->18`, `yargs 17->18`, `arrayify-stream 2->3`, `escape-string-regexp 4->5`, `url-join 4->5`, `@solid/access-control-policy 0.1->1.0`, `@inrupt/solid-client-authn-* 2->5` (dev), `commit-and-tag-version 11->12`, `@commitlint/* 19->21`, `@types/*` majors | Independent | Low each — **but triage ESM-only out** |
-| I | **forge-admin** | `@refinedev/core 4->5`, `react-router-dom 6->7`, `typescript 6->7` | Separate npm project | Low — **`@refinedev/core@5` likely fixes the red `databox-pages` workflow** (v4 peers want `@types/react ^17\|\|^18` vs React 19) |
+| I | **smithy-admin** | `@refinedev/core 4->5`, `react-router-dom 6->7`, `typescript 6->7` | Separate npm project | Low — **`@refinedev/core@5` likely fixes the red `databox-pages` workflow** (v4 peers want `@types/react ^17\|\|^18` vs React 19) |
 
 ---
 

@@ -38,7 +38,7 @@ Implemented in this checkpoint:
 - `ModuleManifestRdf` serializes/parses module manifests as portable Turtle for standard-Solid discovery.
 - The built-in receipt module exposes `POST /.databox/ipms/receipt/build`, wrapping the pure receipt document/QR
   builder as a real IPMS module route.
-- `forge-admin` has a `VITE_PROVIDER_MODE=standard-solid` portable-core provider path that reads module manifests
+- `smithy-admin` has a `VITE_PROVIDER_MODE=standard-solid` portable-core provider path that reads module manifests
   from ordinary Solid resources and explicitly disables CSS-enhanced operations.
 - `VerticalProfile` defines portable declarative vertical bundle manifests composed from horizontal module ids,
   validates referenced modules, applies enabled/config RDF defaults through `ModuleConfigStore`, and ships the
@@ -115,6 +115,6 @@ Still required before claiming the POS/public-shop path complete:
 
 ## Verification expectation
 
-Run the IPMS unit suite, SPARQL accessor unit tests, root build, IPMS integration tests, and forge-admin build/lint
+Run the IPMS unit suite, SPARQL accessor unit tests, root build, IPMS integration tests, and smithy-admin build/lint
 after each integration batch. A live Oxigraph verification should be added once the Rust native-edge or local
 Oxigraph server is available in the development environment.

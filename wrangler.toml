@@ -1,0 +1,18 @@
+# Cloudflare Pages — the Solid Databox civic-fabric site.
+#
+# The site is fully static — it is the contents of `docs/` (the GitHub Pages
+# tree), served directly. `pages_build_output_dir` points Pages at that folder;
+# no build step is required. Deploy with:
+#
+#   npx wrangler pages deploy docs --project-name solid-databox
+#
+# or connect the repo in the Pages dashboard with the output directory `docs`.
+
+name = "solid-databox"
+pages_build_output_dir = "docs"
+compatibility_date = "2025-01-01"
+
+# The site carries no server-side code — it is pure static content. The demo
+# tabs on the index page talk to a *local* smithy instance when one is running
+# and degrade gracefully on the static deployment. Security + caching headers
+# are applied via `docs/_headers`; routing rules via `docs/_redirects`.

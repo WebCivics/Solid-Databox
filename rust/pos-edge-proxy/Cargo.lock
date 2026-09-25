@@ -937,7 +937,9 @@ name = "pos-edge-proxy"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "clap",
+ "http-body-util",
  "hyper",
  "hyper-util",
  "reqwest",

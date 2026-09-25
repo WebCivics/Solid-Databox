@@ -1,4 +1,4 @@
-# Solid Databox
+# Web Civics Databox
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24-43853d.svg)](package.json)
@@ -6,21 +6,38 @@
 
 **Live demo:** [Landing](https://mediaprophet.github.io/Solid-CSS-Databox/) ·
 [Admin console](https://mediaprophet.github.io/Solid-CSS-Databox/admin/) ·
-[Forge control panel](https://mediaprophet.github.io/Solid-CSS-Databox/forge/) ·
+[Smithy control panel](https://mediaprophet.github.io/Solid-CSS-Databox/smithy/) ·
 [Developer guide](databox/guide/README.md)
 
-Solid Databox is an organisation-focused Linked Data exchange platform built by refactoring and extending
+Web Civics Databox is **community-made software built for civics purposes** — a **next-generation web server** on
+open W3C standards, implemented as a Solid-based data vault by refactoring and extending
 [Community Solid Server](https://github.com/CommunitySolidServer/CommunitySolidServer) (CSS) 7.1.9.
 
-It gives an organisation a governed, relationship-specific Solid data space for providing information to a person
-and receiving deliberate, purpose-bound information from that person. The person connects through an independent
-Solid Pod, vault, wallet or compatible personal knowledge environment of their choice.
+It is designed to work in a **decentralised** way: rather than one company's platform holding everyone's
+information, each **individual, family, household, business or organisation** keeps their own vault, and the
+community of vaults *is* the platform — **people as the platform**. On it you can:
 
-Solid Databox is not an official upstream Community Solid Server distribution. It retains the modular CSS runtime,
-Solid HTTP surface and Components.js composition while adding the Databox identity, policy, evidence, exchange and
-organisation-tailoring layers in this repository.
+- **store and share information and knowledge** — each participant retains control of their own data and grants
+  access on a permissions basis, able to change or withdraw it at any time;
+- **form social and linked applications** — groups, feeds, shops and services that connect across vaults by
+  permission rather than platform ownership; and
+- **work with AI on your own data** — privacy-preserving intelligent tooling that reads and reasons over your
+  information using advanced underlying data-science techniques (Linked Data, RDF/SHACL, Solid).
 
-It is the **organisation-side reference implementation** of the
+It is not a government product and was not funded by any government — it is open community software anyone can
+inspect, run and improve.
+
+An organisation-hosted Databox still provides a governed, relationship-specific Solid data space for providing
+information to a person and receiving deliberate, purpose-bound information from them; the person connects through
+an independent Solid Pod, vault, wallet or compatible personal knowledge environment of their choice. The same
+server also runs as a **personal databox** on an individual's own machine or mobile device, and weaves many
+participants into a shared community fabric.
+
+Web Civics Databox is not an official upstream Community Solid Server distribution. It retains the modular CSS
+runtime, Solid HTTP surface and Components.js composition while adding the Databox identity, policy, evidence,
+exchange and organisation-tailoring layers in this repository.
+
+It is the **reference implementation** of the
 [Solid-Databox specification](https://github.com/mediaprophet/solid-databox) — the vocabulary, protocol and
 deployment kit, together with the person-side consumer agent (Seraphim), live in that project.
 
@@ -71,7 +88,7 @@ organisation's system.
 - Provides governed review and signed disposition workflows for corrections and contested records.
 - Fails closed when required identity, tenant, policy, proof or evidence inputs cannot be verified.
 
-### Mapping Forge and organisation tailoring
+### Mapping Smithy and organisation tailoring
 
 - Registers and validates versioned institution profiles.
 - Maps protected source-system customer references to opaque Databox relationships.
@@ -83,7 +100,7 @@ organisation's system.
 
 ### IPMS module system
 
-The Databox IPMS (`src/databox/ipms/`) is a dynamic module system with **50+ built-in industry modules**, each with
+The Databox IPMS (`src/databox/ipms/`) is a dynamic module system with **60+ built-in industry modules**, each with
 capability declarations, route management, and enable/disable toggles. Modules are organised into industry verticals
 (restaurant, welfare, retail, loyalty, print, trade) and can be tailored per organisation profile. The IPMS HTTP
 handler serves module APIs, an admin panel, and Oxigraph-backed synchronisation.
@@ -155,7 +172,7 @@ the organisation. The acknowledgement, status events and receipt can then be ret
 
 ## Live CSS integration
 
-The experimental live preset mounts the Mapping Forge inside the CSS Components.js composition. Provisioned Databox
+The experimental live preset mounts the Mapping Smithy inside the CSS Components.js composition. Provisioned Databox
 resources are stored in CSS and retrieved through the ordinary Solid authorization route.
 
 Build the project:
@@ -172,14 +189,14 @@ $token = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::G
 npm.cmd run start:databox-live -- --databoxControlToken $token --baseUrl http://localhost:3000/ --port 3000
 ```
 
-The protected demonstration control plane is mounted at `/.databox/forge`:
+The protected demonstration control plane is mounted at `/.databox/smithy`:
 
 | Method | Route | Purpose |
 |---|---|---|
-| `GET` | `/.databox/forge/programs` | List registered program summaries |
-| `POST` | `/.databox/forge/programs` | Register a validated institution profile |
-| `POST` | `/.databox/forge/mappings` | Provision a relationship and issue its connection credential |
-| `POST` | `/.databox/forge/source-events` | Transform and commit an institutional event and issue its receipt |
+| `GET` | `/.databox/smithy/programs` | List registered program summaries |
+| `POST` | `/.databox/smithy/programs` | Register a validated institution profile |
+| `POST` | `/.databox/smithy/mappings` | Provision a relationship and issue its connection credential |
+| `POST` | `/.databox/smithy/source-events` | Transform and commit an institutional event and issue its receipt |
 
 See the [live CSS integration guide](databox/live-css-integration.md) for operation, verification and current
 limitations.
@@ -188,38 +205,38 @@ limitations.
 
 Two operator front-ends drive this control plane:
 
-- **Forge Admin console** — a Refine / React single-page app under [`forge-admin/`](forge-admin/README.md) for
+- **Smithy Admin console** — a Refine / React single-page app under [`smithy-admin/`](smithy-admin/README.md) for
   onboarding programs, provisioning relationship mappings, dispatching events, declaring an organisation's
   information-provision obligations against an ANZSIC-tailored, AU / multi-jurisdiction / standards (DPV · GDPR ·
   ODRL) taxonomy, running a data-portability registry, and handling inbound access and correction requests. It runs
-  against the live Forge API, or fully in-memory (`VITE_DEMO=true`) as a backendless demo — the latter is published
+  against the live Smithy API, or fully in-memory (`VITE_DEMO=true`) as a backendless demo — the latter is published
   at [`/admin/`](https://mediaprophet.github.io/Solid-CSS-Databox/admin/).
-- **Embedded `/forge` UI** — a minimal, dependency-free Programs / Mappings / Events console the running server
-  serves at `/forge` (generated by [`scripts/build-forge-ui.js`](scripts/build-forge-ui.js)); also published at
-  [`/forge/`](https://mediaprophet.github.io/Solid-CSS-Databox/forge/).
+- **Embedded `/smithy` UI** — a minimal, dependency-free Programs / Mappings / Events console the running server
+  serves at `/smithy` (generated by [`scripts/build-smithy-ui.js`](scripts/build-smithy-ui.js)); also published at
+  [`/smithy/`](https://mediaprophet.github.io/Solid-CSS-Databox/smithy/).
 
 ## Repository guide
 
 | Location | Contents |
 |---|---|
-| [`src/databox/`](src/databox/) | Databox identity, provisioning, policy, bridge, evidence, review and Forge code |
-| [`src/databox/ipms/`](src/databox/ipms/) | IPMS HTTP handler, 50+ industry modules, vertical profiles, Oxigraph sync |
+| [`src/databox/`](src/databox/) | Databox identity, provisioning, policy, bridge, evidence, review and Smithy code |
+| [`src/databox/ipms/`](src/databox/ipms/) | IPMS HTTP handler, 60+ industry modules, vertical profiles, Oxigraph sync |
 | [`config/databox/`](config/databox/) | Experimental live Components.js configuration |
 | [`databox/`](databox/) | Architecture, decisions, threat model, vocabulary, fixtures and implementation plans |
-| [`databox/forge-plan/`](databox/forge-plan/) | Product backplane, application and demonstrator plans |
+| [`databox/smithy-plan/`](databox/smithy-plan/) | Product backplane, application and demonstrator plans |
 | [`databox/functionality-audit.md`](databox/functionality-audit.md) | Functionality audit: produced features vs documented coverage |
-| [`forge-admin/`](forge-admin/README.md) | Refine/React Forge Admin console — the operator control plane |
+| [`smithy-admin/`](smithy-admin/README.md) | Refine/React Smithy Admin console — the operator control plane |
 | [`org-mobile-apps/`](org-mobile-apps/README.md) | WASM/PWA mobile app container with 6 app profiles |
 | [`native/`](native/) | Rust native POS edge and cross-platform installer |
 | [`rust/`](rust/) | Rust connector sidecar, POS edge proxy, and tray supervisor |
 | [`databox/deployment/ipms/`](databox/deployment/ipms/) | Docker Compose, Kubernetes, and secret templates for IPMS deployment |
-| [`test/unit/databox/`](test/unit/databox/) | 188 Databox unit and security-invariant tests across 24 subsystems |
+| [`test/unit/databox/`](test/unit/databox/) | Databox unit and security-invariant suites across all subsystems |
 | [`test/integration/`](test/integration/) | 6 Databox integration tests including live CSS/OIDC/WAC |
 
 Start with the [Databox documentation index](databox/README.md), then read the
 [reference architecture](databox/dbx-04-reference-architecture.md),
 [decision register](databox/decisions/README.md), [threat model](databox/dbx-03-threat-model.md) and
-[Forge productization plan](databox/forge-plan/README.md).
+[Smithy productization plan](databox/smithy-plan/README.md).
 
 ## Security and privacy principles
 
@@ -237,28 +254,36 @@ Start with the [Databox documentation index](databox/README.md), then read the
 
 ## Implementation status
 
-DBX-01 through DBX-24 of the reference implementation plan are complete. The instrumental DBX-25 live CSS slice is
-also implemented: it provisions private WAC-protected resources, commits accepted bytes into CSS before receipt
-issuance, denies anonymous retrieval and permits authenticated holder retrieval with a DPoP-bound CSS identity.
+The core Databox exchange (DBX-01 through DBX-25) is complete, including the live CSS slice that provisions private
+WAC-protected resources, commits accepted bytes into CSS before receipt issuance, denies anonymous retrieval and
+permits authenticated holder retrieval with a DPoP-bound CSS identity. DBX-26 adversarial assurance is implemented —
+a dedicated P1 adversarial suite exercises the threat model's attacks against the real components and asserts the
+safe, fail-closed outcome.
 
-The broader DBX-25 two-program lifecycle suite remains active. DBX-26 adversarial assurance, DBX-27 independent
-Solid interoperability assessment and DBX-28 release readiness are not yet complete.
+Beyond the organisation exchange, the broader **Web Civics buildout** is implemented: personal and mobile Databoxes
+(PWA/WASM pod with owner-key-encrypted continuity backup), household guardianship and custody, verifiable
+credentials (OIDC4VP presentation exchange, offline carried credentials, programmable grants, scoped disclosure),
+credential-gated federation, community economics and the living-library fabric, device telemetry, and the
+privacy-preserving edge-AI surface — all fail-closed and unit-tested.
 
-This remains a reference and demonstrator implementation. Current production gaps include durable Forge registries,
-KMS-managed keys, durable outbox/feed/idempotency storage, a WORM or equivalently protected evidence substrate,
-production organisation IAM, independent security review, legal-policy review and external interoperability evidence.
+This remains a reference implementation. The genuinely external remainder is not unbuilt logic but assets and
+infrastructure: the bundled WASM ASR/TTS model binaries, a custody-provider decision and live KMS endpoint for key
+custody and multi-writer content-addressed storage, and live multi-peer deployment proofs. Independent security,
+legal-policy and external interoperability review also remain ahead of any production claim.
 
 ## Testing and deployment
 
 ### Test coverage
 
-The Databox extension is fail-closed and unit-tested across all 24 subsystems:
+The Databox extension is fail-closed and comprehensively tested:
 
-- **188 unit test files** under `test/unit/databox/` covering agent, authorization, bridge, IPMS (99 tests), compliance,
-  context, credential, evidence, feed, gateway, identifiers, notification, ODRL, policy, profile, proof, provisioning,
-  receipt, review, storage, and tenant.
-- **6 integration tests** including live CSS/OIDC/WAC (`DataboxLive.test.ts`), IPMS handler, IPMS accessibility, Oxigraph
-  sync, vanilla mode, and vertical profiles.
+- **230 test suites / 2,020 tests** across unit and adversarial coverage — agent, authorization, bridge, IPMS,
+  compliance, context, credential, disclosure, durable, evidence, feed, gateway, identifiers, notification, ODRL,
+  ops, personal, policy, profile, proof, provisioning, receipt, review, storage, and tenant.
+- **A dedicated adversarial suite** (`test/adversarial/P1.test.ts`) exercises the threat model's P1 attacks against
+  the real components — a test fails if an attack succeeds or a denial leaks protected facts.
+- **Integration tests** including live CSS/OIDC/WAC (`DataboxLive.test.ts`), IPMS handler, IPMS accessibility,
+  Oxigraph sync, vanilla mode, and vertical profiles.
 - **Fail-closed stubs** verified by a dedicated test — no stub silently permits access or claims conformance.
 
 ### Deployment
@@ -266,7 +291,7 @@ The Databox extension is fail-closed and unit-tested across all 24 subsystems:
 - **Docker Compose** — IPMS deployment via `databox/deployment/ipms/docker-compose.ipms.yml` with environment configuration.
 - **Kubernetes** — manifests under `databox/deployment/ipms/kubernetes/` for production IPMS deployment.
 - **Secret management** — templates under `databox/deployment/ipms/secrets/`.
-- **Live CSS preset** — experimental Components.js preset under `config/databox/` for mounting the Forge inside a
+- **Live CSS preset** — experimental Components.js preset under `config/databox/` for mounting the Smithy inside a
   running CSS instance.
 - **Desktop releases** — platform-specific Windows x64, macOS x64/ARM64, and Linux x64 packages. Setup downloads its
   private Node.js runtime and locked dependencies on first use, then launches the tray supervisor for desktop editions.

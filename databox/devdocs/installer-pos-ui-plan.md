@@ -105,8 +105,8 @@ Each step reads from the install-type SHACL shape to determine what to do.
 **Step 4 — Dependency resolution**
 - Run `<install-dir>/runtime/node/bin/npm ci` in `<install-dir>/app/`.
 - `ci` over `install` — deterministic from `package-lock.json`.
-- If `forge-admin` is bundled as a pre-built static asset, skip its build; otherwise
-  `npm ci` + `npm run build` in `forge-admin/` too.
+- If `smithy-admin` is bundled as a pre-built static asset, skip its build; otherwise
+  `npm ci` + `npm run build` in `smithy-admin/` too.
 
 **Step 5 — Configuration & cryptography bootstrap**
 - Generate `<install-dir>/app/.env` from the install-type shape's `ipms:envTemplate`:
@@ -141,7 +141,7 @@ Each step reads from the install-type SHACL shape to determine what to do.
   timeout (30s default). Report success or dump the service logs on failure.
 
 **Step 8 — Administrative provisioning & handoff**
-- Launch the admin browser to the forge-admin URL.
+- Launch the admin browser to the smithy-admin URL.
 - Guide through: root WebID creation → primary pod provisioning → ACL establishment.
 - Output final dashboard URLs, the generated control token (shown once, stored in
   `.env`), and the service status.
@@ -436,7 +436,7 @@ The `SolidModuleManifest` interface already has `configShape?: string`. The plan
 1. **Define `ui#` shapes for each module's config** as Turtle resources in
    `databox/ontologies/module-config-shapes.ttl`.
 2. **Point `configShape` at the shape IRI** in each module manifest.
-3. **Build a React-native `ui#` form renderer** in forge-admin that reads the shape and
+3. **Build a React-native `ui#` form renderer** in smithy-admin that reads the shape and
    renders the appropriate form fields.
 
 Example shape for the hosting module's config:
@@ -473,18 +473,18 @@ ipms:HostingConfigShape a ui:Form ;
   ) .
 ```
 
-### 3.4 React-native `ui#` form renderer (forge-admin)
+### 3.4 React-native `ui#` form renderer (smithy-admin)
 
 **Not embedding solid-ui.** The plan §2 already decided: "Adopt the `ui#` ontology…
 reimplement React-native. Don't take the dep (DOM-oriented)." solid-ui is
-`rdflib.js + plain-DOM widgets`; forge-admin is `React/Refine + fetch`. Embedding
+`rdflib.js + plain-DOM widgets`; smithy-admin is `React/Refine + fetch`. Embedding
 solid-ui would drag the entire DOM/rdflib runtime into the React app.
 
 Instead, build a React component that reads a `ui#` shape (as Turtle or JSON-LD) and
-renders the form using the existing forge-admin UI primitives (Tailwind + Refine).
+renders the form using the existing smithy-admin UI primitives (Tailwind + Refine).
 
 ```
-forge-admin/src/components/
+smithy-admin/src/components/
   ui-form/
     UiFormRenderer.tsx    # reads ui# shape, dispatches to field components
     fields/
@@ -579,11 +579,11 @@ runtime code (installer, IPMS, POS edge) interprets the RDF.
 - ✏ `src/util/Vocabularies.ts` — extend `IPMS` with install-type + native-edge terms;
   add `UI` vocabulary
 - ✎ `databox/ontologies/module-config-shapes.ttl` — `ui#` shapes for module configs
-- ✎ `forge-admin/src/components/ui-form/UiFormRenderer.tsx` — React `ui#` renderer
-- ✎ `forge-admin/src/components/ui-form/parseUiShape.ts` — shape parser
-- ✎ `forge-admin/src/components/ui-form/types.ts` — form spec types
-- ✎ `forge-admin/src/components/ui-form/fields/*.tsx` — field components
-- ✏ `forge-admin/src/pages/modules/index.tsx` — render config form via `UiFormRenderer`
+- ✎ `smithy-admin/src/components/ui-form/UiFormRenderer.tsx` — React `ui#` renderer
+- ✎ `smithy-admin/src/components/ui-form/parseUiShape.ts` — shape parser
+- ✎ `smithy-admin/src/components/ui-form/types.ts` — form spec types
+- ✎ `smithy-admin/src/components/ui-form/fields/*.tsx` — field components
+- ✏ `smithy-admin/src/pages/modules/index.tsx` — render config form via `UiFormRenderer`
   when `configShape` is present
 
 ---
@@ -618,12 +618,12 @@ dispatcher. Creates the POS config preset.
 
 ### Phase 3 — ui# form renderer (parallel with Phase 2)
 
-Builds the React-native `ui#` renderer in forge-admin. Reads shapes, renders forms,
+Builds the React-native `ui#` renderer in smithy-admin. Reads shapes, renders forms,
 serializes back to Turtle.
 
-- ✎ `forge-admin/src/components/ui-form/` — renderer + fields + parser
-- ✏ `forge-admin/src/pages/modules/index.tsx` — wire in renderer
-- ✎ forge-admin tests: shape parsing, field rendering, form submission
+- ✎ `smithy-admin/src/components/ui-form/` — renderer + fields + parser
+- ✏ `smithy-admin/src/pages/modules/index.tsx` — wire in renderer
+- ✎ smithy-admin tests: shape parsing, field rendering, form submission
 
 **Deliverable:** module config forms rendered from `ui#` shapes in the admin panel.
 
@@ -664,7 +664,7 @@ Prefix every node/npm cmd with `export PATH="/c/nvm4w/nodejs:$PATH"`; Jest scope
    `localhost:9100/jobs` → drawer kicks (or mocked confirmation).
 
 3. **ui# form renderer (Phase 3):**
-   `cd forge-admin && npm run build && npm run lint` — green.
+   `cd smithy-admin && npm run build && npm run lint` — green.
    Manual: open modules page → hosting module config → `ui#` form renders → submit →
    config persists as Turtle.
 

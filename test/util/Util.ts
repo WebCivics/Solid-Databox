@@ -14,6 +14,8 @@ const portNames = [
   'DataboxIpmsVertical',
   'DataboxIpmsA11y',
   'DataboxLive',
+  'DataboxP1Deployment',
+  'DataboxConformance',
   'DynamicPods',
   'ExpiringDataCleanup',
   'FileBackend',

@@ -28,7 +28,7 @@ Two planes, kept deliberately separate:
 
 | Plane | What it does | Surface |
 |---|---|---|
-| **Control plane** — the *Forge* | Registers programs, validates the Institution Profile, forges opaque relationship mappings, issues connection credentials, bridges source-system events into the Databox. | Thin JSON API at `/.databox/forge`, behind a control token. Never uses an ordinary consumer token. |
+| **Control plane** — the *Smithy* | Registers programs, validates the Institution Profile, forges opaque relationship mappings, issues connection credentials, bridges source-system events into the Databox. | Thin JSON API at `/.databox/smithy`, behind a control token. Never uses an ordinary consumer token. |
 | **Data plane** | Standard Solid resource operations — a consumer agent authenticates and retrieves records; deposits are committed as normal CSS resources. | Ordinary Solid HTTP/LDP + WAC/DPoP. |
 
 The delivery pattern is **notify-then-pull**: the program deposits a record, the Databox sends a
@@ -37,8 +37,8 @@ own choosing.
 
 ## Contents
 
-1. **[Getting started](getting-started.md)** — run the server, hit the Forge, end-to-end flow.
-2. **[Forge control-plane API](forge-api.md)** — the `/programs`, `/mappings`, `/source-events` reference.
+1. **[Getting started](getting-started.md)** — run the server, hit the Smithy, end-to-end flow.
+2. **[Smithy control-plane API](smithy-api.md)** — the `/programs`, `/mappings`, `/source-events` reference.
 3. **[Institution Profile](institution-profile.md)** — the machine-validated program definition.
 4. **[Records, receipts & evidence](records-receipts-evidence.md)** — deposits, reconciliation, signed receipts, the ledger.
 5. **[Policies & ODRL](policies-and-odrl.md)** — rights, prohibitions and auditable duties travelling with records.

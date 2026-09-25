@@ -455,12 +455,12 @@ export function ensureBuiltIns(registry: DataboxModuleRegistry): void {
     },
     theming: {
       name: 'Theming & Design Tokens',
-      description: 'W3C DTCG design token validation, CSS compilation, and Forge token projection.',
+      description: 'W3C DTCG design token validation, CSS compilation, and Smithy token projection.',
       capabilities: [ 'ipms:theming', 'ipms:design-tokens' ],
       routes: [
         'POST /.databox/ipms/theming/validate',
         'POST /.databox/ipms/theming/css',
-        'POST /.databox/ipms/theming/forge-tokens',
+        'POST /.databox/ipms/theming/smithy-tokens',
       ],
       configShape: `${IPMS.namespace}ThemingConfigShape`,
       navLabel: 'Theming',

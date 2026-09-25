@@ -128,17 +128,7 @@ export default opinionated().append({
   files: [
     'scripts/**/*.mjs',
     'scripts/**/*.js',
-    'src/databox/cms/sidecars/ConnectorSidecar.ts',
-    'fix_api_types.js',
-    'extract_rest.js',
-    'extract_payments.js',
-    'extract_pos.js',
-    'extract_pos2.js',
-    'extract_website2.js',
-    'extract_website3.js',
-    'extract_website4.js',
-    'rewrite_handler.js',
-    'rewrite_handler_safely.js',
+    'src/databox/ipms/sidecars/ConnectorSidecar.ts',
   ],
   rules: {
     // Scripts are CLI tools where console output and sync file I/O are expected.

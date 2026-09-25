@@ -22,7 +22,7 @@ Implemented in the current branch:
   and connector manifest/job descriptors.
 - `ModuleManifestRdf` supports portable RDF manifest serialization/discovery through standard Solid Type Index
   patterns.
-- `forge-admin` has demo/live/standard-Solid provider modes; the standard-Solid mode degrades away from
+- `smithy-admin` has demo/live/standard-Solid provider modes; the standard-Solid mode degrades away from
   CSS-enhanced control-plane operations.
 - `VerticalProfile` ships declarative lighthouse bundles for `food.restaurant` and `health.privacy-consent`.
 - Oxigraph support exists as an opt-in SPARQL storage profile plus deterministic hydration planning. Oxigraph is
@@ -38,7 +38,7 @@ Implemented in the current branch:
 - Built-in IPMS route wrappers exist for receipts, menu building, hosting planning, works export/import, vertical
   profile preview/apply, and public website preview.
 - POS/customer-display/order/promotion/ticket/native-device/cash-register/customer-ordering contracts exist as
-  Solid/RDF-friendly IPMS modules, and Forge Admin has initial POS, customer display, waiter, receipt, module,
+  Solid/RDF-friendly IPMS modules, and Smithy Admin has initial POS, customer display, waiter, receipt, module,
   hosting, and setup surfaces.
 - Customer display now has a timed playlist model for app install, Solid vault connect, transaction, loyalty,
   receipt/QR, customer self-order, and advertising slides.
@@ -46,7 +46,7 @@ Implemented in the current branch:
   placeholders, virtual query mode, and LDAP data-import vs auth-federation separation.
 - Deployment artifacts exist for Docker Compose and Kubernetes-style IPMS deployment, with secrets/env separation.
 - Verification gates are currently green for root build, root lint, TypeScript, IPMS units, full unit suite, IPMS
-  integrations, deployment validation, and Forge Admin build/lint.
+  integrations, deployment validation, and Smithy Admin build/lint.
 - Run the live Oxigraph-backed CSS smoke harness against an actual Oxigraph endpoint (WASM-based Oxigraph server) in both unified and split query/update modes.
 - Run real network hydration through the opt-in Oxigraph sync composition against an actual Oxigraph endpoint.
 - Run the migration proof live: file-backed CSS pod -> standard Solid RDF works -> Oxigraph-backed CSS profile -> vanilla Solid-readable degradation mode.
@@ -128,7 +128,7 @@ a **system-tray** presence. Split by job:
   24/7 low-resource shop box). Tray menu: Status · Start/Stop · **Open Admin** (launches default browser to
   the local admin URL) · Open Logs · Check for Updates · Quit. Reuses the **Rust** toolchain already chosen
   for the device app (§10.2).
-- **UI → the local browser.** The admin panel (forge-admin) is already a web app — don't re-render it in a
+- **UI → the local browser.** The admin panel (smithy-admin) is already a web app — don't re-render it in a
   desktop shell. Data-mapping / data-migration UIs are **admin pages calling a local server endpoint**;
   reserve native only for what the browser sandbox truly can't do.
 - **Escape hatch:** if a *native* window with direct FS access is later needed (heavy local migration), use
@@ -193,7 +193,7 @@ hand-waving):
   (LDP / WAC-ACP / Solid-OIDC / Notifications / Type-Index) → works against **any** compliant back-end (NSS,
   Pivot, ESS, …); **(ii) CSS-enhanced mode** — additionally uses the CSS-side IPMS control plane for features
   that need server-side compute. The app **detects** back-end capabilities and **degrades gracefully**
-  (enhanced features hide/downgrade off-CSS). **Fits the existing seam:** forge-admin already swaps Refine
+  (enhanced features hide/downgrade off-CSS). **Fits the existing seam:** smithy-admin already swaps Refine
   `dataProvider`s (`demoDataProvider` vs live `dataProvider` via `VITE_DEMO`) → a **standard-Solid provider** is
   a *third variant*, not a rewrite. **Feature split (the contract):** *portable-core* (CRUD, access control,
   auth, notifications, discovery) always available; *enhanced* (module registry, control-token ops, server-side
@@ -290,7 +290,7 @@ standard-Solid degradation path.
 
 SolidOS is, in effect, an existing "OS/IPMS for Solid" (a pod data-browser + app shell). Reviewed the repos
 you flagged plus the wider org. Honest reuse decisions below — the key friction is that the SolidOS stack
-is **rdflib.js + plain-DOM widgets**, while `forge-admin` is **React/Refine + fetch**; so we adopt SolidOS
+is **rdflib.js + plain-DOM widgets**, while `smithy-admin` is **React/Refine + fetch**; so we adopt SolidOS
 *patterns and ontologies*, and take its code only where it doesn't drag the whole DOM/rdflib runtime in.
 
 | SolidOS repo | What it is | Decision |
@@ -348,8 +348,8 @@ reasonable way to model richer module data (POS orders, receipts) without raw tr
 - **Open, not a prescribed set.** Solid stores RDF and RDF is model-agnostic → **any** ontology (DPV, ODRL,
   schema.org, org, FOAF, GS1, WoT, custom) is natively compatible and composes in the graph. **Model-level
   interop is free; semantic interop** (parties acting on the *same meaning*) needs shared/well-known ontologies
-  at interop points **or mappings** — bridged by the existing **Ontology Mapping Registry** (forge-admin
-  SHACL/RDF mappings, [[forge-admin-info-taxonomy-direction]]). So: **open by default; recommend at interop
+  at interop points **or mappings** — bridged by the existing **Ontology Mapping Registry** (smithy-admin
+  SHACL/RDF mappings, [[smithy-admin-info-taxonomy-direction]]). So: **open by default; recommend at interop
   points; map what differs.** Everything below is a *recommendation*, not a restriction. The contract is the
   **model (RDF) + protocol (Solid)**, never the ontology chosen.
 - **Local vocab utility already exists:** `src/util/Vocabularies.ts` with `createVocabulary()` /
@@ -428,7 +428,7 @@ reasonable way to model richer module data (POS orders, receipts) without raw tr
   layer (install-time). Our IPMS adds the *runtime-enableable, self-describing, Solid-config-backed* layer on
   top. Stated plainly: a **new fork convention, not an upstream standard** (per `feedback-community-work-standard`).
 - **Control-plane auth** — `LiveDataboxHttpHandler` (`timingSafeEqual`, ≥32-byte token) already protects
-  `/.databox/forge/*`. → the IPMS control routes reuse this boundary (proper operator IAM is the later hardening).
+  `/.databox/smithy/*`. → the IPMS control routes reuse this boundary (proper operator IAM is the later hardening).
 - **Tenant binding** — `TenantBindingRegistry` binds origins/audiences to a program (T-31, no platform-wide
   credential). → the hosting module registers the new `databox.<apex>` origin here.
 - **Real-time / notifications** — CSS already ships the Solid **Notifications Protocol**: a
@@ -481,20 +481,20 @@ Two parts, both Solid-native:
   routes[], configShape(ui#/SHACL), adminUi{ navLabel, path }`.
 - `DataboxModuleRegistry` (interface + in-memory ref impl): list installed, enabled-state, config link.
 - Enabled-state + config persisted as RDF at `/.databox/ipms/modules/<id>` (+ `/config`), WAC-locked to admin.
-- Generalise the hardcoded route ladder in `src/databox/forge/MappingForgeHttpApi.ts` into a **module route
-  dispatch** `(method, subpath) → handler`, mounted under `/.databox/ipms` (sibling to `/.databox/forge`),
+- Generalise the hardcoded route ladder in `src/databox/smithy/MappingForgeHttpApi.ts` into a **module route
+  dispatch** `(method, subpath) → handler`, mounted under `/.databox/ipms` (sibling to `/.databox/smithy`),
   behind the existing control token.
 
 **5.2 Configuration** — site-wide settings (name, branding, locale, storage/baseUrl *intent*) as an RDF
 settings resource under the pim workspace; per-module config via the `ui#`/SHACL shape from the manifest.
 
 **5.3 Setup / onboarding** — first-run wizard: detect unconfigured state → admin creation → storage → enable
-first module (hosting). The existing **Organization Set-up** page (`forge-admin/src/pages/setup/`) folds in
+first module (hosting). The existing **Organization Set-up** page (`smithy-admin/src/pages/setup/`) folds in
 here as the "org identity + information-obligations" step (already built; taxonomy work per
-`forge-admin-info-taxonomy-direction`).
+`smithy-admin-info-taxonomy-direction`).
 
-**5.4 Admin shell** — `forge-admin` becomes the IPMS admin: sidebar rendered **dynamically from enabled
-modules** (replaces today's hardcoded `NavLink` list in `forge-admin/src/components/layout/index.tsx`),
+**5.4 Admin shell** — `smithy-admin` becomes the IPMS admin: sidebar rendered **dynamically from enabled
+modules** (replaces today's hardcoded `NavLink` list in `smithy-admin/src/components/layout/index.tsx`),
 a dashboard, and the module/config/user screens. A module appears only when enabled — this is the
 "**page that can be enabled**" mechanism, backed by real server state (not just a `VITE_` flag, though a
 flag can still gate the whole thing for the static demo, matching `VITE_DEMO` in `App.tsx`).
@@ -577,8 +577,8 @@ hosting config (bullet (4) above).
 - ✎ `src/databox/ipms/SolidModuleManifest.ts`, `DataboxModuleRegistry.ts`, `ModuleConfigStore.ts`
   (mirror `TenantBindingRegistry` / reuse `CssDataboxStore` primitives).
 - ✏ `src/util/Vocabularies.ts` — add the IPMS/module vocabulary via `createVocabulary()`.
-- ✏ `src/databox/forge/MappingForgeHttpApi.ts` — extract reusable route dispatch (or sibling `IpmsHttpApi`);
-  keep forge routes working.
+- ✏ `src/databox/smithy/MappingForgeHttpApi.ts` — extract reusable route dispatch (or sibling `IpmsHttpApi`);
+  keep smithy routes working.
 - ✏ `config/databox/live-handler.json` (+ new `config/databox/ipms.json`) — wire registry + `/.databox/ipms`.
 
 **Config / packaging — the opt-in install profile (§1.1):**
@@ -593,7 +593,7 @@ hosting config (bullet (4) above).
 - ✎ `src/databox/ipms/modules/hosting/HostingModule.ts` (manifest + route handlers),
   `HostingConfig.ts` (pure DNS-record/artifact derivation — unit-testable).
 
-**Admin panel (`forge-admin`):**
+**Admin panel (`smithy-admin`):**
 - ✎ `src/pages/hosting/index.tsx` (wizard), `src/modules/` (module-contribution convention).
 - ✏ `src/components/layout/index.tsx` (dynamic sidebar), `src/App.tsx` (routes/resources),
   `src/providers/dataProvider.ts` (`modules`/`hosting`/`config` resources → `/.databox/ipms`).
@@ -614,7 +614,7 @@ Prefix every node/npm cmd with `export PATH="/c/nvm4w/nodejs:$PATH"`; Jest scope
 2. **Integration:** new `DataboxIpms.test.ts` (or extend `DataboxLive.test.ts`, `--runInBand`) — real CSS
    process, random ≥32-byte token; `/.databox/ipms` rejects without token; enable/disable writes a Solid
    resource retrievable via normal LDP; hosting config round-trips → expected DNS for both routes.
-3. **Admin UI:** run `forge-admin` dev; enable the hosting module → nav entry appears; wizard computes
+3. **Admin UI:** run `smithy-admin` dev; enable the hosting module → nav entry appears; wizard computes
    `databox.acme.org` + `www.acme.org`, renders the correct Cloudflare DNS table, config persists.
 4. **Gate:** build + lint + tsc(src+test) green on Node 24.18.0.
 5. **Basic profile untouched (§1.1):** launch the vanilla base config (e.g. `config/default.json`) with **no**
@@ -720,7 +720,7 @@ or a dedicated socket channel.
 
 **10.4 POS (point of sale).** The headline small-business app. Products, orders, payments, receipts — modelled
 as RDF resources (receipts already exist as a record type in the info-categories taxonomy,
-`forge-admin-info-taxonomy-direction`), real-time via §10.3, device peripherals via §10.2. Large; its own
+`smithy-admin-info-taxonomy-direction`), real-time via §10.3, device peripherals via §10.2. Large; its own
 design pass. Seam + data-model sketch now, build later. **Depends on the Payments module (§10.5).**
 
 **10.5 Payments (comprehensive) — the money layer POS depends on.** You want full payments: web-payments
@@ -749,7 +749,7 @@ standards, receipts, and real gateways (Stripe + others). Design as a **`Payment
   mint a receipt as an **RDF resource** — [schema.org `Order`/`Invoice`](https://schema.org/Invoice) (receipt =
   Invoice at `PaymentComplete`) + DPV/ODRL — committed to the pod (reuse `CssDataboxStore`), WAC-scoped to the
   customer/holder. Dovetails with the existing **"receipt" record type** in the info-categories taxonomy
-  (`forge-admin-info-taxonomy-direction`) and the corrections/consumer-ledger features. Portable, verifiable,
+  (`smithy-admin-info-taxonomy-direction`) and the corrections/consumer-ledger features. Portable, verifiable,
   customer-owned.
 - **Scope:** its own design pass; seam + gateway interface + receipt shape sketched now, Stripe adapter built
   with POS.
@@ -916,7 +916,7 @@ Feeds (§10.8), Website (§10.7), Hosting (§6), Real-time (§10.3), Delivery (�
 - **Multi-tenant marketplace / co-op** → **tenancy (#21)** + **nested governance** (the platform/co-op governs
   the marketplace *and* each member entity governs itself; isolated by `TenantBinding`).
 - **Allied-health practice** → the **privacy/consent spine** — and validates apparatus **already built**
-  (forge-admin access-requests / corrections / consumer-ledger; `sensitive` special-category in the taxonomy):
+  (smithy-admin access-requests / corrections / consumer-ledger; `sensitive` special-category in the taxonomy):
   patient records in the *patient's* pod, granular revocable consent (DPV), regulated confidentiality.
 - **Print shop / 3D printing** → **inverts the ownership flow** (first case where the *customer* owns the
   thing): the customer's submitted asset (print file / 3D model, their **IP**) is licensed to the shop for a
@@ -1061,7 +1061,7 @@ native-edge (§1.2) · Device identity (mTLS/Rust §10.2) · Enterprise connecti
 ### 12.5 Theming solution (drop-in + LLM-agent-editable)
 Two surfaces: **admin shell** + **public website**. Design:
 - **Design tokens** (colour/type/spacing/radius/shadow/motion) in the **W3C DTCG token JSON** standard
-  (standards-native, portable) → compiled to **CSS custom properties** (+ Tailwind config; forge-admin already
+  (standards-native, portable) → compiled to **CSS custom properties** (+ Tailwind config; smithy-admin already
   uses Tailwind). Optionally also expressible as RDF (a theme is a declarative "work", portable §1.4).
 - **Drop-in:** a *theme package* = tokens + optional template overrides + assets, dropped into a themes dir /
   referenced by config; **switchable at runtime** (admin picks). Ships a neutral default (matches the

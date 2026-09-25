@@ -195,13 +195,15 @@ describe('ComposedDataboxPermissionReader (narrow-never-broaden)', (): void => {
     });
   });
 
-  it('fails closed (denies every requested mode) when no Databox context resolves.', async(): Promise<void> => {
+  it('passes the upstream result through when no Databox context resolves.', async(): Promise<void> => {
+    // `undefined` from the resolver means the resource is NOT databox-governed — the reader passes the
+    // WAC result through unchanged rather than deny: ordinary Solid resources carry no conjuncts.
     const reader = new ComposedDataboxPermissionReader(
       new StubReader(upstream([[ target, { read: true, write: true }]])),
       resolverFor(undefined),
     );
     const result = await reader.handleSafe(requestFor([ AccessMode.read, AccessMode.write ]));
-    expect(result.get(target)).toEqual({ read: false, write: false });
+    expect(result.get(target)).toEqual({ read: true, write: true });
   });
 
   it('handles a missing upstream entry as an empty set and still narrows.', async(): Promise<void> => {
@@ -256,7 +258,8 @@ describe('ComposedDataboxPermissionReader (narrow-never-broaden)', (): void => {
     expect(events[0].existenceVisibility).toBe('visible');
   });
 
-  it('defaults existence visibility to suppressed when no context resolves.', async(): Promise<void> => {
+  it('emits no decision event for a pass-through (non-databox) resource.', async(): Promise<void> => {
+    // A resource with no databox context is not governed — no composed decision exists to audit.
     const events: DataboxDecisionEvent[] = [];
     const reader = new ComposedDataboxPermissionReader(
       new StubReader(upstream([[ target, { read: true }]])),
@@ -264,7 +267,6 @@ describe('ComposedDataboxPermissionReader (narrow-never-broaden)', (): void => {
       sinkCollecting(events),
     );
     await reader.handleSafe(requestFor([ AccessMode.read ]));
-    expect(events[0].existenceVisibility).toBe('suppressed');
-    expect(events[0].composedReadObservable).toBe(false);
+    expect(events).toHaveLength(0);
   });
 });

@@ -40,6 +40,7 @@ function mappingReturning(current: RelationshipRecord | undefined): Relationship
     register: jest.fn(),
     findByIdempotencyKey: jest.fn(),
     findByBoxId: jest.fn().mockResolvedValue(current),
+    findByRelationshipId: jest.fn(),
     resolveCustomer: jest.fn(),
   };
 }

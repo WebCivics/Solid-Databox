@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A safe, made-up demonstration of the organisation set-up side of Web Civics Databox.">
+  <title>Organisation set-up demonstration | Web Civics Databox</title>
+  <link rel="stylesheet" href="../assets/styles/main.css">
+  <style>
+    body { display: block; }
+    .demo-header { align-items: center; background: var(--bg-surface); border-bottom: 1px solid var(--border-light); display: flex; gap: 1rem; justify-content: space-between; padding: 1rem clamp(1rem, 4vw, 3rem); }
+    .demo-header a { color: var(--text-primary); font-weight: 700; }
+    .demo-header strong { color: var(--text-primary); font-size: 1.2rem; }
+    .demo-main { margin: 0 auto; max-width: 1050px; padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem) 4rem; }
+    .demo-intro { max-width: 760px; }
+    .demo-intro h1 { color: var(--text-primary); font-size: clamp(2.1rem, 5vw, 3.5rem); letter-spacing: -0.03em; line-height: 1.1; margin: 0.5rem 0 1rem; }
+    .demo-intro p { color: var(--text-secondary); font-size: 1.2rem; line-height: 1.6; }
+    .demo-banner { background: #fff3d7; border-left: 5px solid var(--accent); border-radius: 0.5rem; color: #593c06; margin: 2rem 0; padding: 1rem 1.2rem; }
+    .demo-banner p { margin: 0.35rem 0 0; }
+    .step-tabs { border-bottom: 1px solid var(--border-light); display: flex; gap: 0.35rem; margin: 2.5rem 0 2rem; overflow-x: auto; }
+    .nav-btn { background: transparent; border: 0; border-bottom: 4px solid transparent; color: var(--text-secondary); cursor: pointer; font: inherit; font-size: 1rem; font-weight: 700; padding: 1rem; white-space: nowrap; }
+    .nav-btn:hover, .nav-btn.active { border-bottom-color: var(--primary); color: var(--text-primary); }
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+    .view-section h2 { color: var(--text-primary); font-size: 2rem; margin: 0 0 0.5rem; }
+    .view-section > p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 760px; }
+    .explanation { background: rgba(42, 157, 143, 0.09); border-radius: 0.75rem; color: var(--text-primary); margin: 1.25rem 0; padding: 1rem 1.2rem; }
+    .explanation strong { display: block; margin-bottom: 0.25rem; }
+    .data-table { background: var(--bg-surface); border: 1px solid var(--border-light); border-collapse: collapse; border-radius: 0.75rem; margin-top: 1.5rem; overflow: hidden; width: 100%; }
+    .data-table th, .data-table td { border-bottom: 1px solid var(--border-light); padding: 1rem; text-align: left; vertical-align: top; }
+    .data-table th { background: rgba(28, 64, 102, 0.08); color: var(--text-primary); }
+    .data-table tr:last-child td { border-bottom: 0; }
+    .data-table code { overflow-wrap: anywhere; }
+    .tag { background: rgba(42, 157, 143, 0.15); border-radius: 99px; color: #17675f; display: inline-block; font-size: 0.9rem; font-weight: 700; padding: 0.25rem 0.6rem; }
+    .form-card { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 1rem; margin-top: 1.5rem; max-width: 780px; padding: clamp(1.25rem, 4vw, 2rem); }
+    .form-card h3 { color: var(--text-primary); margin-top: 0; }
+    .form-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { color: var(--text-primary); display: block; font-weight: 700; margin-bottom: 0.4rem; }
+    .form-group .help { color: var(--text-secondary); display: block; font-size: 0.9rem; margin: 0 0 0.45rem; }
+    .form-group input, .form-group textarea { background: #fffdf8; border: 1px solid #af9f80; border-radius: 0.45rem; color: #263c50; font: inherit; padding: 0.7rem; width: 100%; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); outline: 3px solid rgba(42, 157, 143, 0.24); }
+    .result { background: #f4fbf9; border: 1px solid rgba(42, 157, 143, 0.35); border-radius: 0.75rem; margin-top: 1.5rem; max-width: 780px; padding: 1.25rem; }
+    .result h3 { color: #17675f; margin-top: 0; }
+    .code-block { background: #1c2d3e; border-radius: 0.5rem; color: #fff7da; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.5; overflow-wrap: anywhere; padding: 1rem; }
+    .hidden { display: none; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } .data-table { display: block; overflow-x: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#demo-content">Skip to the demonstration</a>
+  <header class="demo-header">
+    <strong>Web Civics Databox</strong>
+    <a href="../">&larr; Back to the plain-language guide</a>
+  </header>
+
+  <main id="demo-content" class="demo-main">
+    <div class="demo-intro">
+      <p class="eyebrow">Safe learning demonstration</p>
+      <h1>How an organisation could set up a service.</h1>
+      <p>This page is a guided, made-up example. It shows three parts of setting up an information relationship. It does not send information anywhere and it is not connected to a real service.</p>
+    </div>
+
+    <section class="demo-banner" aria-label="Important demonstration notice">
+      <strong>Everything on this page is fictional.</strong>
+      <p>Please do not enter real names, contact details, customer numbers or other personal information. In a real deployment, access would be restricted to authorised staff and governed by the organisation’s privacy, security and records-management processes.</p>
+    </section>
+
+    <nav class="step-tabs" aria-label="Demonstration steps" role="tablist">
+      <button id="programs-tab" class="nav-btn active" type="button" role="tab" aria-controls="view-programs" aria-selected="true" onclick="switchView('programs', event)">1. Describe the service</button>
+      <button id="mappings-tab" class="nav-btn" type="button" role="tab" aria-controls="view-mappings" aria-selected="false" onclick="switchView('mappings', event)">2. Set up a connection</button>
+      <button id="events-tab" class="nav-btn" type="button" role="tab" aria-controls="view-events" aria-selected="false" onclick="switchView('events', event)">3. Send a record</button>
+    </nav>
+
+    <section id="view-programs" class="view-section active" role="tabpanel" aria-labelledby="programs-tab">
+      <h2 id="programs-title">1. Describe the service</h2>
+      <p>Before sharing anything, an organisation should define the service and its boundaries: what it is for, what records it uses, and which people are responsible.</p>
+      <div class="explanation"><strong>In the software this is called a “program”.</strong> Think of it as a documented service agreement, not a marketing program. Each program has its own rules and does not automatically give staff access to other programs.</div>
+      <table class="data-table">
+        <thead><tr><th scope="col">Example service</th><th scope="col">Plain-language purpose</th><th scope="col">Example record type</th><th scope="col">Status</th></tr></thead>
+        <tbody id="programs-tbody"></tbody>
+      </table>
+    </section>
+
+    <section id="view-mappings" class="view-section" role="tabpanel" aria-labelledby="mappings-tab" hidden>
+      <h2 id="mappings-title">2. Set up a connection</h2>
+      <p>In a real service, this creates a separate connection between one person and one program. The connection uses an internal reference instead of putting a person’s general identity into every record.</p>
+      <div class="explanation"><strong>Why make connections separate?</strong> A receipt from one service should not automatically reveal a person’s relationship with another service. Keeping connections separate limits unnecessary sharing.</div>
+      <form class="form-card" onsubmit="submitMapping(event)">
+        <h3>Try a fictional example</h3>
+        <div class="form-grid">
+          <div class="form-group"><label for="map-profileId">Service</label><span class="help">Choose the service this connection belongs to.</span><input id="map-profileId" value="Local library membership" required></div>
+          <div class="form-group"><label for="map-namespace">Internal reference type</label><span class="help">A label only; no real customer number is needed here.</span><input id="map-namespace" value="library member" required></div>
+        </div>
+        <div class="form-group"><label for="map-customerId">Fictional member reference</label><span class="help">Use a made-up reference such as DEMO-MEMBER-042.</span><input id="map-customerId" value="DEMO-MEMBER-042" required></div>
+        <div class="form-group"><label for="map-webId">Example personal address</label><span class="help">This is a made-up address used only to illustrate the connection.</span><input id="map-webId" value="https://example-person.invalid/profile" required></div>
+        <button class="action-btn" type="submit">Create a fictional connection</button>
+      </form>
+      <div id="mapping-result" class="result hidden" aria-live="polite">
+        <h3>Fictional connection created</h3>
+        <p>This is a sample reference. In a real system, a person would be able to use it to connect their chosen storage with this particular service.</p>
+        <div id="mapping-uri" class="code-block"></div>
+      </div>
+    </section>
+
+    <section id="view-events" class="view-section" role="tabpanel" aria-labelledby="events-tab" hidden>
+      <h2 id="events-title">3. Send a record</h2>
+      <p>This example sends a made-up receipt. A real organisation should only send a record when it has a lawful purpose, a clearly communicated reason, and suitable safeguards.</p>
+      <div class="explanation"><strong>What happens after a record is accepted?</strong> The service receives a dated receipt confirming its record was accepted. That receipt helps staff investigate a problem without silently changing history.</div>
+      <form class="form-card" onsubmit="submitEvent(event)">
+        <h3>Try a fictional record</h3>
+        <div class="form-grid">
+          <div class="form-group"><label for="ev-type">Type of record</label><input id="ev-type" value="Library borrowing receipt" required></div>
+          <div class="form-group"><label for="ev-class">Record category</label><input id="ev-class" value="Receipt" required></div>
+        </div>
+        <div class="form-group"><label for="ev-message">Fictional message</label><span class="help">Keep it non-personal. It stays in this browser demonstration only.</span><textarea id="ev-message" rows="4" required>A receipt for a borrowed community-history book.</textarea></div>
+        <button class="action-btn" type="submit">Send the fictional record</button>
+      </form>
+      <div id="event-result" class="result hidden" aria-live="polite">
+        <h3>Fictional record accepted</h3>
+        <p><strong>Status:</strong> <span class="tag">Recorded in this demonstration</span></p>
+        <p><strong>Sample receipt reference:</strong></p>
+        <div id="ev-resource" class="code-block"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const PROGRAMS = [
+      { name: 'Local Library Membership', purpose: 'Keep members’ borrowing and membership records organised.', record: 'Borrowing receipt' },
+      { name: 'Community Garden Project', purpose: 'Record shared plots, contributions and project notices.', record: 'Project notice' }
+    ];
+
+    function switchView(viewId, event) {
+      document.querySelectorAll('.view-section').forEach((section) => {
+        section.classList.remove('active');
+        section.hidden = true;
+      });
+      document.querySelectorAll('.nav-btn').forEach((button) => {
+        button.classList.remove('active');
+        button.setAttribute('aria-selected', 'false');
+      });
+      const selectedView = document.getElementById('view-' + viewId);
+      selectedView.classList.add('active');
+      selectedView.hidden = false;
+      event.currentTarget.classList.add('active');
+      event.currentTarget.setAttribute('aria-selected', 'true');
+    }
+
+    function randomReference() {
+      return Math.random().toString(16).slice(2, 10).toUpperCase();
+    }
+
+    function renderPrograms() {
+      const tableBody = document.getElementById('programs-tbody');
+      PROGRAMS.forEach((program) => {
+        const row = document.createElement('tr');
+        [program.name, program.purpose, program.record].forEach((value) => {
+          const cell = document.createElement('td');
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        const status = document.createElement('td');
+        const label = document.createElement('span');
+        label.className = 'tag';
+        label.textContent = 'Fictional example';
+        status.appendChild(label);
+        row.appendChild(status);
+        tableBody.appendChild(row);
+      });
+    }
+
+    function submitMapping(event) {
+      event.preventDefault();
+      const webAddress = document.getElementById('map-webId').value.trim();
+      const reference = 'demo-connection-' + randomReference().toLowerCase();
+      const result = document.getElementById('mapping-result');
+      document.getElementById('mapping-uri').textContent = 'solid-databox://example-connect?address=' + encodeURIComponent(webAddress) + '&connection=' + reference;
+      result.classList.remove('hidden');
+    }
+
+    function submitEvent(event) {
+      event.preventDefault();
+      const reference = 'demo-receipt-' + randomReference().toLowerCase();
+      document.getElementById('ev-resource').textContent = 'https://demo.invalid/records/' + reference;
+      document.getElementById('event-result').classList.remove('hidden');
+    }
+
+    renderPrograms();
+    document.querySelectorAll('[role="tab"]').forEach((tab) => {
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const tabs = [...document.querySelectorAll('[role="tab"]')];
+        const current = tabs.indexOf(event.currentTarget);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (current + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus();
+        tabs[next].click();
+      });
+    });
+  </script>
+</body>
+</html>

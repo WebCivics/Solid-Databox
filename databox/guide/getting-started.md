@@ -35,13 +35,13 @@ npm run start:databox-demo
 
 > Starting the server **without** `-c config/databox/live.json` (for example plain `npm start` or
 > `node bin/server.js`) yields a stock CSS server with no Databox extension. It boots normally, but the
-> Forge is absent, so every `/.databox/forge/*` call returns `404` and the demos report
+> Smithy is absent, so every `/.databox/smithy/*` call returns `404` and the demos report
 > "Provisioning failed".
 
 The server starts on `http://localhost:3000/`. Two surfaces are now available:
 
 - the **data plane** — ordinary Solid resources served by CSS;
-- the **Forge control plane** — a thin JSON API mounted at **`http://localhost:3000/.databox/forge`**,
+- the **Smithy control plane** — a thin JSON API mounted at **`http://localhost:3000/.databox/smithy`**,
   protected by a bearer **control token** supplied at launch via the `--databoxControlToken` flag or the
   `CSS_DATABOX_CONTROL_TOKEN` environment variable.
 
@@ -56,7 +56,7 @@ A program is defined by an **[Institution Profile](institution-profile.md)**. Re
 the profile and stands up the program's provisioner, credential issuer and bridge.
 
 ```sh
-curl -s -X POST http://localhost:3000/.databox/forge/programs \
+curl -s -X POST http://localhost:3000/.databox/smithy/programs \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -83,14 +83,14 @@ Response (`201`) is a **public** program summary — note it contains no custome
 `programUri` and `databoxBaseUrl` must be absolute **HTTPS** URLs (HTTP is allowed only for `localhost`
 loopback). Registering the same `profileId` twice is rejected.
 
-## 3. Forge a relationship mapping
+## 3. Smithy a relationship mapping
 
 This maps one of your source-system customers to an **opaque** Databox relationship and issues a
 holder-bound **connection credential** the person installs in their wallet. The raw `customerId` is
 control-plane PII and is deliberately absent from the result.
 
 ```sh
-curl -s -X POST http://localhost:3000/.databox/forge/mappings \
+curl -s -X POST http://localhost:3000/.databox/smithy/mappings \
   -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
   -d '{
     "profileId": "prog-seraphim-welfare",
@@ -114,7 +114,7 @@ is **reconciled**, the exact accepted bytes are committed to CSS storage, and a 
 receipt** is issued.
 
 ```sh
-curl -s -X POST http://localhost:3000/.databox/forge/source-events \
+curl -s -X POST http://localhost:3000/.databox/smithy/source-events \
   -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
   -d '{
     "profileId": "prog-seraphim-welfare",
@@ -142,9 +142,9 @@ connection to browse the person's storage.
 
 ## Shortcuts
 
-- **Standalone demo (no server):** `npm run demo:databox-forge` runs the synthetic MegaMart flow
-  end-to-end against an in-memory Forge and asserts the raw customer ID never leaks into any output.
-- **Admin UI:** the `forge-admin/` React app is a GUI over this same control plane (Organisation
+- **Standalone demo (no server):** `npm run demo:databox-smithy` runs the synthetic MegaMart flow
+  end-to-end against an in-memory Smithy and asserts the raw customer ID never leaks into any output.
+- **Admin UI:** the `smithy-admin/` React app is a GUI over this same control plane (Organisation
   Set-up, Mappings Simulator, Event Dispatcher).
 
-Next: the full **[Forge API reference](forge-api.md)**.
+Next: the full **[Smithy API reference](smithy-api.md)**.

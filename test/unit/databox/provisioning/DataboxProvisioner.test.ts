@@ -218,6 +218,7 @@ describe('A DataboxProvisioner', (): void => {
         register: async(): Promise<typeof winner> => winner,
         findByIdempotencyKey: async(): Promise<undefined> => undefined,
         findByBoxId: async(): Promise<undefined> => undefined,
+        findByRelationshipId: async(): Promise<undefined> => undefined,
         resolveCustomer: async(): Promise<undefined> => undefined,
       };
       const provisioner = new DataboxProvisioner(new RandomOpaqueIdentifierGenerator(BASE), racyRegistry);

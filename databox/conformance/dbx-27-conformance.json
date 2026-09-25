@@ -1,0 +1,67 @@
+{
+  "gate": "DBX-27",
+  "generated": "2026-09-25T15:41:19.567Z",
+  "deployment": "databox-live.json (packaged live preset)",
+  "clients": [
+    "alice-conformance-client",
+    "bob-conformance-client",
+    "reference-agent-client"
+  ],
+  "results": [
+    {
+      "requirement": "WebID profile resolvable (alice)",
+      "status": "pass",
+      "evidence": "GET http://localhost:6011/alice/profile/card#me → 200"
+    },
+    {
+      "requirement": "WebID profile resolvable (bob)",
+      "status": "pass",
+      "evidence": "GET http://localhost:6011/bob/profile/card#me → 200"
+    },
+    {
+      "requirement": "Independent client alice reads own pod",
+      "status": "pass",
+      "evidence": "GET http://localhost:6011/alice/ → 200"
+    },
+    {
+      "requirement": "Independent client bob reads own pod",
+      "status": "pass",
+      "evidence": "GET http://localhost:6011/bob/ → 200"
+    },
+    {
+      "requirement": "LDP PUT resource",
+      "status": "pass",
+      "evidence": "PUT conf-doc.ttl → 201"
+    },
+    {
+      "requirement": "LDP GET resource (bytes preserved)",
+      "status": "pass",
+      "evidence": "GET → 200"
+    },
+    {
+      "requirement": "Cross-client isolation (private resource unreadable)",
+      "status": "pass",
+      "evidence": "bob GET alice/conf-doc.ttl → 403"
+    },
+    {
+      "requirement": "ACL-governed cross-client read",
+      "status": "pass",
+      "evidence": "bob GET (after .acl grant) → 200"
+    },
+    {
+      "requirement": "ACL-governed write still denied (read-only grant)",
+      "status": "pass",
+      "evidence": "bob PUT (read-only grant) → 403"
+    },
+    {
+      "requirement": "Reference agent round-trip",
+      "status": "pass",
+      "evidence": "agent PUT → 201, GET → 200"
+    },
+    {
+      "requirement": "Ordinary Solid root reachable + control plane protected",
+      "status": "pass",
+      "evidence": "GET / → 200, GET /.databox/smithy/programs → 401"
+    }
+  ]
+}

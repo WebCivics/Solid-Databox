@@ -11,7 +11,7 @@ import type { DurableCommit } from '../receipt/DurableCommit';
 const CONTAINER_TURTLE = '<> a <http://www.w3.org/ns/ldp#BasicContainer>.';
 
 /**
- * Live CSS adapter for the two durable acts owned by the Forge composition:
+ * Live CSS adapter for the two durable acts owned by the Smithy composition:
  * provisioning the private Solid surface and committing exact accepted record bytes.
  *
  * This adapter deliberately uses CSS's ResourceStore instead of a parallel web server or private data store,
@@ -149,7 +149,7 @@ export class CssDataboxStore {
       .filter(([ root ]): boolean => resource.startsWith(root))
       .sort(([ left ], [ right ]): number => right.length - left.length);
     if (matches.length === 0) {
-      throw new BadRequestHttpError('The Databox resource has not been provisioned by this Forge instance.');
+      throw new BadRequestHttpError('The Databox resource has not been provisioned by this Smithy instance.');
     }
     return matches[0][1];
   }

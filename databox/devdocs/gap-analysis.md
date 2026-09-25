@@ -99,9 +99,9 @@ wiring until a preset consciously swaps them out.
 
 ---
 
-## 3. Forge-Admin: `@ts-nocheck` on Every Page
+## 3. Smithy-Admin: `@ts-nocheck` on Every Page
 
-**Every single page component** in `forge-admin/src/pages/` has `// @ts-nocheck` on line
+**Every single page component** in `smithy-admin/src/pages/` has `// @ts-nocheck` on line
 1, disabling TypeScript checking entirely. This masks type errors, unsafe `any` casts,
 and missing prop validation.
 
@@ -135,11 +135,11 @@ and missing prop validation.
 
 ---
 
-## 4. Forge-Admin: Demo Data Provider (Mock Data)
+## 4. Smithy-Admin: Demo Data Provider (Mock Data)
 
 ### 4.1 `demoDataProvider` — All in-memory mock data
 
-- **File:** `forge-admin/src/providers/demoDataProvider.ts:1-465+`
+- **File:** `smithy-admin/src/providers/demoDataProvider.ts:1-465+`
 - **Issue:** The entire demo data provider uses in-memory mutable arrays (`mockPrograms`,
   `mockCorrections`, `mockAccessRequests`, `mockLedger`, `mockOutboundRequests`,
   `mockIpmsModules`, `mockVerticalProfiles`). It creates, updates, and deletes from
@@ -150,7 +150,7 @@ and missing prop validation.
 
 ### 4.2 `standardSolidDataProvider` — Degraded mode
 
-- **File:** `forge-admin/src/providers/standardSolidDataProvider.ts`
+- **File:** `smithy-admin/src/providers/standardSolidDataProvider.ts`
 - **Issue:** Many resources return `degraded: true` with `degradationReason` strings.
   This is **by design** — the standard-Solid provider is the "portable-core" mode that
   reads from ordinary Solid resources without the CSS IPMS control plane. Operations like
@@ -302,10 +302,10 @@ handlers are either absent or return placeholder responses:
 
 ### 6.3 `UiFormRenderer` not wired into modules page
 
-- **File:** `forge-admin/src/pages/modules/index.tsx`
+- **File:** `smithy-admin/src/pages/modules/index.tsx`
 - **Issue:** The modules page lists modules with enable/disable toggles but does not
   render the `UiFormRenderer` for module configuration. The renderer component exists
-  at `forge-admin/src/components/ui-form/UiFormRenderer.tsx` but is not imported or used.
+  at `smithy-admin/src/components/ui-form/UiFormRenderer.tsx` but is not imported or used.
 - **Work needed:** Add a config panel/modal to the modules page that fetches the
   module's `configShape` Turtle and renders it via `UiFormRenderer`.
 - **Severity:** **Medium** — the UI infrastructure exists but is not connected.
@@ -354,7 +354,7 @@ handlers are either absent or return placeholder responses:
 
 ### 8.2 No tests for `UiFormRenderer` or `parseUiShape`
 
-- **Issue:** The `ui#` form renderer and shape parser in `forge-admin/src/components/
+- **Issue:** The `ui#` form renderer and shape parser in `smithy-admin/src/components/
   ui-form/` have no tests.
 - **Work needed:** Add tests for shape parsing (Turtle → form spec), field rendering,
   and form value serialization back to Turtle.
@@ -399,7 +399,7 @@ handlers are either absent or return placeholder responses:
 |---|------|-----------|
 | 2.1 | ODBC connector returns mock data | IPMS sidecars |
 | 2.2 | LDAP connector returns mock data | IPMS sidecars |
-| 3 | `@ts-nocheck` on all 22 forge-admin pages | forge-admin |
+| 3 | `@ts-nocheck` on all 22 smithy-admin pages | smithy-admin |
 | 5.1 | Installer Node.js download not implemented | native/installer |
 | 5.2 | Installer app extraction not implemented | native/installer |
 | 5.4 | Control token uses non-CSPRNG | native/installer |
@@ -415,7 +415,7 @@ handlers are either absent or return placeholder responses:
 | 5.7 | Direct cash drawer mode is a no-op | native/pos-edge |
 | 6.1 | 15+ IPMS modules are manifest-only scaffolds | IPMS modules |
 | 6.2 | `ui#` shapes not wired to module manifests | IPMS modules |
-| 6.3 | `UiFormRenderer` not connected to modules page | forge-admin |
+| 6.3 | `UiFormRenderer` not connected to modules page | smithy-admin |
 | 7.1 | No `docker-compose.yml` for IPMS | packaging |
 | 8.1 | No unit tests for new vocabulary terms | tests |
 | 8.2 | No tests for ui# form renderer | tests |
@@ -427,8 +427,8 @@ handlers are either absent or return placeholder responses:
 | # | Item | Subsystem |
 |---|------|-----------|
 | 1.1-1.5 | Five fail-closed stubs (real impls exist, wiring needed) | databox |
-| 4.1 | Demo data provider is in-memory mock (by design) | forge-admin |
-| 4.2 | Standard-Solid provider degraded mode (by design) | forge-admin |
+| 4.1 | Demo data provider is in-memory mock (by design) | smithy-admin |
+| 4.2 | Standard-Solid provider degraded mode (by design) | smithy-admin |
 | 5.6 | Installer timestamp is a hack | native/installer |
 | 5.8 | Rust unused imports/warnings | native/pos-edge |
 | 5.9 | Customer display not fullscreen | native/tray-supervisor |
@@ -467,9 +467,9 @@ handlers are either absent or return placeholder responses:
 - **Severity:** **High** — the hosting module is the first module and is only half-built
   (plan generation without apply).
 
-### 11.2 Forge-admin hosting page — wizard only computes, doesn't apply
+### 11.2 Smithy-admin hosting page — wizard only computes, doesn't apply
 
-- **File:** `forge-admin/src/pages/hosting/index.tsx`
+- **File:** `smithy-admin/src/pages/hosting/index.tsx`
 - **Issue:** The hosting wizard UI collects domain/origin input and calls
   `POST /hosting/plan` to compute the plan, but has no UI for:
   - Entering a Cloudflare API token
@@ -506,7 +506,7 @@ handlers are either absent or return placeholder responses:
 
 ### 12.2 What exists for allergens is UI-only mock data
 
-- **Files:** `forge-admin/src/pages/pos/customer.tsx`, `pages/pos/index.tsx`,
+- **Files:** `smithy-admin/src/pages/pos/customer.tsx`, `pages/pos/index.tsx`,
   `pages/waiter/index.tsx`
 - **Issue:** The POS customer and waiter pages have hardcoded allergen arrays
   (`["milk", "egg", "gluten", "sesame"]`) and menu items with hardcoded `allergens`
@@ -578,7 +578,7 @@ handlers are either absent or return placeholder responses:
    `odbc` (NPM) and `ldapjs` (NPM) calls (or Rust `odbc-api`/`ldap3` sidecars per the
    plan).
 
-2. **Interactive mapping app** — a forge-admin page where the operator:
+2. **Interactive mapping app** — a smithy-admin page where the operator:
    - Connects to the source (ODBC connection string / LDAP URL + credentials)
    - Browses the source schema (tables/columns for ODBC, attributes for LDAP)
    - Maps source fields to RDF predicates (using the Ontology Mapping Registry)
@@ -608,7 +608,7 @@ handlers are either absent or return placeholder responses:
 
 ### 14.1 Current state: scattered, no unified delivery model
 
-- **Waiter app:** exists only as a page inside forge-admin (`forge-admin/src/pages/waiter/index.tsx`) — it is not a standalone installable app.
+- **Waiter app:** exists only as a page inside smithy-admin (`smithy-admin/src/pages/waiter/index.tsx`) — it is not a standalone installable app.
 - **Tradie app:** exists as a standalone Vite/React app (`apps/tradie-app/`) with mock data and a `handleSave` that just alerts "Saving to Solid Pod..." — no real Solid integration.
 - **No `org-mobile-apps` folder:** the tradie app lives in `apps/` with no org-app convention. The waiter app is embedded in the admin panel rather than being a separate client.
 - **No WASM packaging:** neither app is built for WASM delivery. Both are standard Vite SPA builds.
@@ -618,7 +618,7 @@ handlers are either absent or return placeholder responses:
 ### 14.2 What needs to be built
 
 1. **`org-mobile-apps/` directory** — a new top-level folder (or `apps/org-mobile-apps/`) that holds all org-specific client apps as a convention. Each app is self-contained with its own `package.json`, built independently. Apps include:
-   - **Waiter app** — extracted from forge-admin into a standalone app. For restaurant/food verticals. WiFi-only.
+   - **Waiter app** — extracted from smithy-admin into a standalone app. For restaurant/food verticals. WiFi-only.
    - **Tradie app** — moved from `apps/tradie-app/` into `org-mobile-apps/tradie-app/`. For auto/trades/service verticals. Remote-capable.
    - Future apps: POS handheld, kitchen display, booking desk, event check-in, etc.
    - **Sports/venue apps** — scorekeeper app (mark live scores for matches/games),
@@ -782,7 +782,7 @@ handlers are either absent or return placeholder responses:
 ### 15.2 Dynamic sidebar not implemented
 
 - **Plan reference:** `dynamic-strolling-lerdorf.md` §5.4
-- **Issue:** The forge-admin sidebar is hardcoded in `components/layout/index.tsx` with
+- **Issue:** The smithy-admin sidebar is hardcoded in `components/layout/index.tsx` with
   static `NavLink` entries. The plan calls for a dynamic sidebar rendered from enabled
   modules — a module appears only when enabled, backed by real server state.
 - **Work needed:** Fetch enabled modules from the IPMS API and render nav entries
@@ -1086,7 +1086,7 @@ handlers are either absent or return placeholder responses:
 10. **Build HR module & delivery driver app** (18) — workforce management, driver
     directory/credentials, multi-store job pickup (marketplace + federated), driver-app
     (org-mobile-app, remote-capable).
-11. **Remove `@ts-nocheck` from forge-admin pages** (3) — type safety across the entire
+11. **Remove `@ts-nocheck` from smithy-admin pages** (3) — type safety across the entire
    admin UI.
 12. **Wire `ui#` shapes to module manifests** (6.2) and **connect `UiFormRenderer` to
    modules page** (6.3) — completes the form rendering pipeline.

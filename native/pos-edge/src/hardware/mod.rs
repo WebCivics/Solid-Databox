@@ -6,6 +6,7 @@ mod display;
 pub struct HardwareConfig {
     pub printer_device: Option<String>,
     pub display_device: Option<String>,
+    pub drawer_device: Option<String>,
     pub cash_drawer_via: String,
 }
 
@@ -21,9 +22,12 @@ pub fn execute_command(
     );
     match command {
         "cash-drawer.open" => {
-            let printer_device = config.printer_device.as_deref();
-            drawer::open_cash_drawer(printer_device, &config.cash_drawer_via)
-                .map_err(|e| format!("cash-drawer.open failed: {}", e))
+            drawer::open_cash_drawer(
+                config.printer_device.as_deref(),
+                config.drawer_device.as_deref(),
+                &config.cash_drawer_via,
+            )
+            .map_err(|e| format!("cash-drawer.open failed: {}", e))
         }
         "receipt-printer.print-receipt" => {
             let device = config.printer_device.as_deref()
@@ -75,5 +79,62 @@ pub fn execute_command(
             Ok(())
         }
         _ => Err(format!("Unknown command: {}", command)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn config() -> HardwareConfig {
+        HardwareConfig {
+            printer_device: None,
+            display_device: None,
+            drawer_device: None,
+            cash_drawer_via: "printer".to_string(),
+        }
+    }
+
+    #[test]
+    fn unknown_commands_are_rejected() {
+        let err = execute_command("nonsense", "{}", &config()).unwrap_err();
+        assert!(err.contains("Unknown command"));
+    }
+
+    #[test]
+    fn hardware_commands_fail_closed_without_a_configured_device() {
+        for (cmd, input) in [
+            ("cash-drawer.open", "{}"),
+            ("receipt-printer.print-receipt", r#"{"text":"x"}"#),
+            ("receipt-printer.cut-paper", "{}"),
+            ("customer-display.show-text", r#"{"text":"x"}"#),
+            ("customer-display.show-total", r#"{"total":"1"}"#),
+        ] {
+            assert!(
+                execute_command(cmd, input, &config()).is_err(),
+                "{cmd} should fail closed without a device"
+            );
+        }
+    }
+
+    #[test]
+    fn malformed_job_input_is_rejected_not_panicked() {
+        let err = execute_command(
+            "receipt-printer.print-receipt",
+            "not json",
+            &HardwareConfig {
+                printer_device: Some("/dev/null".to_string()),
+                ..config()
+            },
+        )
+        .unwrap_err();
+        assert!(err.contains("Invalid job input"));
+    }
+
+    #[test]
+    fn pci_scoped_terminal_commands_queue_without_hardware_io() {
+        for cmd in ["pos-terminal.request-payment", "pos-terminal.cancel-payment"] {
+            execute_command(cmd, "{}", &config()).unwrap();
+        }
     }
 }

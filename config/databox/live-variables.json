@@ -7,6 +7,40 @@
       "@type": "Variable"
     },
     {
+      "comment": "The signed per-program assurance-crosswalk document as a JSON string (CIV-C26). Bound by the deployment's signed document.",
+      "@id": "urn:solid-server:databox:variable:crosswalkDocument",
+      "@type": "Variable"
+    },
+    {
+      "comment": "The expected crosswalk version — a mismatch refuses admission (fail closed).",
+      "@id": "urn:solid-server:databox:variable:crosswalkVersion",
+      "@type": "Variable"
+    },
+    {
+      "comment": "The governed record/submission classes the resource classifier maps path-segments to (deployment catalog).",
+      "@id": "urn:solid-server:databox:variable:recordClasses",
+      "@type": "Variable"
+    },
+    {
+      "comment": "The published status-list credential identifier the revocation check reads (ADR-0007).",
+      "@id": "urn:solid-server:databox:variable:statusListCredential",
+      "@type": "Variable"
+    },
+    {
+      "comment": "The relationship-box namespace — the base URL the opaque box id is a path segment under (e.g. {baseUrl}databox/relationships/). Bounds which paths are databox-governed.",
+      "@id": "urn:solid-server:databox:variable:databoxBoxBase",
+      "@type": "Variable"
+    },
+    {
+      "comment": "Durable-authority state documents (CIV-C10) — where the durable registries persist. Set to pod-internal IRIs (e.g. {baseUrl}internal/databox/tenant-bindings.json).",
+      "@id": "urn:solid-server:databox:variable:tenantBindingStateIri",
+      "@type": "Variable"
+    },
+    {
+      "@id": "urn:solid-server:databox:variable:relationshipMappingStateIri",
+      "@type": "Variable"
+    },
+    {
       "@id": "urn:solid-server-app-setup:default:CliExtractor",
       "@type": "YargsCliExtractor",
       "parameters": [
@@ -16,7 +50,7 @@
           "options": {
             "requiresArg": true,
             "type": "string",
-            "describe": "Control-plane bearer token for the experimental live Databox Forge (minimum 32 bytes)."
+            "describe": "Control-plane bearer token for the experimental live Databox Smithy (minimum 32 bytes)."
           }
         }
       ]
@@ -30,6 +64,62 @@
           "CombinedShorthandResolver:_resolvers_value": {
             "@type": "KeyExtractor",
             "key": "databoxControlToken",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:databoxBoxBase",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxBoxBase",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:crosswalkDocument",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxCrosswalkDocument",
+            "defaultValue": "{}"
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:crosswalkVersion",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxCrosswalkVersion",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:recordClasses",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxRecordClasses",
+            "defaultValue": "[]"
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:statusListCredential",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxStatusListCredential",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:tenantBindingStateIri",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxTenantBindingStateIri",
+            "defaultValue": ""
+          }
+        },
+        {
+          "CombinedShorthandResolver:_resolvers_key": "urn:solid-server:databox:variable:relationshipMappingStateIri",
+          "CombinedShorthandResolver:_resolvers_value": {
+            "@type": "KeyExtractor",
+            "key": "databoxRelationshipMappingStateIri",
             "defaultValue": ""
           }
         }

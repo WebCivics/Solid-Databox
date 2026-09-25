@@ -24,15 +24,17 @@ const ENTRIES: AssuranceCrosswalkEntry[] = [
   { issuer: OTHER_ISS, claim: 'acr', value: 'urn:strong', dimension: 'federationTrust', level: 5 },
 ];
 
-function doc(overrides: Partial<AssuranceCrosswalkDocument> = {}): AssuranceCrosswalkDocument {
-  return {
+function doc(overrides: Partial<AssuranceCrosswalkDocument> = {}): string {
+  // CIV-C26: the crosswalk's constructor takes the signed document as a JSON string (config-loadable);
+  // the tests exercise the same admission checks on the parsed form.
+  return JSON.stringify({
     crosswalkId: 'prog-x',
     version: EXPECTED_VERSION,
     signature: 'sig:provisional',
     approvedIssuers: [ ISS ],
     entries: ENTRIES,
     ...overrides,
-  };
+  });
 }
 
 describe('A SignedAssuranceCrosswalk', (): void => {

@@ -39,7 +39,7 @@ as an assumption (§9).
 | AP-2 | Curious/malicious provider operator or support staff | Infrastructure access (DB, queues, logs, backups, support tools); no ordinary data-plane token | Read payloads, build a global identity graph, alter evidence |
 | AP-3 | External network attacker | Can send requests, sniff/observe metadata, host endpoints | Steal tokens/credentials, enumerate boxes, SSRF the server |
 | AP-4 | Compromised institutional bridge | Holds one program's bridge service credential | Write outside its scope, forge records, cross to another program |
-| AP-5 | Compromised or hostile IdP | Issues authentication assertions | Forge assurance/actor claims, impersonate a consumer |
+| AP-5 | Compromised or hostile IdP | Issues authentication assertions | Smithy assurance/actor claims, impersonate a consumer |
 | AP-6 | Malicious consumer / consumer agent | Holds a valid connection to program X | Enumerate another consumer's box, overwrite history, escalate assurance |
 | AP-7 | Coercer of a consumer | Can force a consumer to act under duress | Extract data or silence records the consumer holds |
 | AP-8 | Passive infrastructure channel | Backups, queue names, log lines, metrics labels, tracing baggage | Leak identifiers / correlate without an active exploit |
@@ -117,7 +117,7 @@ mandates it. Test = AT-id in the [backlog](dbx-03-adversarial-test-backlog.md).
 
 | T | STRIDE | Threat | Inv | Controls | Residual | Test |
 |---|---|---|---|---|---|---|
-| T-12 | S,E | Forge an assurance or actor/delegation claim to reach a high-grade record | 9 | Assurance only from verified signed claims, never a header/unverified decode (ADR-0010); unmapped claims fail closed; forged-claim negatives mandatory (ADR-0010, DBX-12 gate) | Compromised *trusted* IdP (T-14) | AT-12 |
+| T-12 | S,E | Smithy an assurance or actor/delegation claim to reach a high-grade record | 9 | Assurance only from verified signed claims, never a header/unverified decode (ADR-0010); unmapped claims fail closed; forged-claim negatives mandatory (ADR-0010, DBX-12 gate) | Compromised *trusted* IdP (T-14) | AT-12 |
 | T-13 | S | Accept a token from an unapproved but cryptographically valid issuer | 9 | Per-program issuer trust contract at the broker (ADR-0005); CSS accepts any valid issuer by default (DBX-01 §2) so the broker MUST gate | Misconfigured program trust list | AT-13 |
 | T-14 | S | Compromised approved IdP mints assertions for the wrong human | 9 | Customer-linking needs external auth **plus** account-linking challenge **plus** holder-key proof **plus** audited confirmation (ADR-0008); assurance alone never selects a customerID | Full IdP compromise is partially residual → step-up + audit | AT-14 |
 | T-15 | E | Confused deputy: broker exchanges a token for a realm the subject isn't granted | 1,9 | Broker resolves active grant for subject+client+realm before issuing; audience = one realm (ADR-0005/0009) | Blocked wire-detail (ADR-0005 §residual) → DBX-12 | AT-15 |

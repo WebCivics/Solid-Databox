@@ -120,7 +120,8 @@ export interface ConnectionBinding {
 /** The BitstringStatusList status reference embedded in the credential (ADR-0007). */
 export interface CredentialStatusReference {
   readonly id: string;
-  readonly type: typeof BITSTRING_STATUS_LIST_ENTRY_TYPE;
+  /** The literal status-entry type IRI — a `typeof`-const here is not Components.js-loadable. */
+  readonly type: 'BitstringStatusListEntry';
   readonly statusPurpose: string;
   readonly statusListIndex: number;
   readonly statusListCredential: string;

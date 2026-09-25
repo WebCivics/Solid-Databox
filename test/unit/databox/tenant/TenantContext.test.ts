@@ -29,7 +29,7 @@ describe('tenantIdOf', (): void => {
     expect(tenantIdOf('org-a', 'prog-a')).toBe(tenantIdOf('org-a', 'prog-a'));
   });
 
-  it('encodes separators so one scope cannot forge another scope id.', (): void => {
+  it('encodes separators so one scope cannot smithy another scope id.', (): void => {
     // 'a/b' + 'c' must NOT collide with 'a' + 'b/c'.
     expect(tenantIdOf('a/b', 'c')).not.toBe(tenantIdOf('a', 'b/c'));
     expect(tenantIdOf('a/b', 'c')).toBe('a%2Fb/c');

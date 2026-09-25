@@ -1,0 +1,58 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^1.0.0/components/context.jsonld",
+  "comment": [
+    "CIV-C10 durable-authorities profile. Import AFTER the databox preset to swap the process-local",
+    "InMemory* registries for ResourceStore-backed Durable* ones, so the relationship-mapping, tenant-",
+    "binding and source-outbox authorities survive a restart (state persists to pod documents).",
+    "The Durable* types redeclare the same registry @ids; the durable definition overrides the",
+    "in-memory one. RegistryInitializer instances join PrimaryParallelInitializer so each authority",
+    "rehydrates at boot before serving. (The source outbox is smithy-internal — a durable",
+    "deployment injects a DurableSourceOutbox via MappingSmithy's `outboxFactory` seam.)"
+  ],
+  "@graph": [
+    {
+      "comment": "Durable state documents — one pod resource per authority, over the launch ResourceStore.",
+      "@id": "urn:solid-server:databox:TenantBindingStateStore",
+      "@type": "DurableStateStore",
+      "store": { "@id": "urn:solid-server:default:ResourceStore" },
+      "documentIri": { "@id": "urn:solid-server:databox:variable:tenantBindingStateIri" }
+    },
+    {
+      "@id": "urn:solid-server:databox:RelationshipMappingStateStore",
+      "@type": "DurableStateStore",
+      "store": { "@id": "urn:solid-server:default:ResourceStore" },
+      "documentIri": { "@id": "urn:solid-server:databox:variable:relationshipMappingStateIri" }
+    },
+    {
+      "comment": "Durable registries — same @ids as the in-memory defaults; the durable definition overrides.",
+      "@id": "urn:solid-server:databox:RelationshipMappingRegistry",
+      "@type": "DurableRelationshipMappingRegistry",
+      "state": { "@id": "urn:solid-server:databox:RelationshipMappingStateStore" }
+    },
+    {
+      "@id": "urn:solid-server:databox:TenantBindingRegistry",
+      "@type": "DurableTenantBindingRegistry",
+      "state": { "@id": "urn:solid-server:databox:TenantBindingStateStore" }
+    },
+    {
+      "comment": "Startup hydration — each durable authority rehydrates before the server serves.",
+      "@id": "urn:solid-server:databox:TenantBindingInitializer",
+      "@type": "RegistryInitializer",
+      "registry": { "@id": "urn:solid-server:databox:TenantBindingRegistry" }
+    },
+    {
+      "@id": "urn:solid-server:databox:RelationshipMappingInitializer",
+      "@type": "RegistryInitializer",
+      "registry": { "@id": "urn:solid-server:databox:RelationshipMappingRegistry" }
+    },
+    {
+      "comment": "Join the durable-authority initializers to the primary startup chain.",
+      "@id": "urn:solid-server:default:PrimaryParallelInitializer",
+      "@type": "ParallelHandler",
+      "handlers": [
+        { "@id": "urn:solid-server:databox:TenantBindingInitializer" },
+        { "@id": "urn:solid-server:databox:RelationshipMappingInitializer" }
+      ]
+    }
+  ]
+}

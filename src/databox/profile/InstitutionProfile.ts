@@ -94,15 +94,20 @@ export const SENDER_CONSTRAINTS = [ 'bearer', 'dpop', 'mtls' ] as const;
  */
 export const EXISTENCE_VISIBILITIES = [ 'visible', 'suppressed' ] as const;
 
-export type DeploymentModel = typeof DEPLOYMENT_MODELS[number];
-export type AssuranceDimension = typeof ASSURANCE_DIMENSIONS[number];
-export type ConflictStrategy = typeof CONFLICT_STRATEGIES[number];
-export type EffectiveTimeBehavior = typeof EFFECTIVE_TIME_BEHAVIORS[number];
-export type AttestationStatus = typeof ATTESTATION_STATUSES[number];
-export type DeletionMode = typeof DELETION_MODES[number];
-export type AppEncryptionMode = typeof APP_ENCRYPTION_MODES[number];
-export type SenderConstraint = typeof SENDER_CONSTRAINTS[number];
-export type ExistenceVisibility = typeof EXISTENCE_VISIBILITIES[number];
+// Literal-union types (not `typeof CONST[number]`) — a `typeof`-const type reference is not
+// loadable by the Components.js generator; the consts above remain for iteration/validation.
+export type DeploymentModel = 'distinct-origin' | 'program-subdomain' | 'path-only';
+export type AssuranceDimension =
+  'identityProofing' | 'authenticatorStrength' | 'federationTrust' |
+  'authenticationFreshness' | 'stepUpState' | 'delegationEvidence';
+export type ConflictStrategy =
+  'prohibition-overrides' | 'permission-overrides' | 'first-applicable' | 'explicit-priority';
+export type EffectiveTimeBehavior = 'prospective' | 'authorized-retroactive';
+export type AttestationStatus = 'proposed' | 'attested';
+export type DeletionMode = 'tombstone' | 'supersede' | 'crypto-erase' | 'hard-delete';
+export type AppEncryptionMode = 'not-required' | 'optional' | 'required-provider-blind';
+export type SenderConstraint = 'bearer' | 'dpop' | 'mtls';
+export type ExistenceVisibility = 'visible' | 'suppressed';
 
 /**
  * An accountable legal person (program principal, accountable party, processor or subcontractor).
@@ -127,7 +132,7 @@ export interface Processor {
   readonly legalName: string;
   readonly jurisdiction: string;
   /** The purpose ids (see {@link DeclaredPurpose}) this processor is engaged for. */
-  readonly purposes: readonly string[];
+  readonly purposes: string[];
   /** True where this processor can read authored payloads (must be disclosed, ADR-0021). */
   readonly readsPayload: boolean;
 }
@@ -147,7 +152,7 @@ export interface TrustedIssuer {
   /** Accreditation reference (framework + level) backing this issuer's assurance claims. */
   readonly accreditation?: string;
   /** The exact set of claim names the broker validates from this issuer (the claim contract). */
-  readonly claimContract: readonly string[];
+  readonly claimContract: string[];
 }
 
 /**
@@ -182,13 +187,13 @@ export interface RecordClass {
   /** Human-facing label. */
   readonly label: string;
   /** Minimum assurance per dimension needed for payload access. */
-  readonly minimumAssurance: readonly AssuranceRequirement[];
+  readonly minimumAssurance: AssuranceRequirement[];
   /** The {@link PolicyTemplate.id} governing this class (must resolve). */
   readonly policyTemplate: string;
   /** The {@link LegalBasis.id} this class is processed under (must resolve). */
   readonly legalBasis: string;
   /** The declared purposes (ids) this class serves (each must resolve). */
-  readonly purposes: readonly string[];
+  readonly purposes: string[];
   /** Default existence visibility for this class (ADR-0023). */
   readonly existenceVisibility: ExistenceVisibility;
 }
@@ -199,10 +204,10 @@ export interface RecordClass {
 export interface SubmissionClass {
   readonly id: string;
   readonly label: string;
-  readonly minimumAssurance: readonly AssuranceRequirement[];
+  readonly minimumAssurance: AssuranceRequirement[];
   readonly policyTemplate: string;
   /** The declared purposes (ids) this submission is authorized for (each must resolve). */
-  readonly purposes: readonly string[];
+  readonly purposes: string[];
 }
 
 /**
@@ -221,7 +226,7 @@ export interface PolicyTemplate {
  * Policy configuration: templates, conflict strategy and effective-time behaviour.
  */
 export interface PolicyConfig {
-  readonly templates: readonly PolicyTemplate[];
+  readonly templates: PolicyTemplate[];
   readonly conflictStrategy: ConflictStrategy;
   readonly effectiveTimeBehavior: EffectiveTimeBehavior;
   /** MUST be true when {@link effectiveTimeBehavior} is `authorized-retroactive` (ADR-0014). */
@@ -267,7 +272,7 @@ export interface CorpusManifestEntry {
  */
 export interface LegislativeCorpusRef {
   readonly manifestDigest: string;
-  readonly entries: readonly CorpusManifestEntry[];
+  readonly entries: CorpusManifestEntry[];
 }
 
 /**
@@ -307,7 +312,7 @@ export interface SystemOfRecord {
   readonly id: string;
   readonly label: string;
   /** The record-class ids sourced from this system. */
-  readonly recordClasses: readonly string[];
+  readonly recordClasses: string[];
 }
 
 /**
@@ -378,7 +383,7 @@ export interface RedressConfig {
   /** Whether step-up re-authentication is offered on assurance-gap denials. */
   readonly stepUpSupported: boolean;
   /** Named appeal routes for substantive-decision contests. */
-  readonly appealRoutes: readonly AppealRoute[];
+  readonly appealRoutes: AppealRoute[];
   /** Default record-existence visibility policy (ADR-0023). */
   readonly existenceVisibilityDefault: ExistenceVisibility;
   /** Correction response clock in whole business days (CANDIDATE, ADR-0023); positive when present. */
@@ -410,22 +415,22 @@ export interface InstitutionProfile {
   /** ADR-0015: synthetic fixtures MUST be machine-labelled so no build asserts a compliance claim. */
   readonly synthetic: boolean;
   readonly program: { readonly principal: AccountableParty; readonly accountableParty: AccountableParty };
-  readonly processors: readonly Processor[];
+  readonly processors: Processor[];
   readonly tenancy: TenancyConfig;
   readonly crypto: CryptoConfig;
-  readonly identityProviders: readonly TrustedIssuer[];
-  readonly assuranceMappings: readonly AssuranceMapping[];
+  readonly identityProviders: TrustedIssuer[];
+  readonly assuranceMappings: AssuranceMapping[];
   readonly tokenBroker: TokenBrokerConfig;
   readonly offlineGrantPolicy: OfflineGrantPolicy;
-  readonly recordClasses: readonly RecordClass[];
-  readonly submissionClasses: readonly SubmissionClass[];
+  readonly recordClasses: RecordClass[];
+  readonly submissionClasses: SubmissionClass[];
   readonly policies: PolicyConfig;
   readonly compiledPolicy: CompiledPolicyRef;
   readonly legislativeCorpus: LegislativeCorpusRef;
-  readonly legalBases: readonly LegalBasis[];
-  readonly declaredPurposes: readonly DeclaredPurpose[];
-  readonly retention: readonly RetentionRule[];
-  readonly systemsOfRecord: readonly SystemOfRecord[];
+  readonly legalBases: LegalBasis[];
+  readonly declaredPurposes: DeclaredPurpose[];
+  readonly retention: RetentionRule[];
+  readonly systemsOfRecord: SystemOfRecord[];
   readonly notifications: NotificationConfig;
   readonly redress: RedressConfig;
 }

@@ -30,12 +30,14 @@ fn main() {
 
     let printer_device = env::var("POS_PRINTER_DEVICE").ok();
     let display_device = env::var("POS_DISPLAY_DEVICE").ok();
+    let drawer_device = env::var("POS_CASH_DRAWER_DEVICE").ok();
     let cash_drawer_via = env::var("POS_CASH_DRAWER_VIA")
         .unwrap_or_else(|_| "printer".to_string());
 
     let hardware_config = hardware::HardwareConfig {
         printer_device: printer_device.clone(),
         display_device: display_device.clone(),
+        drawer_device,
         cash_drawer_via,
     };
 
