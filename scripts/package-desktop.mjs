@@ -36,8 +36,8 @@ for (const entry of [ 'bin', 'config', 'dist', 'templates', 'patches' ]) {
   }
 }
 // The server consumes the built admin asset, never the admin project's development dependencies.
-if (existsSync(join(root, 'forge-admin', 'dist'))) {
-  await cp(join(root, 'forge-admin', 'dist'), join(app, 'forge-admin', 'dist'), { recursive: true });
+if (existsSync(join(root, 'smithy-admin', 'dist'))) {
+  await cp(join(root, 'smithy-admin', 'dist'), join(app, 'smithy-admin', 'dist'), { recursive: true });
 }
 for (const entry of [ 'package.json', 'package-lock.json' ]) {
   await cp(join(root, entry), join(app, entry));

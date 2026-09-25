@@ -1,8 +1,8 @@
-// Builds the forge-admin "Admin" app as a static, backend-free demo and stages
+// Builds the smithy-admin "Admin" app as a static, backend-free demo and stages
 // it into docs/admin/ for GitHub Pages.
 //
 // The demo build sets VITE_DEMO=true, which makes App.tsx use the in-memory
-// demoDataProvider + HashRouter (see forge-admin/src/App.tsx). The live/dev
+// demoDataProvider + HashRouter (see smithy-admin/src/App.tsx). The live/dev
 // build is unaffected. Relative base (./) lets the output run from any Pages
 // sub-path. Cross-platform: no shell-specific env syntax.
 //
@@ -14,18 +14,18 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const forgeDir = join(root, 'forge-admin');
-const distDir = join(forgeDir, 'dist');
+const smithyDir = join(root, 'smithy-admin');
+const distDir = join(smithyDir, 'dist');
 const outDir = join(root, 'docs', 'admin');
 
-if (!existsSync(join(forgeDir, 'node_modules'))) {
-  process.stdout.write('› Installing forge-admin dependencies …\n');
-  execSync('npm ci', { cwd: forgeDir, stdio: 'inherit' });
+if (!existsSync(join(smithyDir, 'node_modules'))) {
+  process.stdout.write('› Installing smithy-admin dependencies …\n');
+  execSync('npm ci', { cwd: smithyDir, stdio: 'inherit' });
 }
 
-process.stdout.write('› Building forge-admin demo (VITE_DEMO=true, base=./) …\n');
+process.stdout.write('› Building smithy-admin demo (VITE_DEMO=true, base=./) …\n');
 execSync('npx vite build --base=./', {
-  cwd: forgeDir,
+  cwd: smithyDir,
   stdio: 'inherit',
   env: { ...process.env, VITE_DEMO: 'true' },
 });

@@ -1,7 +1,7 @@
-# Builds the DataBox landing site + the forge-admin "Admin" demo and publishes
+# Builds the DataBox landing site + the smithy-admin "Admin" demo and publishes
 # them to GitHub Pages. The Admin demo is (re)built fresh here — the version
 # committed under docs/admin/ is only a convenience snapshot, so the deployed
-# demo can never drift from the forge-admin source.
+# demo can never drift from the smithy-admin source.
 #
 # REQUIRED once, in the repo: Settings → Pages → Source → "GitHub Actions".
 # (This deploys the docs/ folder; it is independent of the mkdocs workflow,
@@ -14,7 +14,7 @@ on:
       - main
     paths:
       - docs/**
-      - forge-admin/**
+      - smithy-admin/**
       - scripts/build-databox-demo.mjs
       - .github/workflows/pages.yml
   workflow_dispatch:
@@ -42,9 +42,9 @@ jobs:
         with:
           node-version: 24.x
 
-      - name: Install forge-admin dependencies
+      - name: Install smithy-admin dependencies
         run: npm ci
-        working-directory: forge-admin
+        working-directory: smithy-admin
 
       - name: Build the Admin demo into docs/admin
         run: node scripts/build-databox-demo.mjs

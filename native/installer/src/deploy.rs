@@ -19,7 +19,7 @@ pub fn run(profile: &InstallProfile) -> Result<(), String> {
     }
 
     fs::create_dir_all(&app_dir).map_err(|error| format!("Could not create the application folder: {error}"))?;
-    for item in ["bin", "config", "dist", "templates", "patches", "forge-admin"] {
+    for item in ["bin", "config", "dist", "templates", "patches", "smithy-admin"] {
         let source = source_app.join(item);
         if source.exists() { copy_dir_recursive(&source, &app_dir.join(item))?; }
     }
