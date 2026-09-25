@@ -4,11 +4,11 @@
 # tree), served directly. `pages_build_output_dir` points Pages at that folder;
 # no build step is required. Deploy with:
 #
-#   npx wrangler pages deploy docs --project-name solid-databox
+#   npx wrangler pages deploy docs --project-name webcivics-databox
 #
 # or connect the repo in the Pages dashboard with the output directory `docs`.
 
-name = "solid-databox"
+name = "webcivics-databox"
 pages_build_output_dir = "docs"
 compatibility_date = "2025-01-01"
 
